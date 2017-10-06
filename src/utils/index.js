@@ -1,5 +1,8 @@
+import React from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 export const server = axios.create({ baseURL: 'http://localhost:1804' });
+
 
 
 export const checkPassword = (password, confirmPass) => {
@@ -32,4 +35,17 @@ export const setLocalAuth = (token, userId) => {
 export const rmAuth = () => {
   localStorage.removeItem('x-access-token');
   localStorage.removeItem('x-user-id');
+}
+
+export const SocialIcons = (props) => {
+  return (
+    <div>
+      <Link to="/"><i className="fa fa-instagram"></i></Link>
+      <Link to="/"><i className="fa fa-facebook"></i></Link>
+      <Link to="/"><i className="fa fa-twitter"></i></Link>
+      <a>
+          <i className="fa fa-user"></i> &nbsp; &nbsp;clervius
+        </a>
+    </div>
+  )
 }

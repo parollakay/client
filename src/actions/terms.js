@@ -23,10 +23,12 @@ export const getTerms = () => {
   }
 };
 
-export const searchTerm = (term, history) => {
+export const searchTerm = (e, history) => {
+  const term = e.target.term.value;
   const word = encodeURIComponent(term.trim()).toLocaleLowerCase();
   return (dispatch) => {
     server.get(`/terms/search?term=${word}`).then(res => {
+      console.log(`Searched for ${word} and got.`, res.data);
       dispatch({
         type: TERMS_SEARCH,
         payload: res.data
