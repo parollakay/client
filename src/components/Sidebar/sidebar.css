@@ -1,0 +1,11 @@
+.sbAddTerm {
+  border:1px solid rgba(0,0,0,.5);
+  border-radius: 5px;
+  text-align:center;
+  display:block;
+  padding:15px;
+}
+.sbAddTerm i {
+  display: block;
+  font-size:32px
+}

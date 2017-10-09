@@ -1,3 +1,38 @@
 body {
   font-family: 'Roboto', sans-serif;
+  padding-top:165px;
+  background-color: rgba(0,0,0,.05);
+}
+
+@media (min-width: 768px) {
+  .container-small {
+      width: 850px;
+  }
+  .container-large {
+      width: 970px;
+  } 
+} 
+@media (min-width: 992px) {
+  .container-small {
+      width: 850px;
+  }
+  .container-large {
+      width: 1170px;
+  } 
+} 
+@media (min-width: 1200px) {
+  .container-small {
+      width: 850px;
+  }
+  .container-large {
+      width: 1500px;
+  } 
+}
+
+.container-small, .container-large {
+  max-width: 100%;
+}
+
+.hover:hover {
+    cursor: pointer;
 }

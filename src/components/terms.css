@@ -1,0 +1,145 @@
+.eachTerm {
+  margin-bottom:50px;
+  border-radius: 5px;
+  position:relative;
+}
+.eachTerm h3 {
+  font-family: 'Roboto Slab', serif;
+  font-weight:bold;
+  color: #004a80;
+}
+.eachTerm .termMeta {
+  font-weight:400;
+  color:rgba(0,0,0,.5);
+  font-size: 12px;
+  margin-top: -7px
+}
+.eachTerm .termMeta strong {
+  color:rgba(0,0,0,.57);
+  font-weight:500
+}
+.title span:first-child {
+  font-family: 'Roboto Slab';
+  font-weight: bold;
+  color:rgba(0,0,0,.67) !important
+}
+
+.title span:first-child:hover {
+  cursor: pointer
+}
+.termDefinition {
+  font-size:20px !important;
+  color:rgba(0,0,0,.7) !important;
+  font-weight:200
+}
+.termDefinition strong {
+  color: rgba(0,0,0,.65) !important
+}
+
+.termsTags {
+  padding:0;
+  list-style: none;
+}
+.termsTags li {
+  display:inline-block;
+  padding:2px 5px;
+  border-radius: 10px;
+  background: rgba(86,116,185,.15);
+  margin-right:10px;
+  font-size:12px;
+  color: rgba(0,0,0,.7)
+}
+.showMoreLink:last-child {
+  color: #0072bc;
+  opacity: .7
+}
+
+.showMoreLink {
+  color:rgba(0,0,0,.6);
+  font-size:12px;
+  text-decoration: none;
+  cursor: pointer
+}
+.showMoreLink:hover {
+  text-decoration: none;
+  cursor: pointer
+}
+
+.engamentWrapper {
+  border-bottom: 1px solid rgba(0,0,0,.09);
+  padding:5px 0;
+}
+
+.engamentWrapper ul {
+  list-style: none;
+  padding:0; margin: 0;
+}
+.engamentWrapper ul li {
+  display: inline-block;
+  margin-right:15px;
+  position: relative
+}
+.engamentWrapper ul li button {
+  background: transparent;
+  border:none
+}
+.engamentWrapper ul .sentsBtn:after {
+  content:'';
+  display:block;
+  border-right:1px solid rgba(0,0,0,.09);
+  position: absolute;
+  height:5px;
+  left:50%;top:100%;
+}
+
+.termSentences {
+  list-style: none;
+  padding:0;
+  margin-top:15px
+}
+.termSentences li {}
+.termSentences li p { margin-bottom: 0}
+.termSentences li p strong {
+  color:rgba(0,0,0,.8);
+  font-weight:500
+}
+.termSentences li p span {
+  font-weight:400;
+  color:rgba(0,0,0,.67);
+  font-style: italic
+}
+.termBtm {
+  display:block;
+  border-top: 1px solid rgba(0,0,0,.09)
+}
+.termBtm form {
+  display:inline-block;
+  width: 100%;
+}
+.termBtm form input {
+  border:none;
+  padding:10px 0;
+  width: calc(100% - 45px);
+  outline: none;
+}
+.termBtm form button {
+  border:none;
+  background-color:transparent;
+  font-weight:500;
+  color: #0072bc;
+  text-transform: uppercase;
+  width: 45px;
+
+}
+.moreBtn {
+  position: absolute;
+  top:10px;right:0;
+  width:45px;height:25px
+}
+.termMoreBtn {
+  width: 25px;
+  border:none;
+  background-color:transparent;
+  font-size:20px;
+  color:rgba(0,0,0,.7)  
+}
