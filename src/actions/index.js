@@ -1,3 +1,14 @@
+import {
+  DIALOG_CLOSE,
+  DIALOG_OPEN,
+  SNACK_CLOSE,
+  SNACK_OPEN,
+  openDialog,
+  closeDialog,
+  showSnack,
+  hideSnack,
+} from './auth';
+
 import { 
   getTerms, 
   searchTerm, 
@@ -10,7 +21,7 @@ import {
   TERMS_RM_SENTENCE,
   TERMS_SEARCH,
   TERMS_ERR
-} from './terms'
+} from './terms';
 
 import {
   register,
@@ -28,7 +39,7 @@ import {
   USER_TERM_UNLIKE,
   USER_LOGOUT,
   AUTH_ERROR
-} from './user'
+} from './user';
 
 export {
   register,
@@ -56,5 +67,13 @@ export {
   TERMS_RM_SENTENCE,
   TERMS_SEARCH,
   AUTH_ERROR,
-  TERMS_ERR
+  TERMS_ERR,
+  DIALOG_CLOSE,
+  DIALOG_OPEN,
+  openDialog,
+  closeDialog,
+  SNACK_CLOSE,
+  SNACK_OPEN,
+  hideSnack,
+  showSnack,
 }

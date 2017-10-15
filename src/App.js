@@ -6,31 +6,51 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import { Route } from 'react-router-dom'
 import Header from './components/Header'
-import AddTerm from './components/Sidebar/AddTerm';
-import { SocialIcons } from './utils';
-import Terms from './components/Terms';
+import { AuthDialog, TermsOfService, PrivacyStatement, DMCA } from './utils';
+import Home from './components/Home';
+import NewTerm from './components/NewTerm';
+import { connect } from 'react-redux';
+import { openDialog, hideSnack } from './actions';
+import Snackbar from 'material-ui/Snackbar';
+
 
 class App extends Component {
+
+  closeSnack = () => {
+    this.props.hideSnack();
+  }
+
   render() {
+    console.log(this.props)
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
       <div className="App">
-        <Header />
+        <Header openAuth={this.props.openDialog} />
         <div className="container-small container">
-          <div className="row">
-            <div className="col-md-8">
-              <Terms />
-            </div>
-            <div className="col-md-4">
-              <AddTerm />
-              <SocialIcons />
-            </div>
-          </div>
+          <Route path="/" exact component={ Home } />
+          <Route path="/newTerm" component={ NewTerm } />
+
+          <Route path="/termsOfService" component={ TermsOfService } />
+          <Route path="/privacyStatement" component={ PrivacyStatement } />
+          <Route path="/DMCA" component={ DMCA } />
         </div>
+        <AuthDialog  />
+        <Snackbar
+          open={this.props.auth.snack}
+          message={this.props.auth.snackMessage}
+          autoHideDuration={4000}
+          onRequestClose={this.closeSnack} />
       </div>
       </MuiThemeProvider>
     );
   }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    auth: state.auth
+  }
+}
+
+
+export default connect(mapStateToProps, { openDialog, hideSnack })(App);

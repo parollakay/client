@@ -17,7 +17,6 @@ class Terms extends Component {
   componentDidMount() {
     axios.get('http://localhost:1804/terms/all')
       .then(res => {
-        console.log(res.data);
         this.setState({
           terms: res.data
         })

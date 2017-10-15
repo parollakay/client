@@ -1,11 +1,146 @@
 .sbAddTerm {
-  border:1px solid rgba(0,0,0,.5);
   border-radius: 5px;
-  text-align:center;
   display:block;
-  padding:15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.16);
+  transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  background-color:white;
+  box-sizing: border-box;
+  border:1px solid transparent;
+}
+.sbAddTerm:hover, .sbAddTerm:focus {
+  box-shadow: 0 8px 17px rgba(0, 0, 0, 0.2);
+  text-decoration: none;
+  border-color: rgba(255,255,255, 1);
+}
+.sbAddTerm .sbatTop {
+  background-color:white;
+}
+.sbAddTerm .sbatTop h3 {
+  margin: 0;
+  padding:17px;
+  color: rgba(0,0,0,.55);
+  font-weight: 200;
+  font-size:28px;
+  display:block;
+  
+}
+.sbAddTerm .sbatTop h3 strong {
+  font-weight:600;
+  font-family: 'Roboto Slab', serif;
+}
+.sbAddTerm .sbatTop p {
+  margin:-15px 0 10px;
+  display:block;
+  padding: 0 15px;
+}
+.sbAddTerm .sbatBtm {
+  background-color:rgba(86,116,185,.99);
+  font-weight:400 !important;
+  color:white;
+  text-transform: uppercase;
+  font-size: 16px;
+  padding:5px 15px;
+  font-weight:600
+}
+.sbAddTerm:hover .sbatBtm {
+  background-color:#4765aa;
 }
 .sbAddTerm i {
-  display: block;
-  font-size:32px
+  display: inline-block;
+  
+}
+.sbSocial {
+  margin-top:25px
+}
+.sbSocial div > a {
+  display:inline-block;
+  font-size:12px;
+  margin-right:10px;
+  border:1px solid rgba(0,0,0,.15);
+  padding:3px 7px;
+  border-radius: 4px;
+  color:rgba(0,0,0,.5);
+  background-color:rgba(0,0,0,.02);
+  transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration: none
+}
+.sbSocial div > a:hover {
+  border-color: rgba(0,0,0,.25);
+  background-color:rgba(255,255,255,.02);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.16);
+  text-decoration: none
+}
+.weeklyForm {}
+.weeklyForm h3 {
+  font-weight:200;
+  color:rgba(86,116,185,.99)
+}
+.weeklyForm h3 strong {
+  font-weight: 500
+}
+.weeklyForm form {
+  display:block;
+  position: relative;
+  background-color:rgba(0,0,0,.05);
+  border: 3px solid white;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.16);
+  box-sizing: border-box;
+}
+.weeklyForm form .form-group {
+  width:calc(100% - 50px);
+  display:inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  margin:0;
+}
+.weeklyForm form .form-group input {
+  padding:5px 10px;
+  width:100%;
+  font-size:16px;
+  background-color:transparent;
+  border:none;
+  outline:none
+}
+.weeklyForm form button {
+  background-color: transparent;
+  border:none;
+  width:45px;
+  display:inline-block;
+  vertical-align: top;
+}
+.weeklyForm form button i {
+  position:relative;
+  font-size:18px;
+  color:rgba(86,116,185,.99);
+  top:3px;
+}
+.fb-page {
+  margin-top:25px
+}
+.footerText {
+  font-size: 12px;
+  color:rgba(0,0,0,.5);
+  text-align:center;
+  margin-top:25px
+}
+.footerText a {
+  color: rgba(0,0,0,.5);
+  display:inline-block;
+  margin-right:15px
+}
+
+.staticLinks {
+  list-style: none;
+  padding:0;
+}
+.staticLinks li {
+  display:inline-block;
+  margin-right:20px;
+  text-transform: uppercase
+}
+.staticLinks li a {
+  color:rgba(0,0,0,.67);
+  text-decoration: none;
 }

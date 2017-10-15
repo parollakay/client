@@ -57,7 +57,7 @@ class MainNav extends Component {
               
             </Popover>
 
-          <Link to="/addTerm">Add <i className="ion-plus"></i> </Link>
+          <Link to="/newTerm">Add <i className="ion-plus"></i> </Link>
         </div>
         <div className="pull-right text-right">
           <SocialIcons />
@@ -95,7 +95,10 @@ class Search extends Component {
   };
 }
 
-const SignupText = (props) => <p className="suT">Want to join? <a>Login</a> or <a>Signup</a> in seconds.</p>
+const SignupText = (props) => {
+  return (
+  <p className="suT">Want to join? <a className="hover" onClick={props.openAuth}>Sign up/Log in</a> in seconds.</p>
+)}
 
 const mapStateToProps = (state) => {
   return {

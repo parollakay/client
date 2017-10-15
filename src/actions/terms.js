@@ -1,8 +1,5 @@
 import { handleErr, server } from '../utils';
-server.defaults.withCredentials = true;
-server.interceptors.request.use(() => {
-  server.defaults.headers.common['x-access-token'] = localStorage.getItem('x-access-token');
-});
+import axios from 'axios';
 
 export const TERMS_ALL = 'TERMS_ALL';
 export const TERMS_SEARCH = 'TERMS_SEARCH';
@@ -13,7 +10,7 @@ export const TERMS_ERR = 'TERMS_ERR';
 
 export const getTerms = () => {
   return (dispatch) => {
-    server.get('/terms/all').then(res => {
+    axios.get(`${server}/terms/all`).then(res => {
       dispatch({
         type: TERMS_ALL,
         payload: res.data
@@ -27,7 +24,7 @@ export const searchTerm = (e, history) => {
   const term = e.target.term.value;
   const word = encodeURIComponent(term.trim()).toLocaleLowerCase();
   return (dispatch) => {
-    server.get(`/terms/search?term=${word}`).then(res => {
+    axios.get(`${server}/terms/search?term=${word}`).then(res => {
       console.log(`Searched for ${word} and got.`, res.data);
       dispatch({
         type: TERMS_SEARCH,
@@ -44,7 +41,7 @@ export const newTerm = (text, definition, sentences, author, tags, phonetic, his
   return (dispatch) => {
     // Figure out a way to tell them that they should register before using this functionality.
     if(!authorized) return dispatch(handleErr(TERMS_ERR, 'You must be authorized in order to add a term to the website.'));
-    server.post('/terms/newTerm', { text, definition, sentences, author, tags, phonetic, history}).then(res => {
+    axios.post(`${server}/terms/newTerm`, { text, definition, sentences, author, tags, phonetic, history}).then(res => {
       dispatch({
         type: TERMS_NEW,
         payload: res.data
@@ -56,7 +53,7 @@ export const newTerm = (text, definition, sentences, author, tags, phonetic, his
 
 export const addSentence = ( termId, author, text, history) => {
   return (dispatch) => {
-    server.post(`/terms/${termId}/sentence`, { author, text }).then(res => {
+    axios.post(`${server}/terms/${termId}/sentence`, { author, text }).then(res => {
       dispatch({
         type: TERMS_ADD_SENTENCE,
         payload: res.data
@@ -68,7 +65,7 @@ export const addSentence = ( termId, author, text, history) => {
 
 export const rmSentence = (termId, sentenceId, history) => {
   return (dispatch) => {
-    server.delete(`/terms/${termId}/sentence/${sentenceId}`).then(res => {
+    axios.delete(`${server}/terms/${termId}/sentence/${sentenceId}`).then(res => {
       dispatch({
         type: TERMS_RM_SENTENCE,
         payload: res.data

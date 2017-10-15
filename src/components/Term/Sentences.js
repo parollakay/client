@@ -16,12 +16,11 @@ class Sentences extends Component {
     })
   }
   componentDidMount(){
-    console.log(this.state)
   }
   render() {
     return (
       <ul className="termSentences">
-        <span className="showMoreLink">{this.state.sentences.length} Sentences/Examples</span>
+        <span className="showMoreLink">{this.state.sentences.length} Sentence{this.state.sentences.length > 1 && `s`}/Example{this.state.sentences.length > 1 && `s`}</span>
         {this.state.showAll 
           ? this.state.sentences.map((sentence, i) => ( <li key={`${i}-sentence-for-${this.state.termId}`}> <p><strong>{sentence.author.username}</strong> <span>{sentence.text}</span></p> </li> ))
           : this.state.sentences.map((sentence, i) => {

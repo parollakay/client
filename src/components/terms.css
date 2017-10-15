@@ -42,12 +42,14 @@
 }
 .termsTags li {
   display:inline-block;
-  padding:2px 5px;
+  padding:1px 4px;
   border-radius: 10px;
   background: rgba(86,116,185,.15);
   margin-right:10px;
-  font-size:12px;
-  color: rgba(0,0,0,.7)
+  font-size:11px;
+  font-weight:500;
+  color: rgba(86,116,185,.99);
+  border:1px solid rgba(86,116,185,.15);
 }
 .showMoreLink:last-child {
   color: #0072bc;
@@ -66,8 +68,8 @@
 }
 
 .engamentWrapper {
-  border-bottom: 1px solid rgba(0,0,0,.09);
   padding:5px 0;
+  border-top: 1px solid rgba(0,0,0,.09)
 }
 
 .engamentWrapper ul {
@@ -94,8 +96,10 @@
 
 .termSentences {
   list-style: none;
-  padding:0;
-  margin-top:15px
+  padding:15px 15px;
+  margin:0 -15px;
+  background-color: rgba(86,116,185,.05);
+  border-top: 1px solid rgba(0,0,0,.09);
 }
 .termSentences li {}
 .termSentences li p { margin-bottom: 0}
@@ -110,17 +114,22 @@
 }
 .termBtm {
   display:block;
-  border-top: 1px solid rgba(0,0,0,.09)
+  border-top: 1px solid rgba(0,0,0,.09);
+  margin:0 -15px -15px;
+  padding: 0 15px;
+  background-color: rgba(86,116,185,.1);
 }
 .termBtm form {
   display:inline-block;
   width: 100%;
+  background:transparent;
 }
 .termBtm form input {
   border:none;
   padding:10px 0;
   width: calc(100% - 45px);
   outline: none;
+  background:transparent;
 }
 .termBtm form button {
   border:none;
@@ -142,4 +151,27 @@
   background-color:transparent;
   font-size:20px;
   color:rgba(0,0,0,.7)  
+}
+
+#newTermPage h3 {
+  font-family: 'Roboto Slab', serif;
+  font-weight:bold;
+  color: rgba(0,0,0,.7);
+}
+#newTermPage .category {
+  color:rgba(0,0,0,.6);
+}
+#newTermPage .description {
+  font-size:12px;
+  color:rgba(0,0,0,.6)
+}
+
+#newTermPage label {
+  color:rgba(0,0,0,.6);
+}
+
+#newTermPage .addTermAdv {
+  font-size:12px;
+  font-style: italic;
+  color:rgba(0,0,0,.5)
 }

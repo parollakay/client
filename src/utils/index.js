@@ -1,13 +1,17 @@
-import React from 'react';
-import axios from 'axios';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-export const server = axios.create({ baseURL: 'http://localhost:1804' });
+import AuthDialog from './AuthDialog';
+import { TermsOfService } from './TermsOfService';
+import { PrivacyStatement } from './PrivacyStatement';
+import { DMCA } from './DMCA'
 
-
+export const server = 'http://localhost:1804';
 
 export const checkPassword = (password, confirmPass) => {
+  console.log(password, confirmPass);
   return new Promise((resolve, reject) => {
     const re = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
+    console.log(re.test(password));
     if (re.test(password)) {
       if (password !== confirmPass) {
         reject('Both passwords must match.')
@@ -21,6 +25,7 @@ export const checkPassword = (password, confirmPass) => {
 }
 
 export const handleErr = (type, error) => {
+  console.log(type, error);
   return {
     type,
     payload: error
@@ -40,12 +45,86 @@ export const rmAuth = () => {
 export const SocialIcons = (props) => {
   return (
     <div>
-      <Link to="/"><i className="fa fa-instagram"></i></Link>
-      <Link to="/"><i className="fa fa-facebook"></i></Link>
-      <Link to="/"><i className="fa fa-twitter"></i></Link>
+      <a href="http://instagram.com/parollakay" target="_blank" rel="noopener noreferrer"><i className="fa fa-instagram"></i></a>
+      <a href="http://facebook.com/parollakay" target="_blank" rel="noopener noreferrer"><i className="fa fa-facebook"></i></a>
+      <a href="http://twitter.com/parollakay" target="_blank" rel="noopener noreferrer"><i className="fa fa-twitter"></i></a>
       <a>
           <i className="fa fa-user"></i> &nbsp; &nbsp;clervius
         </a>
     </div>
   )
 }
+
+export class FacebookPagePlugin extends Component  {
+  componentDidMount() {
+    
+    window.fbAsyncInit = function() {
+      window.FB.init({
+        appId            : '127965247924981',
+        autoLogAppEvents : true,
+        xfbml            : true,
+        version          : 'v2.10'
+      });
+      document.dispatchEvent(new Event('fb_init'));
+    };
+
+    (function(d, s, id){
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) {return;}
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+    document.addEventListener('fb_init', e => window.FB.XFBML.parse());
+  }
+  render () {
+    return (
+      <div 
+        className="fb-page" 
+        data-href="https://www.facebook.com/parollakay" 
+        data-small-header="true" 
+        data-adapt-container-width="true"
+        data-width="253"
+        data-hide-cover="false" 
+        data-show-facepile="true">
+        <blockquote 
+          cite="https://www.facebook.com/parollakay" 
+          className="fb-xfbml-parse-ignore">
+          <a href="https://www.facebook.com/parollakay">Parol Lakay</a>
+        </blockquote>
+      </div>
+    )
+  }
+}
+
+export const FooterText = (props) => {
+  return (
+    <div className="footerText">
+      <p>
+        &copy; 2017 <strong>Parol Lakay</strong><br />
+        <Link to="/termsOfService">terms of service</Link>
+        <Link to="/privacyStatement">privacy</Link>
+        <Link to="/DMCA">dmca</Link>
+      </p>
+    </div>
+  )
+}
+
+export const StaticLinks = () => {
+  return (
+    <ul className="staticLinks">
+      <li><Link to="/">Home</Link></li>
+      <li><Link to="/termsOfService">terms of service</Link></li>
+      <li><Link to="/privacyStatement">privacy</Link></li>
+      <li><Link to="/DMCA">dmca</Link></li>
+    </ul>
+  )
+}
+
+export { 
+  AuthDialog,
+  TermsOfService,
+  PrivacyStatement,
+  DMCA
+ }

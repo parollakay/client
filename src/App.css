@@ -1,7 +1,24 @@
+::selection {
+    color:white;
+    background-color: #07008d;
+}
+
 body {
   font-family: 'Roboto', sans-serif;
   padding-top:165px;
   background-color: rgba(0,0,0,.05);
+}
+.authCenter {
+    height:100%;
+    position:relative;
+}
+.authCenter:after {
+    content:' ';
+    display:block;
+    height:280px;
+    border-right:1px solid rgba(0,0,0,.3);
+    position:absolute;
+    left:50%;
 }
 
 @media (min-width: 768px) {

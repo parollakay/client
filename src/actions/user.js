@@ -1,9 +1,6 @@
-import { checkPassword } from '../utils';
-import { handleErr, server, setLocalAuth, rmAuth } from '../utils';
-server.defaults.withCredentials = true;
-server.interceptors.request.use(() => {
-  server.defaults.headers.common['x-access-token'] = localStorage.getItem('x-access-token');
-});
+import { handleErr, server, setLocalAuth, rmAuth, checkPassword } from '../utils';
+import axios from 'axios';
+import { DIALOG_CLOSE, SNACK_OPEN } from './';
 
 export const USER_CREATED = 'USER_CREATED';
 export const USER_AUTHENTICATED = 'USER_AUTHENTICATED';
@@ -15,38 +12,46 @@ export const USER_LOGOUT = 'USER_LOGOUT';
 export const AUTH_ERROR = 'AUTH_ERROR';
 
 
-export const register = (username, email, password, confirmPassword) => {
+
+
+export const register = (username, password, confirmPassword, email) => {
+  console.log(`made it to actions with: ${username}, ${password}, ${confirmPassword}, ${email}`);
   return (dispatch) => {
     checkPassword(password, confirmPassword).then(() => {
-      server.post(`/users/new`, { email, username, password })
+      axios.post(`${server}/users/new`, { email, username, password })
         .then((res) => {
           dispatch({
             type: USER_CREATED,
             payload: res.data
           });
+          dispatch({
+            type: DIALOG_CLOSE
+          });
+          dispatch({
+            type: SNACK_OPEN,
+            payload: `Welcome ${res.data.user.username}, you are now signed in.`
+          })
           // TODO: Make the server give me a token after registration.
           setLocalAuth(res.data.token, res.data.user._id);          
-        }, err => dispatch(handleErr(AUTH_ERROR, err.data.message)))
+        }, err => err.data ? dispatch(handleErr(AUTH_ERROR, err.data.message)) : dispatch(handleErr(AUTH_ERROR, `Couldn't communicate with the server. Please try again later.`)))
     }, err => dispatch(handleErr(AUTH_ERROR, err)));
   }
 };
 
+
 export const signin = (username, password) => {
-  return (dispatch) => {
-    server.post(`/users/auth`, { username, password }).then(res=> {
-      dispatch({
-        type: USER_AUTHENTICATED,
-        payload: res.data
-      });
-      // Make it so things can be commented on, submissions can happen.
-      setLocalAuth(res.data.token, res.data.user._id);
-    }, err => dispatch(handleErr(AUTH_ERROR, err.data.message)))
-  }
+  axios.post(`${server}/users/auth`, { username, password }).then(res => {
+    setLocalAuth(res.data.token, res.data.user._id);
+    return {
+      type: USER_AUTHENTICATED,
+      payload: res.data
+    }
+  }, err => handleErr(AUTH_ERROR, err.data.message));
 };
 
 export const getToken = (email) => {
   return (dispatch) => {
-    server.post('/users/forgotPass', { email }).then(res => {
+    axios.post(`${server}/users/forgotPass`, { email }).then(res => {
       dispatch({
         type: USER_FORGOT_PASS,
         payload: res.data
@@ -58,7 +63,7 @@ export const getToken = (email) => {
 
 export const resetPass = (token, password) => {
   return (dispatch) => {
-    server.post('/users/resetPass', { token, password }).then(res => {
+    axios.post(`${server}/users/resetPass`, { token, password }).then(res => {
       dispatch({
         type: USER_RESET_PASS,
         payload: res.data
@@ -79,7 +84,7 @@ export const logout = () => {
 
 export const likeTerm = (userId, termId) => {
   return (dispatch) => {
-    server.post(`/users/${userId}/addVote/${termId}`).then(res => {
+    axios.post(`${server}/users/${userId}/addVote/${termId}`).then(res => {
       dispatch({
         type: USER_TERM_LIKE,
         payload: res.data
@@ -92,7 +97,7 @@ export const likeTerm = (userId, termId) => {
 
 export const unlikeTerm = (userId, termId) => {
   return (dispatch) => {
-    server.post(`/users/${userId}/minusVote/${termId}`).then(res => {
+    axios.post(`${server}/users/${userId}/minusVote/${termId}`).then(res => {
       dispatch({
         type: USER_TERM_UNLIKE,
         payload: res.data
