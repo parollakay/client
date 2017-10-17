@@ -5,6 +5,7 @@ export const SNACK_CLOSE ='SNACK_CLOSE';
 
 
 export const openDialog = () => {
+  console.log('logged the click')
   return {
     type: DIALOG_OPEN
   }
@@ -28,3 +29,4 @@ export const hideSnack = () => {
     type: SNACK_CLOSE
   }
 }
+

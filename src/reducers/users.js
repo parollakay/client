@@ -7,20 +7,25 @@ import {
   AUTH_ERROR
 } from '../actions'
 
-export default (user = {}, action) => {
+const defaultState = {
+  data: {},
+  authenticated: false
+}
+
+export default (user = defaultState, action) => {
   switch(action.type) {
     case USER_AUTHENTICATED:
-      return action.payload;
+      return { ...user, authenticated: true, data: action.payload };
     case USER_CREATED:
-      return action.payload;
+      return { ...user, authenticated: true, data: action.payload };
     case USER_FORGOT_PASS:
-      return { ...user };
+      return { ...user, authenticated: false, data: {} };
     case USER_RESET_PASS:
-      return { ...user };
+      return { ...user, authenticated: false, data: {} };
     case USER_LOGOUT:
-      return {};
+      return { ...user, authenticated: false, data: {} };
     case AUTH_ERROR:
-      return { ...user, error: action.payload };
+      return { ...user, authenticated: false, data: {}, error: action.payload };
     default:
       return user;
   }

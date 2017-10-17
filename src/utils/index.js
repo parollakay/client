@@ -4,6 +4,7 @@ import AuthDialog from './AuthDialog';
 import { TermsOfService } from './TermsOfService';
 import { PrivacyStatement } from './PrivacyStatement';
 import { DMCA } from './DMCA'
+import SocialIcons from './SocialIcons';
 
 export const server = 'http://localhost:1804';
 
@@ -33,27 +34,23 @@ export const handleErr = (type, error) => {
 }
 
 export const setLocalAuth = (token, userId) => {
-  localStorage.setItem('x-access-token', token);
-  localStorage.setItem('x-user-id', userId);
+  return new Promise((resolve, reject) => {
+    localStorage.setItem('x-access-token', token);
+    localStorage.setItem('x-user-id', userId);
+    resolve();
+  });
+  
 }
 
 export const rmAuth = () => {
-  localStorage.removeItem('x-access-token');
-  localStorage.removeItem('x-user-id');
+  return new Promise((resolve, reject) => {
+    localStorage.removeItem('x-access-token');
+    localStorage.removeItem('x-user-id');
+    resolve();
+  });
+  
 }
 
-export const SocialIcons = (props) => {
-  return (
-    <div>
-      <a href="http://instagram.com/parollakay" target="_blank" rel="noopener noreferrer"><i className="fa fa-instagram"></i></a>
-      <a href="http://facebook.com/parollakay" target="_blank" rel="noopener noreferrer"><i className="fa fa-facebook"></i></a>
-      <a href="http://twitter.com/parollakay" target="_blank" rel="noopener noreferrer"><i className="fa fa-twitter"></i></a>
-      <a>
-          <i className="fa fa-user"></i> &nbsp; &nbsp;clervius
-        </a>
-    </div>
-  )
-}
 
 export class FacebookPagePlugin extends Component  {
   componentDidMount() {
@@ -126,5 +123,6 @@ export {
   AuthDialog,
   TermsOfService,
   PrivacyStatement,
-  DMCA
+  DMCA,
+  SocialIcons
  }

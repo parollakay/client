@@ -13,7 +13,7 @@ const Header = (props) => {
           <div className="searchWrapper col-sm-11">
               <MainNav />
               <Search />
-              <SignupText openAuth={props.openAuth} />
+              <SignupText openAuth={props.openAuth} authenticated={props.authenticated}/>
           </div>
         </div>
       </div>

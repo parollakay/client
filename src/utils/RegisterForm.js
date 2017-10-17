@@ -14,14 +14,13 @@ class RegisterForm extends Component {
   renderAlert = () => {
     if(!this.props.error) return null;
     return (
-      <p className="text-danger">{this.props.error}</p>
+      <small className="text-danger">{this.props.error}</small>
     )
   }
   render() {
     const { handleSubmit } = this.props;
     return (
       <form onSubmit={handleSubmit(this.handleSignup.bind(this))} >
-        {this.renderAlert()}
         <div className="form-group">
           <Field component="input" type="text" placeholder="Choose a username" className="form-control" name="username" />
         </div>
@@ -38,7 +37,6 @@ class RegisterForm extends Component {
           Sign Up
         </button>
         <div className="clearfix"></div>
-        
       </form>
     )
   }

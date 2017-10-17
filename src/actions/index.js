@@ -38,7 +38,8 @@ import {
   USER_TERM_LIKE,
   USER_TERM_UNLIKE,
   USER_LOGOUT,
-  AUTH_ERROR
+  AUTH_ERROR,
+  autoAuth
 } from './user';
 
 export {
@@ -76,4 +77,5 @@ export {
   SNACK_OPEN,
   hideSnack,
   showSnack,
+  autoAuth
 }

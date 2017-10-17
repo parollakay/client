@@ -2,19 +2,20 @@ import { DIALOG_CLOSE, DIALOG_OPEN, SNACK_CLOSE, SNACK_OPEN } from '../actions'
 
 const defaultState = {
   open: false,
-  snack: false
+  snack: false,
+  snackMessage: '',
 }
 
 export default (state = defaultState, action) => {
   switch(action.type) {
     case DIALOG_CLOSE:
-      return { open: false, snack: state.snack };
+      return {...state, open:false};
     case DIALOG_OPEN:
-      return { open: true, snack: state.snack };
+      return {...state, open: true};
     case SNACK_CLOSE:
-      return { open: state.open, snack: false };
+      return {...state, snack:false };
     case SNACK_OPEN:
-      return { open: state.open, snack:true, snackMessage: action.payload };
+      return {...state, snack: true, snackMessage: action.payload };
     default:
       return state;
   }

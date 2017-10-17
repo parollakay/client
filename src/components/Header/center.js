@@ -97,7 +97,11 @@ class Search extends Component {
 
 const SignupText = (props) => {
   return (
-  <p className="suT">Want to join? <a className="hover" onClick={props.openAuth}>Sign up/Log in</a> in seconds.</p>
+    
+  <p className="suT">
+    {!props.authenticated && <span>Want to join? <a className="hover" onClick={props.openAuth}>Sign up/Log in</a> in seconds.</span>}
+    {props.authenticated && <span>The Haitian Dictionary created by you.</span>}
+  </p>
 )}
 
 const mapStateToProps = (state) => {

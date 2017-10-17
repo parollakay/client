@@ -10,8 +10,10 @@ import { AuthDialog, TermsOfService, PrivacyStatement, DMCA } from './utils';
 import Home from './components/Home';
 import NewTerm from './components/NewTerm';
 import { connect } from 'react-redux';
-import { openDialog, hideSnack } from './actions';
+import { openDialog, hideSnack, autoAuth } from './actions';
 import Snackbar from 'material-ui/Snackbar';
+import ResetPw from './components/ResetPw';
+import NewPw from './components/NewPw';
 
 
 class App extends Component {
@@ -20,14 +22,22 @@ class App extends Component {
     this.props.hideSnack();
   }
 
+  componentDidMount() {
+    this.props.autoAuth();
+  }
+
   render() {
     console.log(this.props)
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
       <div className="App">
-        <Header openAuth={this.props.openDialog} />
+        <Header openAuth={this.props.openDialog} authenticated={this.props.authenticated}/>
         <div className="container-small container">
           <Route path="/" exact component={ Home } />
+          
+          <Route path="/resetPw" component={ ResetPw } />
+          <Route path="/reset/:token" component={ NewPw } />
+
           <Route path="/newTerm" component={ NewTerm } />
 
           <Route path="/termsOfService" component={ TermsOfService } />
@@ -48,9 +58,10 @@ class App extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    auth: state.auth
+    auth: state.auth,
+    authenticated: state.user.authenticated
   }
 }
 
 
-export default connect(mapStateToProps, { openDialog, hideSnack })(App);
+export default connect(mapStateToProps, { openDialog, hideSnack, autoAuth })(App);

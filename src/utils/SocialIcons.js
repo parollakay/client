@@ -1,0 +1,58 @@
+import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { logout, openDialog } from '../actions'
+
+class SocialIcons extends Component {r
+  constructor(props) {
+    super(props);
+    this.state = {
+      numClicks: 0,
+    }
+  }
+
+  clickHandle = () => {
+    if (this.state.numClicks > 0) {
+      this.props.logout();
+      this.setState({
+        numClicks: 0,
+        text: this.props.user.data.username
+      });
+    } else {
+      this.setState({
+        numClicks: 1,
+        text: 'Log Out?'
+      })
+    }
+  }
+
+  render() {
+    console.log(this.props);
+    return (
+      <div>
+        <a href="http://instagram.com/parollakay" target="_blank" rel="noopener noreferrer"><i className="fa fa-instagram"></i></a>
+        <a href="http://facebook.com/parollakay" target="_blank" rel="noopener noreferrer"><i className="fa fa-facebook"></i></a>
+        <a href="http://twitter.com/parollakay" target="_blank" rel="noopener noreferrer"><i className="fa fa-twitter"></i></a>
+        {this.props.user.authenticated && <a onClick={this.clickHandle} className="hover" title="Log Out">
+            <i className="fa fa-user"></i> &nbsp; &nbsp;{this.state.text ? this.state.text : this.props.user.data.username}
+        </a>}
+        {!this.props.user.authenticated && <a className="hover" onClick={this.props.openDialog}> Log in</a>}
+      </div>
+    )
+  }
+}
+
+const mapStateToProps = (state) => {
+  return {
+    user: state.user,
+    auth: state.auth
+  }
+}
+
+const mapDispatch = (dispatch) => {
+  const boundActionCreators = bindActionCreators({ logout, openDialog }, dispatch);
+  const allActionProps = { ...boundActionCreators, dispatch };
+  return allActionProps;
+}
+
+export default connect(mapStateToProps, mapDispatch)(SocialIcons);
