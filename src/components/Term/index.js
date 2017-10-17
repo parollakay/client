@@ -7,7 +7,6 @@ import Sentences from './Sentences';
 import SentenceInput from './SentenceInput';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { withRouter } from 'react-router-dom';
 
 
 const cardStyle = {
@@ -54,4 +53,4 @@ const mapDispatch = (dispatch) => {
   const allActionCreators = { ...boundActionCreators, dispatch };
   return allActionCreators;
 }
-export default withRouter(connect(mapStateToProps, mapDispatch)(Term));
+export default connect(mapStateToProps, mapDispatch)(Term);
