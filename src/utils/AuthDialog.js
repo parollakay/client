@@ -14,7 +14,7 @@ class AuthDialog extends Component {
     if(!this.props.error) return null;
     return (
       <div className="row">
-      <div className="alert alert-danger alert-dismissible col-md-10 col-md-offset-1" role="danger">
+      <div className="alert alert-danger col-md-10 col-md-offset-1">
         <span className="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>&nbsp;&nbsp;
         <span className="sr-only">Error:</span>
         {this.props.error}

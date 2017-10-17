@@ -1,5 +1,5 @@
 import React, { Component }  from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Popover from 'material-ui/Popover';
 import FlatButton from 'material-ui/FlatButton';
@@ -111,6 +111,9 @@ const mapStateToProps = (state) => {
 }
 
 Search = connect(mapStateToProps, { searchTerm})(Search)
+
+MainNav = withRouter(MainNav);
+Search = withRouter(Search);
 export {
   MainNav,
   Search,

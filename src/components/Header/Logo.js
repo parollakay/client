@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 const Logo = (props) => {
   return (
@@ -16,4 +16,4 @@ const Logo = (props) => {
   )
 }
 
-export default Logo;
+export default withRouter(Logo);

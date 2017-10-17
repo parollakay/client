@@ -1,6 +1,6 @@
 import { handleErr, server, setLocalAuth, rmAuth, checkPassword } from '../utils';
 import axios from 'axios';
-import { DIALOG_CLOSE, SNACK_OPEN, DIALOG_OPEN } from './';
+import { DIALOG_CLOSE, SNACK_OPEN } from './';
 
 export const USER_CREATED = 'USER_CREATED';
 export const USER_AUTHENTICATED = 'USER_AUTHENTICATED';
@@ -26,7 +26,6 @@ export const autoAuth = () => {
   return (dispatch) => {
     if (!token || !userId) return;
     axios(options).then(res => {
-      console.log(res);
       dispatch({
         type: USER_AUTHENTICATED,
         payload: res.data

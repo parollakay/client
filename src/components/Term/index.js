@@ -5,6 +5,9 @@ import MoreDropDown from './MoreDropDown'
 import Engagement from './Engagement';
 import Sentences from './Sentences';
 import SentenceInput from './SentenceInput';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { withRouter } from 'react-router-dom';
 
 
 const cardStyle = {
@@ -17,12 +20,14 @@ class Term extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      term: props.term
-    }
+      term: this.props.terms.filter(term => term._id === this.props.termId)[0]
+     }
   }
+
 
   render() {
     const { term } = this.state;
+    console.log(term);
     return (
       <Paper className="eachTerm" style={cardStyle} zDepth={2}>
         <h3>{term.text}</h3>
@@ -32,11 +37,21 @@ class Term extends Component {
         <ul className="termsTags"> {term.tags.map((tag, i) => <li key={i}>#{tag}</li> )} </ul>
         <Engagement upvotes={term.upvotes} sentences={term.sentences} term={term.text} definition={term.definition}/>
         {term.sentences.length > 0 && <Sentences sentences={term.sentences} termId={term._id}/>}      
-        <SentenceInput />
+        <SentenceInput term={this.state.term._id} />
       </Paper>
     )
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    terms: state.terms.data
+  }
+}
 
-export default Term;
+const mapDispatch = (dispatch) => {
+  const boundActionCreators = bindActionCreators({}, dispatch);
+  const allActionCreators = { ...boundActionCreators, dispatch };
+  return allActionCreators;
+}
+export default withRouter(connect(mapStateToProps, mapDispatch)(Term));

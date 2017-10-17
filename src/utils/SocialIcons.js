@@ -27,7 +27,6 @@ class SocialIcons extends Component {r
   }
 
   render() {
-    console.log(this.props);
     return (
       <div>
         <a href="http://instagram.com/parollakay" target="_blank" rel="noopener noreferrer"><i className="fa fa-instagram"></i></a>

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 class Sentences extends Component {
   constructor(props) {
@@ -6,7 +7,7 @@ class Sentences extends Component {
     this.state = {
       termId: props.termId,
       showAll: false,
-      sentences: props.sentences
+      sentences: this.props.terms.filter(term => term._id === props.termId)[0].sentences
      };
     this.showAll = this.showAll.bind(this);
   }
@@ -14,8 +15,6 @@ class Sentences extends Component {
     this.setState({
       showAll: true
     })
-  }
-  componentDidMount(){
   }
   render() {
     return (
@@ -35,4 +34,9 @@ class Sentences extends Component {
   }
 }
 
-export default Sentences;
+const mapStateToProps = (state) => {
+  return {
+    terms: state.terms.data
+  }
+}
+export default connect(mapStateToProps, {})(Sentences);

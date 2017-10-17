@@ -14,7 +14,7 @@ class NewPw extends Component {
   renderAlert = () => {
     if(!this.props.error) return null;
     return (
-      <div className="alert alert-danger alert-dismissible" role="danger">
+      <div className="alert alert-danger">
         <span className="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>&nbsp;&nbsp;
         <span className="sr-only">Error:</span>
         {this.props.error}
@@ -24,7 +24,6 @@ class NewPw extends Component {
 
   render() {
     const { handleSubmit } = this.props;
-    console.log(this.props, this.props.history);
     return (
       <div className="col-md-8 col-md-offset-2">
         <h3 className="title">Change Your Password</h3>
