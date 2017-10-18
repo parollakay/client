@@ -8,11 +8,10 @@ export const TERMS_ADD_SENTENCE = 'TERMS_ADD_SENTENCE';
 export const TERMS_RM_SENTENCE = 'TEMRS_RM_SENTENCE';
 export const TERMS_ERR = 'TERMS_ERR';
 
-const backend = axios.create({
-  baseURL: `${server}/terms`,
-  headers: { 'x-access-token': localStorage.getItem('x-access-token')}
-});
+axios.defaults.headers.common['x-access-token'] = localStorage.getItem('x-access-token');
 
+
+export const termErr = (err) => dispatch => dispatch(handleErr(TERMS_ERR, err));
 
 export const getTerms = () => {
   return (dispatch) => {
@@ -46,8 +45,8 @@ export const newTerm = (text, definition, sentences, author, tags, history) => {
   const authorized = localStorage.getItem('x-access-token');
   return (dispatch) => {
     if(!authorized) return dispatch(handleErr(TERMS_ERR, 'You must be authorized in order to add a term to the website.'));
-    if(!text || !definition) return dispatch(TERMS_ERR, `You must fill out at least the term and the definition.`);
-    backend.post(`/newTerm`, { text, definition, sentences, author, tags}).then(res => {
+    if(!text || !definition) return dispatch(handleErr(TERMS_ERR, `You must fill out at least the term and the definition.`));
+      axios.post(`${server}/terms/newTerm`, { text, definition, sentences, author, tags}).then(res => {
       dispatch({
         type: TERMS_NEW,
         payload: res.data
@@ -63,7 +62,7 @@ export const newTerm = (text, definition, sentences, author, tags, history) => {
 
 export const addSentence = ( termId, author, text, history) => {
   return (dispatch) => {
-    backend.post(`/${termId}/sentence`, { author, text }).then(res => {
+    axios.post(`${server}/terms/${termId}/sentence`, { author, text }).then(res => {
       console.log(res.data);
       dispatch({
         type: TERMS_ADD_SENTENCE,

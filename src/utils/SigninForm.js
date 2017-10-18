@@ -8,7 +8,6 @@ import { signin } from '../actions';
 class SigninForm extends Component {
 
   handleSignin({ username, password }) {
-    console.log('have gotten to the function in the component')
     this.props.signin(username, password);
   }
 
@@ -21,7 +20,6 @@ class SigninForm extends Component {
 
   render() {
     const { handleSubmit } = this.props;
-    console.log(this.props.signin);
     return (
       <form onSubmit={handleSubmit(this.handleSignin.bind(this))}>
         <div className="form-group">

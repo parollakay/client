@@ -14,7 +14,8 @@ import {
   searchTerm, 
   newTerm, 
   addSentence, 
-  rmSentence, 
+  rmSentence,
+  termErr,
   TERMS_ADD_SENTENCE,
   TERMS_ALL,
   TERMS_NEW,
@@ -77,5 +78,6 @@ export {
   SNACK_OPEN,
   hideSnack,
   showSnack,
-  autoAuth
+  autoAuth,
+  termErr
 }

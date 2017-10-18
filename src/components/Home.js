@@ -8,7 +8,6 @@ import { getTerms } from '../actions';
 import { bindActionCreators } from 'redux';
 
 class Home extends Component {
-
   componentDidMount() {
     this.props.getTerms();
   }

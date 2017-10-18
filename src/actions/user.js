@@ -132,27 +132,20 @@ export const logout = () => {
   }
 }
 
-export const likeTerm = (userId, termId) => {
+export const likeTerm = (data) => {
   return (dispatch) => {
-    axios.post(`${server}/users/${userId}/addVote/${termId}`).then(res => {
-      dispatch({
-        type: USER_TERM_LIKE,
-        payload: res.data
-      });
-      // Hide the like button, show the 'liked' button, show incremented number of likes.
-    }, err => handleErr(AUTH_ERROR, err.response.data.message));
-  }
-  
+    dispatch({
+      type: USER_TERM_LIKE,
+      payload: data
+    });
+  }  
 };
 
-export const unlikeTerm = (userId, termId) => {
+export const unlikeTerm = (data) => {
   return (dispatch) => {
-    axios.post(`${server}/users/${userId}/minusVote/${termId}`).then(res => {
-      dispatch({
-        type: USER_TERM_UNLIKE,
-        payload: res.data
-      });
-      // Change like button to inactive, show decremented number of likes.
-    }, err => handleErr(dispatch(AUTH_ERROR, err.response.data.message)));
+    dispatch({
+      type: USER_TERM_UNLIKE,
+      payload: data
+    })
   }
 };

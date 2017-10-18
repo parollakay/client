@@ -1,9 +1,7 @@
 import React, { Component }  from 'react';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
 import Popover from 'material-ui/Popover';
 import FlatButton from 'material-ui/FlatButton';
-import { searchTerm } from '../../actions';
 import { SocialIcons } from '../../utils';
 
 class MainNav extends Component {
@@ -103,12 +101,6 @@ const SignupText = (props) => {
     {props.authenticated && <span>The Haitian Dictionary created by you.</span>}
   </p>
 )}
-
-const mapStateToProps = (state) => {
-  return {
-    terms: state.terms
-  }
-}
 
 export {
   MainNav,

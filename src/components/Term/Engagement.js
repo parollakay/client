@@ -1,83 +1,52 @@
 import React, { Component } from 'react';
-import Popover from 'material-ui/Popover';
-import { ShareButtons, generateShareIcon } from 'react-share';
-import Menu from 'material-ui/Menu';
-import MenuItem from 'material-ui/MenuItem'
-
-const { FacebookShareButton, GooglePlusShareButton, TwitterShareButton, EmailShareButton } = ShareButtons;
+import { connect } from 'react-redux'
 
 class Engagement extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      term: props.term,
-      definition: props.definition,
-      likes: props.upvotes,
-      sentences: props.sentences
-    };
-    this.handleRequestClose = this.handleRequestClose.bind(this);
-    this.handleTouchTap = this.handleTouchTap.bind(this);
-  }
 
-  handleTouchTap(e) {
-    e.preventDefault();
-    this.setState({
-      opened: true,
-      anchorEl: e.currentTarget
-    });
+  renderVoting = () => {
+    const likeBtn = ( <button onClick={this.props.like}> <i className="ion-android-favorite-outline"></i> {this.props.upvotes} Like{this.props.upvotes > 1 && 's'}</button> )
+    const unlikeBtn = ( <button onClick={this.props.unlike}> <i className="ion-android-favorite redColor"></i> {this.props.upvotes} Like{this.props.upvotes > 1 && 's'}</button> )
     
-  };
-
-  handleRequestClose() {
-    this.setState({
-      opened: false,
-    })
-  };
-  componentDidMount() {}
-
+    if (!this.props.authenticated) return likeBtn;
+    if (this.props.user.upvotes.includes(this.props.term._id)) {
+      return unlikeBtn;
+    } else {
+      return likeBtn;
+    }
+  }
+  
   render() {
+    console.log(this.props.user);
     return (
       <div className="engamentWrapper">
         <ul>
           <li className="likesBtn hover">
-            <button >
-              <i className="ion-android-favorite-outline"></i>
-            </button>
-            {this.state.likes} Like{this.state.likes > 1 && 's'}
+            {this.renderVoting()}
+            
           </li>
           <li className="sentsBtn">
             <button >
               <i className="ion-ios-chatboxes-outline"></i>
             </button>
-            {this.state.sentences.length} Sentence{this.state.sentences.length > 1 && `s`}
+            {this.props.sentences.length} Sentence{this.props.sentences.length > 1 && `s`}
           </li>
-          <li className="hover" onClick={e => this.handleTouchTap(e)}>
+          <li className="hover">
             <button >
               <i className="ion-android-share-alt"></i>
             </button>
             Share
           </li>
-          <Popover
-            open={this.state.opened}
-            anchorEl={this.state.anchorEl}
-            anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
-            targetOrigin={{horizontal: 'left', vertical: 'top'}}
-            onRequestClose={this.handleRequestClose}
-          >
-            <Menu>
-              <MenuItem><FacebookShareButton title={this.state.term} description={this.state.definition}>Share to facebook</FacebookShareButton></MenuItem>
-              <MenuItem 
-                leftIcon={<i className="fa fa-facebook"></i>}
-                primaryText="Facebook" />
-              <MenuItem 
-                leftIcon={<i className="fa fa-twitter"></i>}
-                primaryText="Twitter"  />
-            </Menu>
-          </Popover>
         </ul>
       </div>
     )
   }
 }
 
-export default Engagement;
+const mapStateToProps = (state) => {
+  return {
+    user: state.user.data,
+    authenticated: state.user.authenticated
+  }
+}
+
+export default connect(mapStateToProps)(Engagement);

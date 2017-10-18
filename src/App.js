@@ -14,6 +14,7 @@ import { openDialog, hideSnack, autoAuth, getTerms } from './actions';
 import Snackbar from 'material-ui/Snackbar';
 import ResetPw from './components/ResetPw';
 import NewPw from './components/NewPw';
+import PageShell from './PageShell';
 
 
 class App extends Component {
@@ -24,7 +25,6 @@ class App extends Component {
 
   componentDidMount() {
     this.props.autoAuth();
-    this.props.getTerms();
   }
 
   render() {
@@ -35,14 +35,14 @@ class App extends Component {
           <div className="container-small container">
             <Route path="/" exact component={ Home } />
             
-            <Route path="/resetPw" component={ ResetPw } />
-            <Route path="/reset/:token" component={ NewPw } />
+            <Route path="/resetPw" component={ PageShell(ResetPw) } />
+            <Route path="/reset/:token" component={ PageShell(NewPw) } />
 
-            <Route path="/newTerm" component={ NewTerm } />
+            <Route path="/newTerm" component={ PageShell(NewTerm) } />
 
-            <Route path="/termsOfService" component={ TermsOfService } />
-            <Route path="/privacyStatement" component={ PrivacyStatement } />
-            <Route path="/DMCA" component={ DMCA } />
+            <Route path="/termsOfService" component={ PageShell(TermsOfService) } />
+            <Route path="/privacyStatement" component={ PageShell(PrivacyStatement) } />
+            <Route path="/DMCA" component={ PageShell(DMCA) } />
           </div>
           <Route component={AuthDialog} />
           <Snackbar
