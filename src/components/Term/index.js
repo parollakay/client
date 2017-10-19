@@ -10,6 +10,7 @@ import { bindActionCreators } from 'redux';
 import { server } from '../../utils';
 import { likeTerm, unlikeTerm, showSnack } from '../../actions'
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 axios.defaults.headers.common['x-access-token'] = localStorage.getItem('x-access-token');
 
@@ -23,8 +24,15 @@ class Term extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      liked: false
+      liked: false,
+      showAllSentences: false
      }
+  }
+
+  expanSentences = () => {
+    this.setState({
+      showAllSentences: true
+    });
   }
 
   checkAuth = () => {
@@ -47,8 +55,10 @@ class Term extends Component {
         author: this.props.user._id
       }
       axios.post(`${server}/terms/${this.props.termId}/sentence`, body).then(res => {
+        console.log(res);
         this.setState({
-          term: res.data
+          term: res.data,
+          showAllSentences: true
         });
         this.props.showSnack('Example added.');
       }, err => err.response ? this.setState({ termErr: err.response.data.message }) : this.setState({ termErr: 'Error adding sentence. try later.'}))
@@ -101,7 +111,7 @@ class Term extends Component {
     const term = this.state.term || this.props.term;
     return (
       <Paper className="eachTerm" style={cardStyle} zDepth={2}>
-        <h3>{term.text}</h3>
+        <Link to={`/search?term=${term.text}`}><h3>{term.text}</h3></Link>
         <MoreDropDown />
         <p className="termMeta" title={'Submitted ' + moment(term.created).format("MMM Do YYYY")}> by <strong>{term.author.username}</strong> {moment(term.created).fromNow()} </p>
         <p className="termDefinition">{term.definition}</p>
@@ -113,7 +123,7 @@ class Term extends Component {
           upvotes={term.upvotes} 
           sentences={term.sentences} 
           term={term}/>
-        {term.sentences.length > 0 && <Sentences sentences={term.sentences} termId={term._id}/>}      
+        {term.sentences.length > 0 && <Sentences sentences={term.sentences} termId={term._id} showAll={this.state.showAllSentences} expand={this.expanSentences}/>}      
         <SentenceInput term={this.props.termId} addSentence={this.addSentence} />
       </Paper>
     )

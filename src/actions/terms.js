@@ -21,23 +21,22 @@ export const getTerms = () => {
         payload: res.data
       });
       // Do something, sort, or something before giving all terms to the client.
-    }, err => handleErr(TERMS_ERR, err.data.message));
+    }, err => err.response ? dispatch(handleErr(TERMS_ERR, err.response.data.message)) : dispatch(handleErr(TERMS_ERR, 'Error displaying terms.')));
   }
 };
 
-export const searchTerm = (e, history) => {
-  const term = e.target.term.value;
-  const word = encodeURIComponent(term.trim()).toLocaleLowerCase();
+export const searchTerm = (word) => {
+  //console.log('trying to search', term);
+  //const word = encodeURIComponent(term.trim()).toLocaleLowerCase();
+  word = word.toLocaleLowerCase();
   return (dispatch) => {
     axios.get(`${server}/terms/search?term=${word}`).then(res => {
       console.log(`Searched for ${word} and got.`, res.data);
       dispatch({
         type: TERMS_SEARCH,
         payload: res.data
-      })
-      // Send this to the store, replace search array with results.
-      history.push('/search/');
-    }, err => dispatch(handleErr(TERMS_ERR, err.data.message)));
+      });
+    }, err => dispatch(handleErr(TERMS_ERR, err.response.data.message)));
   }
 }
 
@@ -85,6 +84,6 @@ export const rmSentence = (termId, sentenceId, history) => {
         payload: res.data
       });
       // Make sure that the sentence has been removed from the store of.
-    }, err => dispatch(handleErr(TERMS_ERR, err.data.message)));
+    }, err => dispatch(handleErr(TERMS_ERR, err.response.data.message)));
   }
 };

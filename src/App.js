@@ -8,6 +8,7 @@ import { Route, withRouter } from 'react-router-dom'
 import Header from './components/Header'
 import { AuthDialog, TermsOfService, PrivacyStatement, DMCA } from './utils';
 import Home from './components/Home';
+import QueryTerm from './components/QueryTerm';
 import NewTerm from './components/NewTerm';
 import { connect } from 'react-redux';
 import { openDialog, hideSnack, autoAuth, getTerms } from './actions';
@@ -34,7 +35,8 @@ class App extends Component {
           <Header openAuth={this.props.openDialog} authenticated={this.props.authenticated}/>
           <div className="container-small container">
             <Route path="/" exact component={ Home } />
-            
+            <Route path="/search" component={ QueryTerm } />
+
             <Route path="/resetPw" component={ PageShell(ResetPw) } />
             <Route path="/reset/:token" component={ PageShell(NewPw) } />
 

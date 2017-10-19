@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
-import Terms from './Terms';
 import { connect } from 'react-redux';
-import { getTerms } from '../actions';
 import { bindActionCreators } from 'redux';
+import { searchTerm } from '../actions';
 import MainSideBar from './Sidebar/MainSideBar';
+import Terms from './Terms';
 
-class Home extends Component {
+class QueryTerm extends Component {
+
   componentDidMount() {
-    this.props.getTerms();
+    const { search } = this.props.location;
+    const term = search.slice(6);
+    console.log(term);
+    this.props.searchTerm(term);
   }
 
   renderAlert = () => {
@@ -25,7 +29,8 @@ class Home extends Component {
       <div className="row">
         <div className="col-md-8">
           {this.renderAlert()}
-          <Terms terms={this.props.terms.data} />
+          {this.props.terms.data.length > 0 ? <Terms terms={this.props.terms.data} /> : <h4>There are no terms for that term</h4>}
+          
         </div>
         <div className="col-md-4">
           <MainSideBar />
@@ -35,8 +40,6 @@ class Home extends Component {
   }
 }
 
-
-
 const mapStateToProps = (state) => {
   return {
     terms: state.terms,
@@ -45,10 +48,8 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatch = (dispatch) => {
-  const boundActionCreators = bindActionCreators({ getTerms }, dispatch);
+  const boundActionCreators = bindActionCreators({ searchTerm }, dispatch);
   const allActionCreators = { ...boundActionCreators, dispatch };
   return allActionCreators;
 }
-
-
-export default connect(mapStateToProps, mapDispatch)(Home);
+export default connect(mapStateToProps, mapDispatch)(QueryTerm);
