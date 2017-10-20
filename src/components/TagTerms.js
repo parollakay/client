@@ -3,9 +3,9 @@ import MainSideBar from './Sidebar/MainSideBar';
 import Terms from './Terms';
 import axios from 'axios';
 import { server, titleCase } from '../utils';
-import { Link } from 'react-router-dom';
 
-class QueryTerm extends Component {
+
+class TagTerms extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -13,20 +13,18 @@ class QueryTerm extends Component {
     }
   }
 
-  getTerms = (search) => {
-    axios.get(`${server}/terms/search${search}`).then(res => {
+  getTerms = (tag) => {
+    axios.get(`${server}/terms/tag${tag}`).then(res => {
       this.setState({
         terms: res.data
       });
     }, err => err.response ? this.setState({ error: err.response.data.message}) : this.setState({ error: 'Error searching for the term.'}) );
-    this.setState({
-      search,
-    })
   }
 
   componentWillReceiveProps(nextProps) {
     const { search } = nextProps.location;
     this.getTerms(search);
+
   }
   componentDidMount() {
     const { search } = this.props.location;
@@ -44,25 +42,15 @@ class QueryTerm extends Component {
     )
   } 
   render() {
-    const search = decodeURI(this.props.location.search.slice(6));
+    const tag = this.props.location.search.slice(5);
     return (
       <div className="row">
         <div className="col-md-12">
-          <h3 className="strongTitle"><strong>Search:</strong> {titleCase(decodeURI(search))}</h3>
+          <h3 className="strongTitle"><strong>Tag:</strong> #{titleCase(decodeURI(tag))}</h3>
         </div>
-        <div className="col-md-8">
+        <div className="col-md-8">          
           {this.renderAlert()}
-          {this.state.terms.length > 0 ? <Terms terms={this.state.terms} length={this.state.terms.length} /> : <h4>There are no results for that term</h4>}
-          {this.state.terms.length === 0 && 
-            <div>
-              <p className="lead"> 
-                You should <Link to={`/newTerm?text=${search}`} className="highlightText">add <strong>'{titleCase(search)}'</strong></Link> to our dictionary.
-              </p>
-              <Link to={`/newTerm?text=${search}`} className="btn btn-primary">
-                Add [ {titleCase(search)} ] to Parol Lakay
-              </Link>
-            </div>         
-          }
+          {this.state.terms.length > 0 ? <Terms terms={this.state.terms} length={this.state.terms.length} /> : <h4>There are no results for that tag</h4>}
         </div>
         <div className="col-md-4">
           <MainSideBar />
@@ -72,4 +60,4 @@ class QueryTerm extends Component {
   }
 }
 
-export default QueryTerm;
+export default TagTerms;

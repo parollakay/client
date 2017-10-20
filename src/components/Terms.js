@@ -6,7 +6,7 @@ const Terms = (props) => {
   return (
     <div>
       {props.terms.map((term, i) => {
-        return <Term term={term} sentences={term.sentences} likes={term.upvotes} termId={term._id} key={i + 'term'} />
+        return <Term term={term} sentences={term.sentences} likes={term.upvotes} termId={term._id} key={i + 'term'} index={i} length={props.length} />
       })}
     </div> 
   )

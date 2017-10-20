@@ -3,13 +3,18 @@ import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import { newTerm, termErr } from '../actions';
+import { newTerm, termErr, changefieldValue } from '../actions';
 
 class NewTerm extends Component {
   processNewTerm({ text, definition, sentence, tags}) {
+    const cleanTag = (tag) => {
+      if (tag.charAt(0) === ' ') tag = tag.slice(1);
+      if (tag.charAt(tag.length - 1) === ' ') tag.slice(0, tag.length - 1);
+      return tag.toLowerCase();
+    }
     if(!this.props.user.authenticated) return this.props.termErr('You must be logged in to create a definition.');
     const sentences = [];
-    if (tags) tags = tags.split(',');
+    if (tags) tags = tags.split(',').map(tag => cleanTag(tag));
     if (sentence) sentences.push({ text: sentence, author: this.props.user.data._id});
     const author = this.props.user.data._id;
     this.props.newTerm(text, definition, sentences, author, tags, this.props.history);
@@ -24,7 +29,14 @@ class NewTerm extends Component {
         {this.props.error}
       </div>
     )
-  } 
+  }
+  componentDidMount() {
+    let query;
+    if (this.props.location.search.length > 1) {
+      query = decodeURI(this.props.location.search.slice(6));
+    }
+    this.props.initialize({ text: query});
+  }
   render() {
     const { handleSubmit } = this.props;
     return (
@@ -80,7 +92,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatch = (dispatch) => {
-  const boundActionCreators = bindActionCreators({ newTerm, termErr }, dispatch);
+  const boundActionCreators = bindActionCreators({ newTerm, termErr, changefieldValue }, dispatch);
   const allActionCreators = { ...boundActionCreators, dispatch };
   return allActionCreators;
 }

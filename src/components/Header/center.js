@@ -74,24 +74,24 @@ class Search extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.searchTerm(e, this.props.history);
+    // this.props.searchTerm(e, this.props.history);
+    this.props.history.push(`/search?term=${e.target.parolLakaySearch.value}`);
   }
   render() {
+    console.log(this.props.history)
     return (
       <div className="searchInput">
         <form onSubmit={e => this.handleSubmit(e)}>
           <input type="search" name="parolLakaySearch" placeholder="Type any word..." />
-          <button className="searchIcon" type="submit">
+          <button className="searchIcon" action="submit">
             <i className="ion-search"></i>
-          </button>
-          <button className="addIcon" type="button">
-            <i className="ion-plus"></i>
           </button>
         </form>
       </div>
     )
   };
 }
+
 
 const SignupText = (props) => {
   return (

@@ -7,11 +7,11 @@ import Sentences from './Sentences';
 import SentenceInput from './SentenceInput';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { server } from '../../utils';
+import { server, titleCase } from '../../utils';
 import { likeTerm, unlikeTerm, showSnack } from '../../actions'
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-
+import TermBadge from './Badge';
 axios.defaults.headers.common['x-access-token'] = localStorage.getItem('x-access-token');
 
 const cardStyle = {
@@ -58,7 +58,8 @@ class Term extends Component {
         console.log(res);
         this.setState({
           term: res.data,
-          showAllSentences: true
+          showAllSentences: true,
+          termErr: null
         });
         this.props.showSnack('Example added.');
       }, err => err.response ? this.setState({ termErr: err.response.data.message }) : this.setState({ termErr: 'Error adding sentence. try later.'}))
@@ -81,7 +82,8 @@ class Term extends Component {
       if (this.props.user.upvotes.includes(this.props.termId)) return;
       axios.post(`${server}/users/${this.props.user._id}/addVote/${this.props.termId}`).then(res => {
         this.setState({
-          term: res.data.term
+          term: res.data.term,
+          termErr: null
         });
         this.props.likeTerm(res.data.user);
       }, err => err.response ? this.setState({ termErr: err.response.data.message }) : this.setState({ termErr: 'Error liking term. try later.'}));
@@ -93,7 +95,8 @@ class Term extends Component {
       if (!this.props.user.upvotes.includes(this.props.termId)) return;
       axios.post(`${server}/users/${this.props.user._id}/minusVote/${this.props.termId}`).then(res => {
         this.setState({
-          term: res.data.term
+          term: res.data.term,
+          termErr: null
         });
         this.props.unlikeTerm(res.data.user);
       }, err => err.response ? this.setState({ termErr: err.response.data.message }) : this.setState({ termErr: 'Application error, try later.'}))
@@ -103,25 +106,29 @@ class Term extends Component {
   componentDidMount() {    
     const term = this.props.terms.filter(term => term._id === this.props.termId)[0];
     this.setState({
-      term
+      term,
+      termErr: null
     })
     
   }
+
   render() {
     const term = this.state.term || this.props.term;
     return (
       <Paper className="eachTerm" style={cardStyle} zDepth={2}>
-        <Link to={`/search?term=${term.text}`}><h3>{term.text}</h3></Link>
-        <MoreDropDown />
+        {(this.props.index < 1 && this.props.length > 1) && <TermBadge text="Top Definition" />}
+        <Link to={`/search?term=${term.text}`}><h3> {titleCase(term.text)}</h3></Link>
+        <MoreDropDown term={term}/>
         <p className="termMeta" title={'Submitted ' + moment(term.created).format("MMM Do YYYY")}> by <strong>{term.author.username}</strong> {moment(term.created).fromNow()} </p>
         <p className="termDefinition">{term.definition}</p>
-        <ul className="termsTags"> {term.tags.map((tag, i) => <li key={i}>#{tag}</li> )} </ul>
+        <ul className="termsTags"> {term.tags.map((tag, i) => <li key={i} className="hover"><Link to={`/tag?tag=${tag}`}> #{tag} </Link></li> )} </ul>
         {this.renderAlert()}
         <Engagement
           like={this.addVote}
           unlike = {this.minusVote}
           upvotes={term.upvotes} 
-          sentences={term.sentences} 
+          sentences={term.sentences}
+          expand={this.expanSentences} 
           term={term}/>
         {term.sentences.length > 0 && <Sentences sentences={term.sentences} termId={term._id} showAll={this.state.showAllSentences} expand={this.expanSentences}/>}      
         <SentenceInput term={this.props.termId} addSentence={this.addSentence} />

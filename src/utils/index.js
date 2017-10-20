@@ -24,6 +24,8 @@ export const checkPassword = (password, confirmPass) => {
     }
   });
 }
+export const titleCase = (str) => str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+export const firstUpper = (str) => str.charAt(0).toUpperCase() + str.slice(1);
 
 export const handleErr = (type, error) => {
   console.log(type, error);

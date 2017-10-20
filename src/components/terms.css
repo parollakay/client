@@ -87,7 +87,8 @@
 }
 .engamentWrapper ul li button {
   background: transparent;
-  border:none
+  border:none;
+  outline: none
 }
 .engamentWrapper ul .sentsBtn:after {
   content:'';
@@ -182,4 +183,34 @@
 
 .redColor {
   color: #ed1c24
+}
+.stBadge {
+  position: absolute;
+  top:0;
+  padding:3px 10px;
+  background-color:#fff568;
+  font-size:11px;
+  font-weight: bold;
+  color:rgba(0,0,0,.6);
+}
+
+.engLiked {
+  font-weight: 500;
+  color:rgba(0,0,0,.7);
+}
+
+.strongTitle {
+  color:rgba(0,0,0,.6);
+}
+.strongTitle strong {
+  font-family: 'Roboto Slab', serif;
+}
+.highlightText {
+  color: #0054a6;
+  display:inline-block;
+  border-bottom:2px solid red;
+  text-decoration:none
+}
+.highlightText :hover {
+  text-decoration: none !important
 }

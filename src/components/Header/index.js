@@ -12,7 +12,7 @@ const Header = (props) => {
           <Logo />
           <div className="searchWrapper col-sm-11">
               <MainNav />
-              <Search />
+              <Search history={props.history}/>
               <SignupText openAuth={props.openAuth} authenticated={props.authenticated}/>
           </div>
         </div>

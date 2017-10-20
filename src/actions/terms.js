@@ -7,6 +7,7 @@ export const TERMS_NEW = 'TERMS_NEW';
 export const TERMS_ADD_SENTENCE = 'TERMS_ADD_SENTENCE';
 export const TERMS_RM_SENTENCE = 'TEMRS_RM_SENTENCE';
 export const TERMS_ERR = 'TERMS_ERR';
+export const TERMS_NEW_PREVALUE = 'TERMS_NEW_PREVALUE';
 
 axios.defaults.headers.common['x-access-token'] = localStorage.getItem('x-access-token');
 
@@ -16,6 +17,7 @@ export const termErr = (err) => dispatch => dispatch(handleErr(TERMS_ERR, err));
 export const getTerms = () => {
   return (dispatch) => {
     axios.get(`${server}/terms/all`).then(res => {
+      if (res.data.length < 1) return dispatch(handleErr(TERMS_ERR, `There are no terms to display. Nou pa gin mo pou'n montre'w!!`))
       dispatch({
         type: TERMS_ALL,
         payload: res.data
@@ -30,6 +32,8 @@ export const searchTerm = (word) => {
   //const word = encodeURIComponent(term.trim()).toLocaleLowerCase();
   word = word.toLocaleLowerCase();
   return (dispatch) => {
+    
+
     axios.get(`${server}/terms/search?term=${word}`).then(res => {
       console.log(`Searched for ${word} and got.`, res.data);
       dispatch({
@@ -56,6 +60,15 @@ export const newTerm = (text, definition, sentences, author, tags, history) => {
       });
       history.push('/');
     }, err => dispatch(handleErr(TERMS_ERR, err.response.data.message)));
+  }
+}
+
+export const changefieldValue = (value) => {
+  return (dispatch) => {
+    dispatch({
+      type: TERMS_NEW_PREVALUE,
+      payload: value
+    });
   }
 }
 

@@ -37,7 +37,7 @@ class SentenceInput extends Component {
         <div className="termBtm" >
           <form className="newSentenceForm" onSubmit={e => this.submitForm(e)}>
             <input type="text" 
-              placeholder="Write a sentence/example..." 
+              placeholder="Use it in a sentence here..." 
               name="text" 
               onFocus={this.showSubmit}
               />

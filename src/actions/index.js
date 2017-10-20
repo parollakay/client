@@ -16,12 +16,14 @@ import {
   addSentence, 
   rmSentence,
   termErr,
+  changefieldValue,
   TERMS_ADD_SENTENCE,
   TERMS_ALL,
   TERMS_NEW,
   TERMS_RM_SENTENCE,
   TERMS_SEARCH,
-  TERMS_ERR
+  TERMS_ERR,
+  TERMS_NEW_PREVALUE
 } from './terms';
 
 import {
@@ -79,5 +81,7 @@ export {
   hideSnack,
   showSnack,
   autoAuth,
-  termErr
+  termErr,
+  changefieldValue,
+  TERMS_NEW_PREVALUE
 }

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Popover from 'material-ui/Popover';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem'
+import { Link } from 'react-router-dom';
 
 
 class MoreDropDown extends Component {
@@ -44,7 +45,9 @@ class MoreDropDown extends Component {
           onRequestClose={this.handleRequestClose}
         >
           <Menu>
-            <MenuItem primaryText="Re-define term" />
+            <MenuItem>
+              <Link to={`/newTerm?text=${this.props.term.text}`}> Re-define term</Link>
+            </MenuItem>
             <MenuItem primaryText="Report definition" />
             <MenuItem primaryText="Share" />
           </Menu>

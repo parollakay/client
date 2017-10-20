@@ -80,11 +80,13 @@
 }
 .searchWrapper .searchInput button {
   border:none;
-  background-color:transparent;
-  font-size:20px;
+  background-color:rgba(0,0,0,.05);
+  font-size:23px;
   color:rgba(0,0,0,.6);
   padding:5px 15px;
-  width:.08%
+  width: 16%;height:102%;
+  float:right;
+  text-align: center
 }
 
 .suT {
