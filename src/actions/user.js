@@ -9,6 +9,7 @@ export const USER_RESET_PASS = 'USER_RESET_PASS';
 export const USER_TERM_LIKE = 'USER_TERM_LIKE';
 export const USER_TERM_UNLIKE = 'USER_TERM_UNLIKE';
 export const USER_LOGOUT = 'USER_LOGOUT';
+export const USER_UPDATED = 'USER_UPDATED';
 export const AUTH_ERROR = 'AUTH_ERROR';
 
 
@@ -62,7 +63,14 @@ export const register = (username, password, confirmPassword, email) => {
   }
 };
 
-
+export const updateUser = (payload) => {
+  return (dispatch) => {
+    dispatch({
+      type: USER_UPDATED,
+      payload,
+    })
+  }
+}
 export const signin = (username, password) => {
   return (dispatch) => {
     axios.post(`${server}/users/auth`, { username, password}).then(res => {

@@ -184,16 +184,28 @@
 .redColor {
   color: #ed1c24
 }
-.stBadge {
+.badgesHolder {
   position: absolute;
   top:0;
+}
+.stBadge {
+  display:inline-block;
   padding:3px 10px;
-  background-color:#fff568;
   font-size:11px;
   font-weight: bold;
-  color:rgba(0,0,0,.6);
 }
-
+  .badge-danger {
+    background-color: red;
+    color: white;
+  }
+  .badge-yellow {
+    background-color: yellow;
+    color: rgba(0,0,0,.7);
+  }
+  .badge-info {
+    color: rgba(0,0,0,.7);
+    background-color: #b6c0dc;
+  }
 .engLiked {
   font-weight: 500;
   color:rgba(0,0,0,.7);
@@ -213,4 +225,9 @@
 }
 .highlightText :hover {
   text-decoration: none !important
+}
+.termdd, .termdd a, .termdd:hover, .termdd a:hover {
+  color:rgba(0,0,0,.7);
+  cursor: pointer;
+  text-decoration: none !important;
 }

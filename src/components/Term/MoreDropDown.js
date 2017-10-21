@@ -9,7 +9,9 @@ class MoreDropDown extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      opened: false
+      opened: false,
+      reportClick: 0,
+      reportText: 'Report Term'
     };
     this.handleRequestClose = this.handleRequestClose.bind(this);
     this.handleTouchTap = this.handleTouchTap.bind(this);
@@ -30,6 +32,19 @@ class MoreDropDown extends Component {
     })
   };
 
+  checkReport = () => {
+    if (this.state.reportClick < 1) {
+      this.setState({
+        reportClick: this.state.reportClick + 1,
+        reportText: 'Are You Sure?'
+      })
+    } else {
+      this.props.reportTerm();
+      this.setState({
+        reportText: 'Reported'
+      })
+    }
+  }
   render() {
     return (
       
@@ -44,11 +59,17 @@ class MoreDropDown extends Component {
           targetOrigin={{horizontal: 'left', vertical: 'top'}}
           onRequestClose={this.handleRequestClose}
         >
-          <Menu>
+          <Menu >
             <MenuItem>
-              <Link to={`/newTerm?text=${this.props.term.text}`}> Re-define term</Link>
+              <Link to={`/newTerm?text=${this.props.term.text}`} className="termdd icon-first"> 
+                <i className="glyphicon glyphicon-pencil"></i> Re-define term
+              </Link>
             </MenuItem>
-            <MenuItem primaryText="Report definition" />
+            <MenuItem onClick={this.checkReport} className="termdd">
+              <a className="icon-first">
+                <i className="glyphicon glyphicon-flag"></i> {this.state.reportText}
+              </a>
+            </MenuItem>
             <MenuItem primaryText="Share" />
           </Menu>
         </Popover>

@@ -103,6 +103,21 @@ class Term extends Component {
     });
   }
 
+  reportTerm = () => {
+    this.checkAuth().then(() => {
+      if (this.props.term.incidences.includes(this.props.user._id)) return this.setState({ termErr: 'You already snitched on this one.'});
+      const body = {
+        user: this.props.user._id
+      }
+      axios.post(`${server}/terms/${this.props.termId}/reportTerm`, body).then(res => {
+        this.setState({
+          term: res.data,
+          termErr: null
+        });
+        this.props.showSnack('Term has been reported. Thank you for snitching.')
+      }, err => err.response ? this.setState({ termErr: err.response.data.message }) : this.setState({ termErr: 'Application error, try later.'}));
+    })
+  }
   componentDidMount() {    
     const term = this.props.terms.filter(term => term._id === this.props.termId)[0];
     this.setState({
@@ -114,11 +129,14 @@ class Term extends Component {
 
   render() {
     const term = this.state.term || this.props.term;
+    console.log(term);
     return (
       <Paper className="eachTerm" style={cardStyle} zDepth={2}>
-        {(this.props.index < 1 && this.props.length > 1) && <TermBadge text="Top Definition" />}
+        <div className="badgesHolder">
+          {(this.props.index < 1 && this.props.length > 1) && <TermBadge text="Top Definition" type="highlight"/>}
+        </div>
         <Link to={`/search?term=${term.text}`}><h3> {titleCase(term.text)}</h3></Link>
-        <MoreDropDown term={term}/>
+        <MoreDropDown term={term} reportTerm={this.reportTerm}/>
         <p className="termMeta" title={'Submitted ' + moment(term.created).format("MMM Do YYYY")}> by <strong>{term.author.username}</strong> {moment(term.created).fromNow()} </p>
         <p className="termDefinition">{term.definition}</p>
         <ul className="termsTags"> {term.tags.map((tag, i) => <li key={i} className="hover"><Link to={`/tag?tag=${tag}`}> #{tag} </Link></li> )} </ul>

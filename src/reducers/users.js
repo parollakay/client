@@ -6,6 +6,7 @@ import {
   USER_RESET_PASS,
   USER_TERM_LIKE,
   USER_TERM_UNLIKE,
+  USER_UPDATED,
   AUTH_ERROR
 } from '../actions'
 
@@ -24,6 +25,8 @@ export default (user = defaultState, action) => {
       return { ...user, authenticated: false, data: {} };
     case USER_RESET_PASS:
       return { ...user, authenticated: false, data: {} };
+    case USER_UPDATED:
+      return { ...user, authenticated: true, data: action.payload };
     case USER_LOGOUT:
       return { ...user, authenticated: false, data: {} };
     case USER_TERM_LIKE:

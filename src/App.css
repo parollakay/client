@@ -163,3 +163,8 @@ body {
     -ms-transform: translateX(30px);
     transition: all 0.2s linear;
 }
+
+.icon-first i {
+    margin-right:10px;
+    display:inline-block
+}

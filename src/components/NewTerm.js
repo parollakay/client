@@ -16,8 +16,9 @@ class NewTerm extends Component {
     const sentences = [];
     if (tags) tags = tags.split(',').map(tag => cleanTag(tag));
     if (sentence) sentences.push({ text: sentence, author: this.props.user.data._id});
+    const word = cleanTag(text);
     const author = this.props.user.data._id;
-    this.props.newTerm(text, definition, sentences, author, tags, this.props.history);
+    this.props.newTerm(word, definition, sentences, author, tags, this.props.history);
   }
  
   renderAlert = () => {
@@ -30,13 +31,13 @@ class NewTerm extends Component {
       </div>
     )
   }
+
   componentDidMount() {
     let query;
-    if (this.props.location.search.length > 1) {
-      query = decodeURI(this.props.location.search.slice(6));
-    }
+    if (this.props.location.search.length > 1) { query = decodeURI(this.props.location.search.slice(6)); }
     this.props.initialize({ text: query});
   }
+  
   render() {
     const { handleSubmit } = this.props;
     return (

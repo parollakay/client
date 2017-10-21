@@ -78,7 +78,6 @@ class Search extends Component {
     this.props.history.push(`/search?term=${e.target.parolLakaySearch.value}`);
   }
   render() {
-    console.log(this.props.history)
     return (
       <div className="searchInput">
         <form onSubmit={e => this.handleSubmit(e)}>

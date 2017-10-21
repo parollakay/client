@@ -16,7 +16,6 @@ class Engagement extends Component {
   }
   
   render() {
-    console.log(this.props.user);
     return (
       <div className="engamentWrapper">
         <ul>

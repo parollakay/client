@@ -34,6 +34,7 @@ import {
   likeTerm,
   unlikeTerm,
   logout,
+  USER_UPDATED,
   USER_CREATED,
   USER_AUTHENTICATED,
   USER_FORGOT_PASS,
@@ -42,10 +43,13 @@ import {
   USER_TERM_UNLIKE,
   USER_LOGOUT,
   AUTH_ERROR,
-  autoAuth
+  autoAuth,
+  updateUser,
 } from './user';
 
 export {
+  USER_UPDATED,
+  updateUser,
   register,
   signin,
   getToken,

@@ -101,10 +101,12 @@ export const FooterText = (props) => {
   return (
     <div className="footerText">
       <p>
-        &copy; 2017 <strong>Parol Lakay</strong><br />
+        
         <Link to="/termsOfService">terms of service</Link>
         <Link to="/privacyStatement">privacy</Link>
         <Link to="/DMCA">dmca</Link>
+        <br />
+        &copy; 2017 <strong>Parol Lakay</strong>
       </p>
     </div>
   )
