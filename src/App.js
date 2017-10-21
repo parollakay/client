@@ -30,7 +30,7 @@ class App extends Component {
       <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
         <div className="App">
           <Header openAuth={this.props.openDialog} authenticated={this.props.authenticated} history={this.props.history}/>
-          <Routes authenticated={this.props.authenticated} />
+          <Routes authenticated={this.props.authenticated} openAuth={this.props.openDialog} />
           <AuthDialog />
           <Snackbar
             open={this.props.auth.snack}

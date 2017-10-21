@@ -3,6 +3,8 @@ import './terms.css'
 import Term from './Term/index'
 
 const Terms = (props) => {
+  if (props.terms.length < 1) return <h2>Loading...</h2>;
+  
   return (
     <div>
       {props.terms.map((term, i) => {

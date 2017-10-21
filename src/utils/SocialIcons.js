@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { logout, openDialog } from '../actions'
+import { Link } from 'react-router-dom';
 
 class SocialIcons extends Component {r
   constructor(props) {
@@ -32,9 +33,9 @@ class SocialIcons extends Component {r
         <a href="http://instagram.com/parollakay" target="_blank" rel="noopener noreferrer"><i className="fa fa-instagram"></i></a>
         <a href="http://facebook.com/parollakay" target="_blank" rel="noopener noreferrer"><i className="fa fa-facebook"></i></a>
         <a href="http://twitter.com/parollakay" target="_blank" rel="noopener noreferrer"><i className="fa fa-twitter"></i></a>
-        {this.props.user.authenticated && <a onClick={this.clickHandle} className="hover" title="Log Out">
-            <i className="fa fa-user"></i> &nbsp; &nbsp;{this.state.text ? this.state.text : this.props.user.data.username}
-        </a>}
+        {this.props.user.authenticated && <Link to="/myAccount" className="hover" title="My Account">
+            <i className="fa fa-user"></i> &nbsp; &nbsp;{this.props.user.data.username}
+        </Link>}
         {!this.props.user.authenticated && <a className="hover" onClick={this.props.openDialog}> Log in</a>}
       </div>
     )
