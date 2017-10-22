@@ -1,6 +1,6 @@
 import { handleErr, server } from '../utils';
 import axios from 'axios';
-import { SNACK_OPEN } from './';
+import { SNACK_OPEN, USER_UPDATED } from './';
 export const TERMS_ALL = 'TERMS_ALL';
 export const TERMS_SEARCH = 'TERMS_SEARCH';
 export const TERMS_NEW = 'TERMS_NEW';
@@ -52,14 +52,18 @@ export const newTerm = (text, definition, sentences, author, tags, history) => {
       axios.post(`${server}/terms/newTerm`, { text, definition, sentences, author, tags}).then(res => {
       dispatch({
         type: TERMS_NEW,
-        payload: res.data
+        payload: res.data.defined
       });
       dispatch({
         type: SNACK_OPEN,
         payload: `Congrats: Your new term has been added!`
       });
+      dispatch({
+        type: USER_UPDATED,
+        payload: res.data.user
+      });
       history.push('/');
-    }, err => dispatch(handleErr(TERMS_ERR, err.response.data.message)));
+    }, err => err.response ? dispatch(handleErr(TERMS_ERR, err.response.data.message)) : dispatch(handleErr(TERMS_ERR, 'Server error saving this new term.')));
   }
 }
 

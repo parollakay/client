@@ -8,7 +8,7 @@ const AccountHeader = props => {
       <div className="col-md-6">
         <h2>{user.username}</h2>
         <p className="atEmail">
-          {user.achievements.length > 0 && <span>{user.achievements[user.achievements.length - 1].name} · </span>}
+          {user.achievements.length > 0 && <span><i className="ion-ribbon-b"></i> {user.achievements[user.achievements.length - 1].name}  · </span>}
           {user.email}
         </p>
         <small>Member since {moment(user.created).format('MMMM Do, YYYY')} </small>
@@ -19,7 +19,7 @@ const AccountHeader = props => {
             Change Password
           </a>
           &nbsp;&nbsp;·&nbsp;&nbsp; 
-          <a className="icon-first">
+          <a className="icon-first" onClick={props.logout}>
             <i className="glyphicon glyphicon-log-out"></i>
             Log Out
           </a>

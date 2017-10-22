@@ -3,6 +3,10 @@ import {
   DIALOG_OPEN,
   SNACK_CLOSE,
   SNACK_OPEN,
+  BADGE_DIALOG_CLOSE,
+  BADGE_DIALOG_OPEN,
+  showBadgeModal,
+  hideBadgeModal,
   openDialog,
   closeDialog,
   showSnack,
@@ -87,5 +91,9 @@ export {
   autoAuth,
   termErr,
   changefieldValue,
-  TERMS_NEW_PREVALUE
+  TERMS_NEW_PREVALUE,
+  BADGE_DIALOG_CLOSE,
+  BADGE_DIALOG_OPEN,
+  showBadgeModal,
+  hideBadgeModal,
 }

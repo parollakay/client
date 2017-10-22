@@ -6,6 +6,7 @@ import moment from 'moment';
 import AccountHeader from './Top';
 import ChangePassword from './ChangePassword';
 import './user.css';
+import { logout } from '../../actions';
 
 class Account extends Component {
   constructor(props) {
@@ -13,6 +14,11 @@ class Account extends Component {
     this.state = {
       passwordOpen: false
     }
+  }
+
+  clickLogout = () => {
+    this.props.logout();
+    this.props.history.push('/');
   }
 
   showpwForm = () => {
@@ -39,12 +45,13 @@ class Account extends Component {
 
   render() {
     const { user } = this.props;
+    console.log(user);
     return (
       <div>
         {this.renderLogin()}
         {this.props.authenticated && 
           <div className="userAccountPage">
-            <AccountHeader user={user} showPw={this.showpwForm} hidePw={this.hidepwForm} />
+            <AccountHeader user={user} showPw={this.showpwForm} hidePw={this.hidepwForm} logout={this.clickLogout}/>
             <ChangePassword user={user} hidePw={this.hidepwForm} />
             <div className="row tabGroupBottom">
             </div>
@@ -65,7 +72,7 @@ const mapStateToProps = state => {
 }
 
 const mapDispatch = dispatch => {
-  const boundActionCreators = bindActionCreators({}, dispatch);
+  const boundActionCreators = bindActionCreators({ logout }, dispatch);
   const allActionCreators = { ...boundActionCreators, dispatch };
   return allActionCreators;
 }

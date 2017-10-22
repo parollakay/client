@@ -2,6 +2,8 @@ export const DIALOG_CLOSE = 'DIALOG_CLOSE';
 export const DIALOG_OPEN = 'DIALOG_OPEN';
 export const SNACK_OPEN = 'SNACK_OPEN';
 export const SNACK_CLOSE ='SNACK_CLOSE';
+export const BADGE_DIALOG_OPEN = 'BADGE_DIALOG_OPEN';
+export const BADGE_DIALOG_CLOSE = 'BADGE_DIALOG_CLOSE';
 
 
 export const openDialog = () => {
@@ -29,3 +31,15 @@ export const hideSnack = () => {
   }
 }
 
+export const showBadgeModal = (badge) => {
+  return {
+    type: BADGE_DIALOG_OPEN,
+    payload: badge
+  }
+}
+
+export const hideBadgeModal = () => {
+  return {
+    type: BADGE_DIALOG_CLOSE
+  }
+}

@@ -129,7 +129,6 @@ class Term extends Component {
 
   render() {
     const term = this.state.term || this.props.term;
-    console.log(term);
     return (
       <Paper className="eachTerm" style={cardStyle} zDepth={2}>
         <div className="badgesHolder">
@@ -137,7 +136,11 @@ class Term extends Component {
         </div>
         <Link to={`/search?term=${term.text}`}><h3> {titleCase(term.text)}</h3></Link>
         <MoreDropDown term={term} reportTerm={this.reportTerm}/>
-        <p className="termMeta" title={'Submitted ' + moment(term.created).format("MMM Do YYYY")}> by <strong>{term.author.username}</strong> {moment(term.created).fromNow()} </p>
+        <p className="termMeta" title={'Submitted ' + moment(term.created).format("MMM Do YYYY")}>
+          by <strong>{term.author.username} · </strong> 
+          {term.author.achievements.length > 0 && <span><i className="ion-ribbon-b"></i> {term.author.achievements[term.author.achievements.length - 1].name}  · </span>}
+          {moment(term.created).fromNow()}
+        </p>
         <p className="termDefinition">{term.definition}</p>
         <ul className="termsTags"> {term.tags.map((tag, i) => <li key={i} className="hover"><Link to={`/tag?tag=${tag}`}> #{tag} </Link></li> )} </ul>
         {this.renderAlert()}

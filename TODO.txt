@@ -1,0 +1,6 @@
+1. Term submission:
+  a. Check if new achievement
+    i. Show popup if new achievement.
+  b. 
+2. User Account Page:
+  

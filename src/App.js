@@ -7,7 +7,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import { withRouter } from 'react-router-dom'
 import Header from './components/Header'
 import { AuthDialog } from './utils';
-
+import BadgeDialog from './components/User/BadgeDialog';
 import { connect } from 'react-redux';
 import { openDialog, hideSnack, autoAuth, getTerms } from './actions';
 import Snackbar from 'material-ui/Snackbar';
@@ -32,6 +32,7 @@ class App extends Component {
           <Header openAuth={this.props.openDialog} authenticated={this.props.authenticated} history={this.props.history}/>
           <Routes authenticated={this.props.authenticated} openAuth={this.props.openDialog} />
           <AuthDialog />
+          <BadgeDialog />
           <Snackbar
             open={this.props.auth.snack}
             message={this.props.auth.snackMessage}
