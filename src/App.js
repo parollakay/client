@@ -33,11 +33,7 @@ class App extends Component {
           <Routes authenticated={this.props.authenticated} openAuth={this.props.openDialog} />
           <AuthDialog />
           <BadgeDialog />
-          <Snackbar
-            open={this.props.auth.snack}
-            message={this.props.auth.snackMessage}
-            autoHideDuration={4000}
-            onRequestClose={this.closeSnack} />
+          <Snackbar open={this.props.auth.snack} message={this.props.auth.snackMessage} autoHideDuration={4000} onRequestClose={this.closeSnack} />
         </div>
       </MuiThemeProvider>
     );
