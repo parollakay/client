@@ -19,6 +19,9 @@
   color: rgba(0,0,0,.7);
   cursor: pointer
 }
+.actTopRightContainer:first-child {
+  
+}
 .actTopRightContainer:nth-child(2) {
   border-right: 1px solid rgba(0,0,0,.3);
   border-left: 1px solid rgba(0,0,0,.3);
@@ -26,4 +29,42 @@
 .changePwPaper {
   padding:15px;
   border-radius: 5px !important;
+  position:relative
+}
+.closePw {
+  position: absolute;
+  right:0;top:0;
+  padding:3px 15px 5px;
+  background-color:transparent;
+  border:none;
+  outline:none;
+  font-size: 20px;
+  color:rgba(0,0,0,.6);
+  font-weight:200;
+  border-radius: 5px;
+  z-index: 2000
+}
+.closePw:hover {
+  color:rgba(0,0,0,.9);
+}
+.badgeDialog {
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#004588+0,1981d6+50,2989d8+50,ef6b6b+51,a70c10+52,8f0a0d+100 */
+  background: #004588; /* Old browsers */
+  background: -moz-linear-gradient(top,  #004588 0%, #1981d6 50%, #2989d8 50%, #ef6b6b 51%, #a70c10 52%, #8f0a0d 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top,  #004588 0%,#1981d6 50%,#2989d8 50%,#ef6b6b 51%,#a70c10 52%,#8f0a0d 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom,  #004588 0%,#1981d6 50%,#2989d8 50%,#ef6b6b 51%,#a70c10 52%,#8f0a0d 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#004588', endColorstr='#8f0a0d',GradientType=0 ); /* IE6-9 */
+}
+.bdContent {
+  width:75%;
+  margin:5% auto;
+  background-color:white; 
+}
+.changePwPaper h4 {
+  font-family: 'Roboto Slab', serif;
+  font-weight: bold;
+  color: rgba(0,0,0,.67);
+}
+.changePwPaper .text-danger {
+  padding: 0 15px;
 }

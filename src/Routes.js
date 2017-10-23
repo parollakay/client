@@ -19,7 +19,7 @@ const Routes = props => {
       <Route path="/search" component={ QueryTerm } />
       <Route path="/tag" component={ TagTerms } />
 
-      <Route path="/myAccount" render={PageShell(() => <AccountPage openAuth={props.openAuth} />)} />
+      <Route path="/myAccount" render={PageShell(() => <AccountPage openAuth={props.openAuth} history={props.history} />)} />
       
       <Route path="/resetPw" component={ PageShell(ResetPw) } />
       <Route path="/reset/:token" component={ PageShell(NewPw) } />

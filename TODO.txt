@@ -1,6 +1,32 @@
 1. Term submission:
   a. Check if new achievement
-    i. Show popup if new achievement.
-  b. 
+    i.    Show popup if new achievement.
+    ii.   Have really nice design for achievement popup
+  b. Create function to clear out Term error, add a dismiss btn to do it.
+  c. Check if term already exists... return that term. => Algolia?
+  d. Term.text -> Remove symbols
 2. User Account Page:
+  a. Make Change pw replace top information.
+  b. Make change pw work.
+  c. Add activity down below.
+  d. Add a way for them to invite their friends.
+  e. Add a way (popup,page) for them to see all their achievements
+3. Term Component:
+  a. Make sharing work
+    i.    Add Open Graph to each term.
+  b. Make sure that reported terms show that tag up above.
+    i.    Completely hide terms that have 25% report to activity.
+    ii.   In back-end, prior to save, make a hook that calculates that once.
+4. Add Ads from Google.
+5. Work out things w/ Amazon Store
+6. Add Analytics
+  a. Google Analytics
+  b. Heap Analytics
+7. Pixels
+  a. Google Pixels
+  b. Facebook Pixels
+8. Fix for Mobile viewing/interaction
+9. Browse by letter, look better
+10.Contact Page
+11.Infinite Scroll/Pagination ?
   

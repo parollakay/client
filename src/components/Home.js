@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { getTerms } from '../actions';
 import { bindActionCreators } from 'redux';
 import MainSideBar from './Sidebar/MainSideBar';
+import TermErr from './Term/TermErr';
 
 class Home extends Component {
   componentDidMount() {
@@ -12,14 +13,9 @@ class Home extends Component {
 
   renderAlert = () => {
     if(!this.props.error) return null;
-    return (
-      <div className="alert alert-danger">
-        <span className="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>&nbsp;&nbsp;
-        <span className="sr-only">Error:</span>
-        {this.props.error}
-      </div>
-    )
-  } 
+    return <TermErr err={this.props.error} />
+  }
+  
   render() {
     return (
       <div className="row">
@@ -35,8 +31,6 @@ class Home extends Component {
   }
 }
 
-
-
 const mapStateToProps = (state) => {
   return {
     terms: state.terms,
@@ -49,6 +43,5 @@ const mapDispatch = (dispatch) => {
   const allActionCreators = { ...boundActionCreators, dispatch };
   return allActionCreators;
 }
-
 
 export default connect(mapStateToProps, mapDispatch)(Home);

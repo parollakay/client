@@ -5,11 +5,15 @@ const ChangePassword = props => {
 
   return (
     <Paper className="changePwPaper" zDepth={2}>
+      <button className="closePw hover" onClick={props.hidePw}>
+        &times;
+      </button>
       <div className="row passwordMiddle">
         <div className="col-md-12">
-          <h4>Change Password</h4>
+          <h4>Change Your Password</h4>
         </div>
-        <form>
+        {props.error && <p className="text-danger hover" onClick={props.cancelErr}> <i className="glyphicon glyphicon-exclamation-sign"></i> {props.error} </p>}
+        <form onSubmit={e => props.action(e)}>
           <div className="col-md-3">
             <div className="form-group">
               <input className="form-control" placeholder="Current Password" name="currentPw" type="password" />
@@ -17,12 +21,12 @@ const ChangePassword = props => {
           </div>
           <div className="col-md-3">
             <div className="form-group">
-              <input className="form-control" placeholder="New Password" name="currentPw" type="password" />
+              <input className="form-control" placeholder="New Password" name="password" type="password" />
             </div>
           </div>
           <div className="col-md-3">
             <div className="form-group">
-              <input className="form-control" placeholder="Confirm" name="currentPw" type="password" />
+              <input className="form-control" placeholder="Confirm" name="confirmPass" type="password" />
             </div>
           </div>
           <div className="col-md-3">

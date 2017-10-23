@@ -4,6 +4,7 @@ import Terms from './Terms';
 import axios from 'axios';
 import { server, titleCase } from '../utils';
 import { Link } from 'react-router-dom';
+import TermErr from './Term/TermErr';
 
 class QueryTerm extends Component {
   constructor(props) {
@@ -35,14 +36,8 @@ class QueryTerm extends Component {
 
   renderAlert = () => {
     if(!this.state.error) return null;
-    return (
-      <div className="alert alert-danger">
-        <span className="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>&nbsp;&nbsp;
-        <span className="sr-only">Error:</span>
-        {this.state.error}
-      </div>
-    )
-  } 
+    return <TermErr err={this.state.error} />
+  }
   render() {
     const search = decodeURI(this.props.location.search.slice(6));
     return (

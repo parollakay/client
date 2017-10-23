@@ -66,10 +66,12 @@ class Term extends Component {
     })
   }
 
+  clearErr = () => this.setState({ termErr: null });
+
   renderAlert = () => {
     if(!this.state.termErr) return null;
     return (
-      <div className="text-danger">
+      <div className="text-danger hover" onClick={this.clearErr}>
         <span className="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>&nbsp;&nbsp;
         <span className="sr-only">Error:</span>
         {this.state.termErr}

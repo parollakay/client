@@ -21,13 +21,15 @@ import {
   rmSentence,
   termErr,
   changefieldValue,
+  clearTermErr,
   TERMS_ADD_SENTENCE,
   TERMS_ALL,
   TERMS_NEW,
   TERMS_RM_SENTENCE,
   TERMS_SEARCH,
   TERMS_ERR,
-  TERMS_NEW_PREVALUE
+  TERMS_NEW_PREVALUE,
+  TERMS_ERR_CLEAR
 } from './terms';
 
 import {
@@ -96,4 +98,6 @@ export {
   BADGE_DIALOG_OPEN,
   showBadgeModal,
   hideBadgeModal,
+  TERMS_ERR_CLEAR,
+  clearTermErr
 }

@@ -24,7 +24,7 @@ class Engagement extends Component {
           </li>
           <li className="sentsBtn hover" onClick={this.props.expand}>
             <button >
-              <i className="ion-ios-chatboxes-outline"></i>
+              <i className="fa fa-quote-right"></i>
             </button>
             {this.props.sentences.length} Sentence{this.props.sentences.length > 1 && `s`}
           </li>

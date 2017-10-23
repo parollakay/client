@@ -4,32 +4,38 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import { newTerm, termErr, changefieldValue } from '../actions';
+import TermErr from './Term/TermErr';
+import { server, titleCase } from '../utils';
+import axios from 'axios';
 
 class NewTerm extends Component {
-  processNewTerm({ text, definition, sentence, tags}) {
-    const cleanTag = (tag) => {
-      if (tag.charAt(0) === ' ') tag = tag.slice(1);
-      if (tag.charAt(tag.length - 1) === ' ') tag.slice(0, tag.length - 1);
-      return tag.toLowerCase();
+  constructor(props) {
+    super(props);
+    this.state = {
+      terms: []
     }
+  }
+
+  cleanPhrase = phrase => {
+    if (phrase.charAt(0) === ' ') phrase = phrase.slice(1);
+    if (phrase.charAt(phrase.length - 1) === ' ') phrase.slice(0, phrase.length - 1);
+    return phrase.toLowerCase();
+  }
+
+  processNewTerm({ text, definition, sentence, tags}) {
     if(!this.props.user.authenticated) return this.props.termErr('You must be logged in to create a definition.');
     const sentences = [];
-    if (tags) tags = tags.split(',').map(tag => cleanTag(tag));
+    if (tags) tags = tags.split(',').map(tag => this.cleanPhrase(tag));
     if (sentence) sentences.push({ text: sentence, author: this.props.user.data._id});
-    const word = cleanTag(text);
+    const word = this.cleanPhrase(text);
     const author = this.props.user.data._id;
-    this.props.newTerm(word, definition, sentences, author, tags, this.props.history);
+    const badges = this.props.user.data.achievements;
+    this.props.newTerm(word, definition, sentences, author, tags, badges, this.props.history);
   }
  
   renderAlert = () => {
     if(!this.props.error) return null;
-    return (
-      <div className="alert alert-danger">
-        <span className="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>&nbsp;&nbsp;
-        <span className="sr-only">Error:</span>
-        {this.props.error}
-      </div>
-    )
+    return <TermErr err={this.props.error} />
   }
 
   componentDidMount() {
@@ -38,6 +44,15 @@ class NewTerm extends Component {
     this.props.initialize({ text: query});
   }
   
+  HandleWordBlur = (e) => {
+    console.log('You are no longer in the text title field', this.cleanPhrase(e.target.value));
+    axios.get(`${server}/terms/search?term=${this.cleanPhrase(e.target.value)}`).then(res => {
+      this.setState({
+        terms: res.data
+      })
+    }, e => this.setState({ terms: [] }));
+  }
+
   render() {
     const { handleSubmit } = this.props;
     return (
@@ -51,8 +66,21 @@ class NewTerm extends Component {
         <form onSubmit={handleSubmit(this.processNewTerm.bind(this))}>
           <div className="form-group">
             <label>Word or Term *</label>
-            <Field component="input" type="text" placeholder="Word" name="text" className="form-control"/>
+            <Field component="input" type="text" placeholder="Word" name="text" className="form-control" onBlur={e => this.HandleWordBlur(e)}/>
           </div>
+          {
+            this.state.terms.length > 0 && 
+            <ul className="autoCompletedTerms">
+              <li><b>{this.state.terms.length}</b> Current definition{this.state.terms.length > 1 && 's'} for this term.</li>
+              {this.state.terms.map((term, i) => {
+                return (
+                  <li key={`returned${i}`}>
+                    <strong>{titleCase(term.text)}</strong> <span>{term.definition}</span>
+                  </li>
+                )
+              })}
+            </ul>
+          }
           <br />
           <p className="description">
             <strong>Write for a large audience.</strong> Lots of people will read this, so give some background information.

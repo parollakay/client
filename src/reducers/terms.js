@@ -3,7 +3,8 @@ import {
   TERMS_ALL,
   TERMS_SEARCH,
   TERMS_ERR,
-  TERMS_NEW_PREVALUE
+  TERMS_NEW_PREVALUE,
+  TERMS_ERR_CLEAR
 } from '../actions';
 
 const defaultState = {
@@ -22,6 +23,8 @@ export default (terms = defaultState, action) => {
       return { ...terms, prevalue: action.payload }
     case TERMS_ERR:
       return { ...terms,  error: action.payload };
+    case TERMS_ERR_CLEAR:
+      return { ...terms, error: null };
     default:
       return terms;
   }

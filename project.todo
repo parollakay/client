@@ -1,0 +1,31 @@
+Term:
+  ✔ Check if new achievement @done (10/22/2017, 5:38:22 PM)
+  ✔ have really nice design for achievement popup @done (10/22/2017, 5:38:25 PM)
+  ✔ Create Function to clear out Terms error, and dismiss btn to do it @done (10/22/2017, 5:55:58 PM)
+  ✔ Check if term already exists... return that term. => Algolia? @done (10/22/2017, 6:29:34 PM)
+  ☐ Term.text -> Remove symbols
+User Account:
+  ✔ Make Change pw replace top information. @done (10/22/2017, 11:41:33 PM)
+  ✔ Make change pw work. @done (10/22/2017, 11:38:06 PM)
+  ☐ Add activity down below.
+  ☐ Add a way for them to invite their friends.
+  ☐ Add a way (popup,page) for them to see all their achievements
+Term Component:
+  ☐ Make sharing work -> Add open graph to each term
+  ☐ Make sure that reported terms show that tag up above.
+      ☐ Completely hide terms that have 25% bad reported
+      ☐ In back-end, prior to save, make a hook that calculates that once.
+☐ Add Ads from Google
+☐ Work out things w/ Amazon Store
+Analytics:
+  ☐ Google Analytics
+  ☐ Heap Analytics
+Pixels:
+  ☐ Facebook Pixel
+  ☐ Google Pixel
+☐ Mobile Viewing
+☐ Browse By Letter
+☐ Contact page
+☐ Infinite Scroll
+Achievements:
+  ☐ Add running count of top achievers

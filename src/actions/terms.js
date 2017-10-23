@@ -1,6 +1,6 @@
 import { handleErr, server } from '../utils';
 import axios from 'axios';
-import { SNACK_OPEN, USER_UPDATED } from './';
+import { SNACK_OPEN, USER_UPDATED, BADGE_DIALOG_OPEN } from './';
 export const TERMS_ALL = 'TERMS_ALL';
 export const TERMS_SEARCH = 'TERMS_SEARCH';
 export const TERMS_NEW = 'TERMS_NEW';
@@ -8,11 +8,13 @@ export const TERMS_ADD_SENTENCE = 'TERMS_ADD_SENTENCE';
 export const TERMS_RM_SENTENCE = 'TEMRS_RM_SENTENCE';
 export const TERMS_ERR = 'TERMS_ERR';
 export const TERMS_NEW_PREVALUE = 'TERMS_NEW_PREVALUE';
+export const TERMS_ERR_CLEAR = 'TERMS_ERR_CLEAR';
 
 axios.defaults.headers.common['x-access-token'] = localStorage.getItem('x-access-token');
 
 
 export const termErr = (err) => dispatch => dispatch(handleErr(TERMS_ERR, err));
+export const clearTermErr = () => dispatch => dispatch({ type: TERMS_ERR_CLEAR });
 
 export const getTerms = () => {
   return (dispatch) => {
@@ -32,8 +34,6 @@ export const searchTerm = (word) => {
   //const word = encodeURIComponent(term.trim()).toLocaleLowerCase();
   word = word.toLocaleLowerCase();
   return (dispatch) => {
-    
-
     axios.get(`${server}/terms/search?term=${word}`).then(res => {
       console.log(`Searched for ${word} and got.`, res.data);
       dispatch({
@@ -44,12 +44,13 @@ export const searchTerm = (word) => {
   }
 }
 
-export const newTerm = (text, definition, sentences, author, tags, history) => {
+export const newTerm = (text, definition, sentences, author, tags, badges, history) => {
   const authorized = localStorage.getItem('x-access-token');
   return (dispatch) => {
     if(!authorized) return dispatch(handleErr(TERMS_ERR, 'You must be authorized in order to add a term to the website.'));
     if(!text || !definition) return dispatch(handleErr(TERMS_ERR, `You must fill out at least the term and the definition.`));
-      axios.post(`${server}/terms/newTerm`, { text, definition, sentences, author, tags}).then(res => {
+    console.log(authorized);
+    axios.post(`${server}/terms/newTerm?token=${authorized}`, { text, definition, sentences, author, tags}).then(res => {
       dispatch({
         type: TERMS_NEW,
         payload: res.data.defined
@@ -63,6 +64,13 @@ export const newTerm = (text, definition, sentences, author, tags, history) => {
         payload: res.data.user
       });
       history.push('/');
+      console.log(badges, res.data.user.achievements);
+      if (badges.length < res.data.user.achievements.length) {
+        dispatch({
+          type: BADGE_DIALOG_OPEN,
+          payload: res.data.user.achievements[res.data.user.achievements.length - 1]
+        });
+      }
     }, err => err.response ? dispatch(handleErr(TERMS_ERR, err.response.data.message)) : dispatch(handleErr(TERMS_ERR, 'Server error saving this new term.')));
   }
 }

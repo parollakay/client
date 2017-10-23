@@ -14,7 +14,7 @@ const AccountHeader = props => {
         <small>Member since {moment(user.created).format('MMMM Do, YYYY')} </small>
         <br />
         <div className="topActions">
-          <a className="icon-first">
+          <a className="icon-first hover" onClick={props.showPw}>
             <i className="glyphicon glyphicon-lock"></i>
             Change Password
           </a>

@@ -231,3 +231,20 @@
   cursor: pointer;
   text-decoration: none !important;
 }
+.autoCompletedTerms {
+  list-style: none;
+  margin:0;
+  padding:0;
+}
+.autoCompletedTerms li {
+  color:#0072bc;
+}
+.autoCompletedTerms li strong {
+  font-weight:500
+}
+.autoCompletedTerms li b {
+  font-weight: 500
+}
+.autoCompletedTerms li strong:after {
+  content: ':';
+}
