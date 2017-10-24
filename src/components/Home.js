@@ -9,6 +9,7 @@ import TermErr from './Term/TermErr';
 class Home extends Component {
   componentDidMount() {
     this.props.getTerms();
+    document.title = "Parol Lakay - Home"
   }
 
   renderAlert = () => {
@@ -24,7 +25,7 @@ class Home extends Component {
           <Terms terms={this.props.terms.data} />
         </div>
         <div className="col-md-4">
-          <MainSideBar />
+          <MainSideBar history={this.props.history}/>
         </div>
       </div>
     )

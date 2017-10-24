@@ -21,6 +21,9 @@ class ResetPw extends Component {
     )
   } 
 
+  componentDidMount() {
+    window.title = "Reset Password - Parol Lakay"
+  }
   render() {
     const { handleSubmit } = this.props;
     console.log(this.props, this.props.history);

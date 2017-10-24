@@ -8,7 +8,7 @@ import './user.css';
 import { logout, updateUser, showSnack } from '../../actions';
 import { checkPassword, server } from '../../utils';
 import axios from 'axios';
-
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 class Account extends Component {
   constructor(props) {
@@ -75,9 +75,11 @@ class Account extends Component {
   
 
  componentDidMount() {
+    document.title = "My Account";
     const token = localStorage.getItem('x-access-token');
     const userId = localStorage.getItem('x-user-id');
     axios.get(`${server}/users/${userId}/populatedUser?token=${token}`).then(res => {
+      document.title = `${res.data.username} Account - Parol Lakay`;
       this.setState({ terms: res.data.terms, likes: res.data.upvotes });
       axios.get(`${server}/utils/achievements`).then(response => {
         for (let i = 0; i < res.data.achievements.length; i++) {
@@ -98,8 +100,26 @@ class Account extends Component {
         {this.renderLogin()}
         {this.props.authenticated && 
           <div className="userAccountPage">
-            {!this.state.passwordOpen && <AccountHeader user={user} showPw={this.showpwForm} hidePw={this.hidepwForm} logout={this.clickLogout}/>}
-            {this.state.passwordOpen && <ChangePassword hidePw={this.hidepwForm} action={this.changePassword} error={this.state.passwordErr} cancelErr={this.dismissPassErr} />}
+            {!this.state.passwordOpen && 
+              <ReactCSSTransitionGroup
+                transitionAppear={true}
+                transitionAppearTimeout={400}
+                transitionEnterTimeout={400}
+                transitionLeaveTimeout={150}
+                transitionName={this.state.passwordOpen ? 'SlideOut' : 'SlideIn'} >
+                <AccountHeader user={user} showPw={this.showpwForm} hidePw={this.hidepwForm} logout={this.clickLogout}/>
+              </ReactCSSTransitionGroup>
+            }
+            {this.state.passwordOpen && 
+              <ReactCSSTransitionGroup
+                transitionAppear={true}
+                transitionAppearTimeout={400}
+                transitionEnterTimeout={400}
+                transitionLeaveTimeout={150}
+                transitionName={!this.state.passwordOpen ? 'SlideOut' : 'SlideIn'} >
+                <ChangePassword hidePw={this.hidepwForm} action={this.changePassword} error={this.state.passwordErr} cancelErr={this.dismissPassErr} />
+              </ReactCSSTransitionGroup>
+            }
             <AccountData terms={this.state.terms} achievements={this.state.achievements} myAchievements={this.props.user.achievements}/>
           </div>
         }

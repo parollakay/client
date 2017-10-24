@@ -42,6 +42,7 @@ class NewTerm extends Component {
     let query;
     if (this.props.location.search.length > 1) { query = decodeURI(this.props.location.search.slice(6)); }
     this.props.initialize({ text: query});
+    window.title = "Add a term - Parol Lakay"
   }
   
   HandleWordBlur = (e) => {

@@ -6,6 +6,7 @@ import { server, titleCase } from '../utils';
 import { Link } from 'react-router-dom';
 import TermErr from './Term/TermErr';
 
+
 class QueryTerm extends Component {
   constructor(props) {
     super(props);
@@ -14,6 +15,12 @@ class QueryTerm extends Component {
     }
   }
 
+  simple = (props) => {
+    let search = ''
+    const hash = props.location.search;
+    if (hash.slice(1,5) === 'term') return decodeURI(hash.slice(6));
+    return decodeURI(hash.slice(8));
+  }
   getTerms = (search) => {
     axios.get(`${server}/terms/search${search}`).then(res => {
       this.setState({
@@ -28,10 +35,12 @@ class QueryTerm extends Component {
   componentWillReceiveProps(nextProps) {
     const { search } = nextProps.location;
     this.getTerms(search);
+    document.title = `Search: ${titleCase(this.simple(nextProps))} - Parol Lakay`
   }
   componentDidMount() {
     const { search } = this.props.location;
     this.getTerms(search);
+    document.title = `Search: ${titleCase(this.simple(this.props))} - Parol Lakay`
   }
 
   renderAlert = () => {
@@ -39,13 +48,7 @@ class QueryTerm extends Component {
     return <TermErr err={this.state.error} />
   }
   render() {
-    let search = ''
-    const hash = this.props.location.search;
-    if (hash.slice(1,5) === 'term') {
-      search = decodeURI(hash.slice(6))
-    } else {
-      search = decodeURI(hash.slice(8))
-    }
+    let search = this.simple(this.props);
     return (
       <div className="row">
         <div className="col-md-12">
@@ -69,7 +72,7 @@ class QueryTerm extends Component {
           }
         </div>
         <div className="col-md-4">
-          <MainSideBar />
+          <MainSideBar history={this.props.history}/>
         </div>
       </div>
     )

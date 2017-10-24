@@ -22,6 +22,9 @@ class NewPw extends Component {
     )
   } 
 
+  componentDidMount() {
+    window.title = "Change Password - Parol Lakay";
+  }
   render() {
     const { handleSubmit } = this.props;
     return (

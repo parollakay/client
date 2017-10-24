@@ -30,6 +30,7 @@ class TagTerms extends Component {
   componentDidMount() {
     const { search } = this.props.location;
     this.getTerms(search);
+    document.title = `Tag: #${titleCase(decodeURI(search.slice(5)))} - Parol Lakay`
   }
 
   renderAlert = () => {
@@ -49,7 +50,7 @@ class TagTerms extends Component {
           {this.state.terms.length > 0 ? <Terms terms={this.state.terms} length={this.state.terms.length} /> : <h4>There are no results for that tag</h4>}
         </div>
         <div className="col-md-4">
-          <MainSideBar />
+          <MainSideBar history={this.props.history}/>
         </div>
       </div>
     )

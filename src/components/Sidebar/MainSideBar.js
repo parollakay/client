@@ -11,7 +11,7 @@ const MainSideBar = props => {
         <SocialIcons />
       </div>
       <WeeklyWord />
-      <FacebookPagePlugin />
+      <FacebookPagePlugin history={props.history}/>
       <FooterText />
     </div>
   )
