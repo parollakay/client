@@ -37,14 +37,26 @@
 .logoWrapper a .logoText img {
   width:100%
 }
-.searchWrapper {}
 .browseMenu {
   width:300px;
-  padding:15px 0 0 0;
+  padding:15px;
   overflow: hidden;
 }
-.browseMenu .mItem {
+.browseMenu a {
   display: inline-block;
+  border-radius: 45%;
+  padding:3px 7px;
+  background-color: rgba(0,0,0,.04);
+  border: 1px solid rgba(0,0,0,.05);
+  color: rgba(0,0,0,.75);
+  margin: 0 7px 7px 0;
+  height:26px;width:26px;
+  text-align: center;
+}
+.browseMenu a:hover {
+  text-decoration: none;
+  color: white;
+  background-color: rgba(0,0,0,.75);
 }
 .searchWrapper .mainNav {
   padding:10px 0;

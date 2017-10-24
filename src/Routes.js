@@ -1,6 +1,5 @@
 import React from 'react';
 import { withRouter, Route } from 'react-router-dom';
-import AuthHOC from './AuthHOC';
 import Home from './components/Home';
 import QueryTerm from './components/QueryTerm';
 import NewTerm from './components/NewTerm';

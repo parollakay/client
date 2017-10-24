@@ -248,3 +248,44 @@
 .autoCompletedTerms li strong:after {
   content: ':';
 }
+.sharingContainer {}
+.sharingContainer ul {
+  padding:5px 0 !important;
+  border-top: 1px solid rgba(0,0,0,.09);
+  margin:0;
+}
+.sharingContainer ul li {
+  display: inline-block;
+  margin-right:10px;
+}
+.sharingContainer ul li span {
+  display: block;
+  border-radius: 4px;
+  font-size:13px;
+  outline: none;
+  padding:2px 5px;
+  
+}
+.sharingContainer ul li span b {
+  font-weight: 500 !important;
+  margin-left:5px
+}
+.sharingContainer ul li span:hover {
+  opacity: .8;
+}
+.sharingContainer ul li span.sFB {
+  background-color: #3b5998;
+  color: white;
+}
+.sharingContainer ul li span.sTw {
+  background-color: #1DA1F2;
+  color: white
+}
+.sharingContainer ul li span.sRd {
+  background-color: #FF5700;
+  color: white
+}
+.sharingContainer ul li span.sEm {
+  background-color: rgba(0,0,0,.65);
+  color: white;
+}

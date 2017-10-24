@@ -7,24 +7,25 @@ Term:
 User Account:
   ✔ Make Change pw replace top information. @done (10/22/2017, 11:41:33 PM)
   ✔ Make change pw work. @done (10/22/2017, 11:38:06 PM)
-  ☐ Add activity down below.
+  ✔ Add activity down below. @done (10/23/2017, 4:25:26 PM)
   ☐ Add a way for them to invite their friends.
-  ☐ Add a way (popup,page) for them to see all their achievements
+  ✔ Add a way (popup,page) for them to see all their achievements @done (10/23/2017, 4:25:32 PM)
 Term Component:
-  ☐ Make sharing work -> Add open graph to each term
+  ✔ Make sharing work @done (10/23/2017, 5:24:01 PM)
   ☐ Make sure that reported terms show that tag up above.
       ☐ Completely hide terms that have 25% bad reported
       ☐ In back-end, prior to save, make a hook that calculates that once.
 ☐ Add Ads from Google
 ☐ Work out things w/ Amazon Store
 Analytics:
-  ☐ Google Analytics
-  ☐ Heap Analytics
+  ✔ Google Analytics @done (10/23/2017, 7:35:35 PM)
+  ✔ Heap Analytics @done (10/23/2017, 7:35:37 PM)
+  ☐ Add open graph
 Pixels:
-  ☐ Facebook Pixel
+  ✔ Facebook Pixel @done (10/23/2017, 7:35:38 PM)
   ☐ Google Pixel
-☐ Mobile Viewing
-☐ Browse By Letter
+✔ Mobile Viewing @done (10/23/2017, 7:35:40 PM)
+✔ Browse By Letter @done (10/23/2017, 6:10:08 PM)
 ☐ Contact page
 ☐ Infinite Scroll
 Achievements:

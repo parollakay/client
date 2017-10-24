@@ -4,33 +4,58 @@
   color: rgba(0,0,0,.65);
   margin:0 !important
 }
+
 .accountTop .atEmail {
   color: rgba(0,0,0,.5);
   margin:0 !important
 }
+
 .accountTop small {
   color: rgba(0,0,0,.5);
 }
+
 .topActions {
   margin:10px 0 0;
   font-size:13px
 }
+
 .accountTop a {
   color: rgba(0,0,0,.7);
   cursor: pointer
 }
-.actTopRightContainer:first-child {
-  
+.actTopRightContainer {
+  padding-top: 10px;
+  padding-bottom: 10px; 
+}
+
+.actTopRightContainer {
+  text-align: center;
+}
+
+.actTopRightContainer span {
+  display:block;
+}
+
+.actTopRightContainer span:first-child {
+  font-size: 25px;
+  font-family: 'Roboto Slab', serif;
+  font-weight: bold;
+  color: rgba(0,0,0,.65);
+}
+.actTopRightContainer span:last-child {
+  color: rgba(0,0,0,.50);
+  font-size:12px;
 }
 .actTopRightContainer:nth-child(2) {
-  border-right: 1px solid rgba(0,0,0,.3);
   border-left: 1px solid rgba(0,0,0,.3);
 }
+
 .changePwPaper {
   padding:15px;
   border-radius: 5px !important;
   position:relative
 }
+
 .closePw {
   position: absolute;
   right:0;top:0;
@@ -67,4 +92,75 @@
 }
 .changePwPaper .text-danger {
   padding: 0 15px;
+}
+.accountTabs {
+  margin:25px 0;
+}
+.accountTabs > div > div {
+  background-color: transparent !important;
+}
+.accountTabs > div > div button {
+  color: rgba(0,0,0,.7) !important;
+}
+.accountTabs > div > div button:not(:last-child) {
+  border-right: 1px solid rgba(0,0,0,.075) !important;
+}
+.accountTabs h4 {
+  font-weight:bold;
+  font-family: 'Roboto Slab', serif;
+  color: rgba(0,0,0,.65);
+}
+.accountTabs p.lead {
+  color: rgba(0,0,0,.65);
+}
+.acctAchievements .col-md-3 {
+  display: table;
+  overflow:hidden;
+  margin-bottom:15px;
+  padding-top:5px;
+  padding-bottom:5px;
+  text-align: center;
+}
+.acctAchievements div.badgeContainer {
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.16);
+  display: table-cell;
+  vertical-align: middle;
+  height: 125px;
+  padding:5px;
+  background-color: rgba(255,255,255,.6);
+  opacity: .65;
+  border: 1px solid rgba(0,114,188,.5);
+}
+.acctAchievements .badgeHas div.badgeContainer {
+  opacity: 1 !important;
+}
+.acctAchievements .badgeHas div.badgeContainer i, .dateUnlocked {
+  color: rgba(0,114,188,.9)
+}
+.acctAchievements div.badgeContainer strong, .acctAchievements div.badgeContainer span,.acctAchievements div.badgeContainer small {
+  display:block;
+}
+.termTable {}
+.termTable thead {
+  background-color: rgba(255,255,255,.5);
+}
+.termTable tbody {
+  color: rgba(0,0,0,.65)
+}
+.termTable tbody tr td:nth-child(2) {
+  width: 50%
+}
+.termTable tbody tr td:nth-child(2) a {
+  color: rgba(0,114,188,1)
+}
+.termTable tbody tr td:nth-child(2) span {
+  display:block
+}
+.termTable tbody tr td:nth-child(2) span:first-child {
+  font-weight: 500
+}
+.termTable tbody tr td:nth-child(2) span:last-child {
+  font-weight: 300;
+  font-size:12px
 }

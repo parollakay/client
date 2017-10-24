@@ -28,7 +28,7 @@ class Engagement extends Component {
             </button>
             {this.props.sentences.length} Sentence{this.props.sentences.length > 1 && `s`}
           </li>
-          <li className="hover">
+          <li className="hover" onClick={this.props.showSharing}>
             <button >
               <i className="ion-android-share-alt"></i>
             </button>

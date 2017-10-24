@@ -28,18 +28,13 @@ const AccountHeader = props => {
       </div>
       <div className="col-md-6">
         <div className="row">
-          <div className="col-sm-4 actTopRightContainer">
-            3 <br /> badges
+          <div className="col-sm-4 col-sm-offset-4 actTopRightContainer">
+            <span>{user.achievements.length}</span>
+            <span>Achievements unlocked</span>
           </div>
           <div className="col-sm-4 actTopRightContainer">
-            <h6>Your Activity</h6>
-            10 terms <br />
-            40 likes
-          </div>
-          <div className="col-sm-4 actTopRightContainer">
-            <h6>Your terms</h6>
-            50 Likes Total <br />
-            20 Sentences
+            <span>{user.terms.length}</span>
+            <span>Terms<br />submitted</span>
           </div>
         </div>
       </div>

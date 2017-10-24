@@ -41,7 +41,8 @@ class MoreDropDown extends Component {
     } else {
       this.props.reportTerm();
       this.setState({
-        reportText: 'Reported'
+        reportText: 'Reported',
+        opened: false
       })
     }
   }
@@ -70,7 +71,9 @@ class MoreDropDown extends Component {
                 <i className="glyphicon glyphicon-flag"></i> {this.state.reportText}
               </a>
             </MenuItem>
-            <MenuItem primaryText="Share" />
+            <MenuItem onClick={this.props.sharing}>
+              <span className="icon-first"><i className="ion-android-share-alt"></i> Share</span>
+            </MenuItem>
           </Menu>
         </Popover>
       </div>

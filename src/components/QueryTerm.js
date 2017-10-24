@@ -39,7 +39,13 @@ class QueryTerm extends Component {
     return <TermErr err={this.state.error} />
   }
   render() {
-    const search = decodeURI(this.props.location.search.slice(6));
+    let search = ''
+    const hash = this.props.location.search;
+    if (hash.slice(1,5) === 'term') {
+      search = decodeURI(hash.slice(6))
+    } else {
+      search = decodeURI(hash.slice(8))
+    }
     return (
       <div className="row">
         <div className="col-md-12">
@@ -47,15 +53,18 @@ class QueryTerm extends Component {
         </div>
         <div className="col-md-8">
           {this.renderAlert()}
-          {this.state.terms.length > 0 ? <Terms terms={this.state.terms} length={this.state.terms.length} /> : <h4>There are no results for that term</h4>}
+          {this.state.terms.length > 0 ? <Terms terms={this.state.terms} length={this.state.terms.length} /> : <h4>There are no results for that.</h4>}
           {this.state.terms.length === 0 && 
             <div>
-              <p className="lead"> 
-                You should <Link to={`/newTerm?text=${search}`} className="highlightText">add <strong>'{titleCase(search)}'</strong></Link> to our dictionary.
-              </p>
-              <Link to={`/newTerm?text=${search}`} className="btn btn-primary">
-                Add [ {titleCase(search)} ] to Parol Lakay
-              </Link>
+              {search.length > 1 &&
+              <div>
+                <p className="lead"> 
+                  You should <Link to={`/newTerm?text=${search}`} className="highlightText">add <strong>'{titleCase(search)}'</strong></Link> to our dictionary.
+                </p>
+                <Link to={`/newTerm?text=${search}`} className="btn btn-primary">
+                  Add [ {titleCase(search)} ] to Parol Lakay
+                </Link>
+              </div>}
             </div>         
           }
         </div>

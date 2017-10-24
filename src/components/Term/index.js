@@ -3,6 +3,7 @@ import Paper from 'material-ui/Paper';
 import moment from 'moment';
 import MoreDropDown from './MoreDropDown'
 import Engagement from './Engagement';
+import Sharing from './Sharing';
 import Sentences from './Sentences';
 import SentenceInput from './SentenceInput';
 import { connect } from 'react-redux';
@@ -25,7 +26,8 @@ class Term extends Component {
     super(props);
     this.state = {
       liked: false,
-      showAllSentences: false
+      showAllSentences: false,
+      showSharing: false,
      }
   }
 
@@ -34,6 +36,9 @@ class Term extends Component {
       showAllSentences: true
     });
   }
+
+  exposeSharing = () => this.setState({ showSharing: true});
+  hideSharing = () => this.setState({ showSharing: false });
 
   checkAuth = () => {
     return new Promise((resolve, reject) => {
@@ -137,7 +142,7 @@ class Term extends Component {
           {(this.props.index < 1 && this.props.length > 1) && <TermBadge text="Top Definition" type="highlight"/>}
         </div>
         <Link to={`/search?term=${term.text}`}><h3> {titleCase(term.text)}</h3></Link>
-        <MoreDropDown term={term} reportTerm={this.reportTerm}/>
+        <MoreDropDown term={term} reportTerm={this.reportTerm} sharing={this.exposeSharing}/>
         <p className="termMeta" title={'Submitted ' + moment(term.created).format("MMM Do YYYY")}>
           by <strong>{term.author.username} · </strong> 
           {term.author.achievements.length > 0 && <span><i className="ion-ribbon-b"></i> {term.author.achievements[term.author.achievements.length - 1].name}  · </span>}
@@ -152,7 +157,11 @@ class Term extends Component {
           upvotes={term.upvotes} 
           sentences={term.sentences}
           expand={this.expanSentences} 
-          term={term}/>
+          term={term}
+          showSharing={this.exposeSharing}
+          hideSharing={this.hideSharing}
+          />
+        {this.state.showSharing && <Sharing term={term} cancel={this.hideSharing}/>}
         {term.sentences.length > 0 && <Sentences sentences={term.sentences} termId={term._id} showAll={this.state.showAllSentences} expand={this.expanSentences}/>}      
         <SentenceInput term={this.props.termId} addSentence={this.addSentence} />
       </Paper>

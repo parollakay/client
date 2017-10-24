@@ -43,14 +43,9 @@ class MainNav extends Component {
               targetOrigin={{horizontal: 'left', vertical: 'top'}}
               onRequestClose={this.handleRequestClose}
             >
-              <div className="row browseMenu" >
-                {this.state.letters.map((letter, i) => {
-                  return (
-                    <div className="mItem" key={`${letter}-letter`}>
-                      <FlatButton label={letter} secondary={true} />
-                    </div>
-                  )
-                })}
+              <div className="browseMenu">
+                <h6>Browse by letter</h6>
+                {this.state.letters.map((letter, i) => <Link onClick={this.handleRequestClose} to={`/search?letter=${letter}`} key={`${letter}-letter`}>{letter}</Link>)}
               </div>
               
             </Popover>
@@ -96,8 +91,9 @@ const SignupText = (props) => {
   return (
     
   <p className="suT">
+    <strong className="hidden-lg hidden-md hidden-sm">Parol Lakay &nbsp;</strong>
     {!props.authenticated && <span>Want to join? <a className="hover" onClick={props.openAuth}>Sign up/Log in</a> in seconds.</span>}
-    {props.authenticated && <span>The Haitian Dictionary created by you.</span>}
+    {props.authenticated && <span>The Haitian Dictionary by you.</span>}
   </p>
 )}
 

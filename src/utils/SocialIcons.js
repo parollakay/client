@@ -30,11 +30,11 @@ class SocialIcons extends Component {r
   render() {
     return (
       <div>
-        <a href="http://instagram.com/parollakay" target="_blank" rel="noopener noreferrer"><i className="fa fa-instagram"></i></a>
-        <a href="http://facebook.com/parollakay" target="_blank" rel="noopener noreferrer"><i className="fa fa-facebook"></i></a>
-        <a href="http://twitter.com/parollakay" target="_blank" rel="noopener noreferrer"><i className="fa fa-twitter"></i></a>
+        <a href="http://instagram.com/parollakay" target="_blank" rel="noopener noreferrer" className="hidden-xs"><i className="fa fa-instagram"></i></a>
+        <a href="http://facebook.com/parollakay" target="_blank" rel="noopener noreferrer" className="hidden-xs"><i className="fa fa-facebook"></i></a>
+        <a href="http://twitter.com/parollakay" target="_blank" rel="noopener noreferrer" className="hidden-xs"><i className="fa fa-twitter"></i></a>
         {this.props.user.authenticated && <Link to="/myAccount" className="hover" title="My Account">
-            <i className="fa fa-user"></i> &nbsp; &nbsp;{this.props.user.data.username}
+            <i className="fa fa-user"></i> &nbsp;<span className="hidden-xs">{this.props.user.data.username}</span> <span className="hidden-lg hidden-md hidden-sm">Account</span>
         </Link>}
         {!this.props.user.authenticated && <a className="hover" onClick={this.props.openDialog}> Log in</a>}
       </div>
