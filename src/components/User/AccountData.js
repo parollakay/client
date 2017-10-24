@@ -5,7 +5,6 @@ import {titleCase} from '../../utils';
 import moment from 'moment';
 import Badge from './Badge';
 const AccountData = props => {
-  console.log(props.achievements);
   return (
     <div className="accountTabs">
       <Tabs>

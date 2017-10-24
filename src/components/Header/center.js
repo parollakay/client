@@ -15,7 +15,6 @@ class MainNav extends Component {
     this.handleTouchTap = this.handleTouchTap.bind(this)
   }
   handleTouchTap = (e) => {
-    console.log('u tapped', e)
     e.preventDefault();
     this.setState({
       open: true,

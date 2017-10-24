@@ -26,7 +26,6 @@ class ResetPw extends Component {
   }
   render() {
     const { handleSubmit } = this.props;
-    console.log(this.props, this.props.history);
     return (
       <div className="col-md-8 col-md-offset-2">
         <h3 className="title">Reset Your Password</h3>

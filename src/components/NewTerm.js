@@ -46,7 +46,6 @@ class NewTerm extends Component {
   }
   
   HandleWordBlur = (e) => {
-    console.log('You are no longer in the text title field', this.cleanPhrase(e.target.value));
     axios.get(`${server}/terms/search?term=${this.cleanPhrase(e.target.value)}`).then(res => {
       this.setState({
         terms: res.data

@@ -40,7 +40,6 @@ export const autoAuth = () => {
 }
 
 export const register = (username, password, confirmPassword, email) => {
-  console.log(`made it to actions with: ${username}, ${password}, ${confirmPassword}, ${email}`);
   return (dispatch) => {
     checkPassword(password, confirmPassword).then(() => {
       axios.post(`${server}/users/new`, { email, username, password })
@@ -108,7 +107,6 @@ export const getToken = (email, history) => {
 };
 
 export const resetPass = (token, password, confirmPassword, history) => {
-  console.log(token, password, confirmPassword );
   return (dispatch) => {
     checkPassword(password, confirmPassword).then(() => {
       axios.post(`${server}/users/resetPass`, { token, password}).then(res => {

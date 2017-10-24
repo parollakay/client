@@ -30,12 +30,10 @@ export const getTerms = () => {
 };
 
 export const searchTerm = (word) => {
-  //console.log('trying to search', term);
-  //const word = encodeURIComponent(term.trim()).toLocaleLowerCase();
   word = word.toLocaleLowerCase();
   return (dispatch) => {
     axios.get(`${server}/terms/search?term=${word}`).then(res => {
-      console.log(`Searched for ${word} and got.`, res.data);
+
       dispatch({
         type: TERMS_SEARCH,
         payload: res.data
@@ -49,7 +47,7 @@ export const newTerm = (text, definition, sentences, author, tags, badges, histo
   return (dispatch) => {
     if(!authorized) return dispatch(handleErr(TERMS_ERR, 'You must be authorized in order to add a term to the website.'));
     if(!text || !definition) return dispatch(handleErr(TERMS_ERR, `You must fill out at least the term and the definition.`));
-    console.log(authorized);
+
     axios.post(`${server}/terms/newTerm?token=${authorized}`, { text, definition, sentences, author, tags}).then(res => {
       dispatch({
         type: TERMS_NEW,
@@ -64,7 +62,6 @@ export const newTerm = (text, definition, sentences, author, tags, badges, histo
         payload: res.data.user
       });
       history.push('/');
-      console.log(badges, res.data.user.achievements);
       if (badges.length < res.data.user.achievements.length) {
         dispatch({
           type: BADGE_DIALOG_OPEN,
@@ -87,7 +84,6 @@ export const changefieldValue = (value) => {
 export const addSentence = ( termId, author, text, history) => {
   return (dispatch) => {
     axios.post(`${server}/terms/${termId}/sentence`, { author, text }).then(res => {
-      console.log(res.data);
       dispatch({
         type: TERMS_ADD_SENTENCE,
         payload: res.data

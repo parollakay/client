@@ -60,7 +60,6 @@ class Term extends Component {
         author: this.props.user._id
       }
       axios.post(`${server}/terms/${this.props.termId}/sentence`, body).then(res => {
-        console.log(res);
         this.setState({
           term: res.data,
           showAllSentences: true,

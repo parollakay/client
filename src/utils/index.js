@@ -9,10 +9,8 @@ import SocialIcons from './SocialIcons';
 export const server = 'https://backend-server.parollakay.com';
 
 export const checkPassword = (password, confirmPass) => {
-  console.log(password, confirmPass);
   return new Promise((resolve, reject) => {
     const re = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
-    console.log(re.test(password));
     if (re.test(password)) {
       if (password !== confirmPass) {
         reject('Both passwords must match.')
@@ -28,7 +26,6 @@ export const titleCase = (str) => str.replace(/\w\S*/g, function(txt){return txt
 export const firstUpper = (str) => str.charAt(0).toUpperCase() + str.slice(1);
 
 export const handleErr = (type, error) => {
-  console.log(type, error);
   return {
     type,
     payload: error
