@@ -26,7 +26,7 @@ class Engagement extends Component {
             <button >
               <i className="fa fa-quote-right"></i>
             </button>
-            {this.props.sentences.length} Sentence{this.props.sentences.length > 1 && `s`}
+            {this.props.sentences.length} <span className="hidden-xs">Sentence{this.props.sentences.length > 1 && `s`}</span>
           </li>
           <li className="hover" onClick={this.props.showSharing}>
             <button >

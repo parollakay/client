@@ -112,3 +112,23 @@
   color: rgba(255,255,255,.8);
   text-decoration: underline;
 }
+
+.topAddTermLink {
+  display: inline-block;
+  border: 1px solid rgba(255,255,255,.5);
+  padding:2px 5px;
+  font-size:12px;
+  text-decoration: none !important;
+  text-transform: uppercase;
+  border-radius:4px;
+  transition: all .28s cubic-bezier(0.4, 0, 0.2, 1)
+}
+.topAddTermLink:hover {
+  border-color: white;
+  color:white;
+  background-color: rgba(255,255,255,.15);
+  box-shadow: 0 8px 8px rgba(0, 0, 0, 0.2);
+}
+.topAddTermLink i {
+  margin-left: 5px;
+}

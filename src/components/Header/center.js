@@ -31,7 +31,7 @@ class MainNav extends Component {
       <nav className="mainNav">
         <div className="pull-left">
           <Link to="/">Home</Link>
-          <a onClick={e => this.handleTouchTap(e)} >
+          <a onClick={e => this.handleTouchTap(e)} className="hover" >
             Browse &nbsp;&nbsp;<i className="ion-chevron-down"></i>
           </a>
             <Popover
@@ -48,7 +48,7 @@ class MainNav extends Component {
               
             </Popover>
 
-          <Link to="/newTerm">Add <i className="ion-plus"></i> </Link>
+          <Link to="/newTerm" className="hidden-xs topAddTermLink">Add Term<i className="ion-plus"></i> </Link>
         </div>
         <div className="pull-right text-right">
           <SocialIcons />
@@ -91,7 +91,7 @@ const SignupText = (props) => {
   <p className="suT">
     <strong className="hidden-lg hidden-md hidden-sm">Parol Lakay &nbsp;</strong>
     {!props.authenticated && <span>Want to join? <a className="hover" onClick={props.openAuth}>Sign up/Log in</a> in seconds.</span>}
-    {props.authenticated && <span><Link to="/newTerm">Add Term <i className="ion-plus"></i> </Link></span>}
+    {props.authenticated && <span><Link to="/newTerm" className="topAddTermLink">Add Term <i className="ion-plus"></i> </Link></span>}
   </p>
 )}
 
