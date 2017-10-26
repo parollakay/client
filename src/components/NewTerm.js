@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import { newTerm, termErr, changefieldValue } from '../actions';
+import { newTerm, termErr, changefieldValue, openDialog } from '../actions';
 import TermErr from './Term/TermErr';
 import { server, titleCase } from '../utils';
 import axios from 'axios';
@@ -42,7 +42,7 @@ class NewTerm extends Component {
     let query;
     if (this.props.location.search.length > 1) { query = decodeURI(this.props.location.search.slice(6)); }
     this.props.initialize({ text: query});
-    window.title = "Add a term - Parol Lakay"
+    window.title = "Add a term - Parol Lakay";
   }
   
   HandleWordBlur = (e) => {
@@ -55,6 +55,12 @@ class NewTerm extends Component {
 
   render() {
     const { handleSubmit } = this.props;
+    if (!this.props.user.authenticated) return (
+      <div>
+        <h3 className="title">You must be logged in to add a new term.</h3>
+        <p className="lead">Please <a className="hover" onClick={this.props.openDialog}>Login now, or create</a> an account to contribute to the dictionary.</p>
+      </div>
+    )
     return (
       <div id="newTermPage" className="col-md-8 col-md-offset-2">
         <h3 className="title">Add New Term</h3>
@@ -121,7 +127,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatch = (dispatch) => {
-  const boundActionCreators = bindActionCreators({ newTerm, termErr, changefieldValue }, dispatch);
+  const boundActionCreators = bindActionCreators({ newTerm, termErr, changefieldValue, openDialog }, dispatch);
   const allActionCreators = { ...boundActionCreators, dispatch };
   return allActionCreators;
 }

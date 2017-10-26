@@ -1,22 +1,19 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { register } from '../actions';
+import { register, addUserErr } from '../actions';
 import { reduxForm, Field } from 'redux-form';
 
 
 class RegisterForm extends Component {
   
   handleSignup({ username, password, confirmPassword, email}) {
+    // const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (username.length < 4) return this.props.addUserErr('Username must be 4 characters or longer');
+    // if (!re.test(email)) return this.props.addUserErr('Please enter a valid email address.');
     this.props.register(username, password, confirmPassword, email);
   }
 
-  renderAlert = () => {
-    if(!this.props.error) return null;
-    return (
-      <small className="text-danger">{this.props.error}</small>
-    )
-  }
   render() {
     const { handleSubmit } = this.props;
     return (
@@ -50,7 +47,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatch = (dispatch) => {
-  const boundActionCreators = bindActionCreators({register}, dispatch);
+  const boundActionCreators = bindActionCreators({ register, addUserErr }, dispatch);
   const allActionProps = { ...boundActionCreators, dispatch };
   return allActionProps;
 }

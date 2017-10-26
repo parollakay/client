@@ -27,7 +27,9 @@ class AuthDialog extends Component {
       <Dialog
         modal={false}
         open={this.props.auth.open}
-        onRequestClose={this.props.closeDialog} >
+        onRequestClose={this.props.closeDialog}
+        autoScrollBodyContent={true}
+        >
         <div className="row">
           {this.renderAlert()}
           <div className="col-md-6">

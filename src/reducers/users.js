@@ -7,7 +7,8 @@ import {
   USER_TERM_LIKE,
   USER_TERM_UNLIKE,
   USER_UPDATED,
-  AUTH_ERROR
+  AUTH_ERROR,
+  USER_ERR_CLEAR,
 } from '../actions'
 
 const defaultState = {
@@ -35,6 +36,8 @@ export default (user = defaultState, action) => {
       return { ...user, data: action.payload };
     case AUTH_ERROR:
       return { ...user, authenticated: false, data: {}, error: action.payload };
+    case USER_ERR_CLEAR:
+      return { ...user, error: null };
     default:
       return user;
   }

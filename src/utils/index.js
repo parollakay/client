@@ -6,7 +6,9 @@ import { PrivacyStatement } from './PrivacyStatement';
 import { DMCA } from './DMCA'
 import SocialIcons from './SocialIcons';
 
-export const server = 'https://backend-server.parollakay.com';
+export const server = window.location.host === 'parollakay.com' ? 'https://backend-server.parollakay.com' : 'http://localhost:1804';
+// export const server = 'https://backend-server.parollakay.com';
+// export const server = 'https://backend-server.parollakay.com';
 
 export const checkPassword = (password, confirmPass) => {
   return new Promise((resolve, reject) => {

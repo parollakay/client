@@ -16,7 +16,6 @@ class QueryTerm extends Component {
   }
 
   simple = (props) => {
-    let search = ''
     const hash = props.location.search;
     if (hash.slice(1,5) === 'term') return decodeURI(hash.slice(6));
     return decodeURI(hash.slice(8));

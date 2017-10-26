@@ -203,3 +203,52 @@ body {
     margin-right:10px;
     display:inline-block
 }
+/*
+.expose-enter {
+    height: 0px;
+}
+
+.expose-enter.expose-enter-active {
+    height: 100px;
+    transition: height 1s ease;
+    -moz-transition: height 1s ease;
+    -webkit-transition: height 1s ease;
+    -o-transition: height 1s ease;
+    -ms-transition: height 1s ease;
+}
+
+.expose-leave.expose-leave-active {
+    height: 0px;
+    transition: height 1s ease;
+    -moz-transition: height 1s ease;
+    -webkit-transition: height 1s ease;
+    -o-transition: height 1s ease;
+    -ms-transition: height 1s ease;
+} */
+
+.expose-appear {
+    opacity    : 0;
+    transition : opacity .7s ease-in;
+  }
+  
+  .expose-appear.expose-appear-active {
+    opacity : 1;
+  }
+
+  .expose-enter {
+    max-height : 0;
+    transition : all .3s ease-in;
+  }
+  
+  .expose-enter.expose-enter-active {
+    max-height : 1000px;
+  }
+
+  .expose-leave {
+    max-height : 1000px;
+    transition : all .3s ease-out;
+  }
+  
+  .expose-leave.expose-leave-active {
+    max-height : 0;
+  }

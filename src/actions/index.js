@@ -33,6 +33,7 @@ import {
 } from './terms';
 
 import {
+  addUserErr,
   register,
   signin,
   getToken,
@@ -49,6 +50,8 @@ import {
   USER_TERM_UNLIKE,
   USER_LOGOUT,
   AUTH_ERROR,
+  USER_ERR_CLEAR,
+  clearUserErr,
   autoAuth,
   updateUser,
 } from './user';
@@ -99,5 +102,8 @@ export {
   showBadgeModal,
   hideBadgeModal,
   TERMS_ERR_CLEAR,
-  clearTermErr
+  clearTermErr,
+  USER_ERR_CLEAR,
+  clearUserErr,
+  addUserErr
 }

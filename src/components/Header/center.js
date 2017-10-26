@@ -1,7 +1,6 @@
 import React, { Component }  from 'react';
 import { Link } from 'react-router-dom';
 import Popover from 'material-ui/Popover';
-import FlatButton from 'material-ui/FlatButton';
 import { SocialIcons } from '../../utils';
 
 class MainNav extends Component {
@@ -92,7 +91,7 @@ const SignupText = (props) => {
   <p className="suT">
     <strong className="hidden-lg hidden-md hidden-sm">Parol Lakay &nbsp;</strong>
     {!props.authenticated && <span>Want to join? <a className="hover" onClick={props.openAuth}>Sign up/Log in</a> in seconds.</span>}
-    {props.authenticated && <span>The Haitian Dictionary by you.</span>}
+    {props.authenticated && <span><Link to="/newTerm">Add Term <i className="ion-plus"></i> </Link></span>}
   </p>
 )}
 

@@ -11,7 +11,10 @@ export const USER_TERM_UNLIKE = 'USER_TERM_UNLIKE';
 export const USER_LOGOUT = 'USER_LOGOUT';
 export const USER_UPDATED = 'USER_UPDATED';
 export const AUTH_ERROR = 'AUTH_ERROR';
+export const USER_ERR_CLEAR = 'USER_ERR_CLEAR';
 
+export const clearUserErr = () => dispatch => dispatch({ type: USER_ERR_CLEAR });
+export const addUserErr = error => dispatch => dispatch(handleErr(AUTH_ERROR, error));
 
 export const autoAuth = () => {
   const token = localStorage.getItem('x-access-token');

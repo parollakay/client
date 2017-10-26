@@ -7,9 +7,10 @@ import MainSideBar from './Sidebar/MainSideBar';
 import TermErr from './Term/TermErr';
 
 class Home extends Component {
+
   componentDidMount() {
     this.props.getTerms();
-    document.title = "Parol Lakay - Home"
+    document.title = "Parol Lakay - Home";
   }
 
   renderAlert = () => {
