@@ -23,8 +23,9 @@ class NewTerm extends Component {
   }
 
   processNewTerm({ text, definition, sentence, tags}) {
-    if(!this.props.user.authenticated) return this.props.termErr('You must be logged in to create a definition.');
     const sentences = [];
+    if (!this.props.user.authenticated) return this.props.termErr('You must be logged in to create a definition.');
+    if (text.length < 2) return this.props.termErr(`Term must be at least two characters.`);
     if (tags) tags = tags.split(',').map(tag => this.cleanPhrase(tag));
     if (sentence) sentences.push({ text: sentence, author: this.props.user.data._id});
     const word = this.cleanPhrase(text);

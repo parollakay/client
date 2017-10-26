@@ -9,7 +9,7 @@ import SentenceInput from './SentenceInput';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { server, titleCase } from '../../utils';
-import { likeTerm, unlikeTerm, showSnack } from '../../actions'
+import { likeTerm, unlikeTerm, showSnack, openDialog } from '../../actions'
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import TermBadge from './Badge';
@@ -44,7 +44,8 @@ class Term extends Component {
     return new Promise((resolve, reject) => {
       if (!this.props.authenticated) {
         this.setState({
-          termErr: 'You must be authenticated to do that.'
+          termErr: `You must be authenticated to do that.`,
+          authErr: true
         });
         reject();
       } else {
@@ -70,7 +71,7 @@ class Term extends Component {
     })
   }
 
-  clearErr = () => this.setState({ termErr: null });
+  clearErr = () => this.setState({ termErr: null, authErr: null });
 
   renderAlert = () => {
     if(!this.state.termErr) return null;
@@ -78,7 +79,7 @@ class Term extends Component {
       <div className="text-danger hover" onClick={this.clearErr}>
         <span className="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>&nbsp;&nbsp;
         <span className="sr-only">Error:</span>
-        {this.state.termErr}
+        {this.state.termErr}:{this.state.authErr && <a className="hover" onClick={this.props.openDialog}>Login</a>}
       </div>
     )
   } 
@@ -177,7 +178,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatch = (dispatch) => {
-  const boundActionCreators = bindActionCreators({ likeTerm, unlikeTerm, showSnack }, dispatch);
+  const boundActionCreators = bindActionCreators({ likeTerm, unlikeTerm, showSnack, openDialog }, dispatch);
   const allActionCreators = { ...boundActionCreators, dispatch };
   return allActionCreators;
 }
