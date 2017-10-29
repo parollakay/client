@@ -1,4 +1,15 @@
-import { DIALOG_CLOSE, DIALOG_OPEN, SNACK_CLOSE, SNACK_OPEN, BADGE_DIALOG_CLOSE, BADGE_DIALOG_OPEN } from '../actions';
+import { 
+  DIALOG_CLOSE, 
+  DIALOG_OPEN, 
+  SNACK_CLOSE, 
+  SNACK_OPEN, 
+  BADGE_DIALOG_CLOSE, 
+  BADGE_DIALOG_OPEN, 
+  DRAWER_CLOSED, 
+  DRAWER_OPEN,
+  DRAWER_ERROR,
+  DRAWER_ERROR_CLEAR
+ } from '../actions';
 
 const defaultState = {
   open: false,
@@ -6,6 +17,7 @@ const defaultState = {
   snackMessage: '',
   badgeOpen: false,
   badge: null,
+  drawerOpen: false
 }
 
 export default (state = defaultState, action) => {
@@ -21,7 +33,15 @@ export default (state = defaultState, action) => {
     case BADGE_DIALOG_OPEN:
       return { ...state, badge: action.payload, badgeOpen: true };
     case BADGE_DIALOG_CLOSE:
-      return { ...state, badge: null, badgeOpen: false }
+      return { ...state, badge: null, badgeOpen: false };
+    case DRAWER_OPEN:
+      return { ...state, drawerOpen: true };
+    case DRAWER_CLOSED:
+      return { ...state, drawerOpen: false };
+    case DRAWER_ERROR:
+      return { ...state, drawerError: action.payload };
+    case DRAWER_ERROR_CLEAR:
+      return { ...state, drawerError: null };
     default:
       return state;
   }

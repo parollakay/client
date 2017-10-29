@@ -5,6 +5,14 @@ import {titleCase} from '../../utils';
 import moment from 'moment';
 import Badge from './Badge';
 const AccountData = props => {
+  if (!props.achievements) return null;
+  for (let i = 0; i < props.myAchievements.length; i++) {
+    for (let j = 0; j < props.achievements.length; j++) {
+      if (props.achievements[j].min === props.myAchievements[i].min) {
+        props.achievements.splice(j,1);
+      }
+    }
+  }
   return (
     <div className="accountTabs">
       <Tabs>
@@ -52,7 +60,7 @@ const AccountData = props => {
             </tbody>
           </table>}
         </Tab>}       
-      </Tabs>
+      </Tabs> 
     </div>
   )
 }

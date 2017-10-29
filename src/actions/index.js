@@ -11,6 +11,14 @@ import {
   closeDialog,
   showSnack,
   hideSnack,
+  openDrawer,
+  closeDrawer,
+  DRAWER_CLOSED,
+  DRAWER_OPEN,
+  DRAWER_ERROR,
+  addDrawerErr,
+  DRAWER_ERROR_CLEAR,
+  clearDrawerErr
 } from './auth';
 
 import { 
@@ -54,6 +62,17 @@ import {
   clearUserErr,
   autoAuth,
   updateUser,
+  USER_POPULATED,
+  LOADED_REMAINING_ACHIEVEMENTS,
+  getpopulatedUser,
+  addAchievements,
+  NOTIFICATION_SETTINGS_UPDATED,
+  updateNotifications,
+  NOTIFICATION_MARKED_READ,
+  deleteNotification,
+  markNotificationRead,
+  NOTIFICATIONS_CLEARED,
+  clearAllNotifications
 } from './user';
 
 export {
@@ -105,5 +124,24 @@ export {
   clearTermErr,
   USER_ERR_CLEAR,
   clearUserErr,
-  addUserErr
+  openDrawer,
+  closeDrawer,
+  DRAWER_CLOSED,
+  DRAWER_OPEN,
+  addUserErr,
+  USER_POPULATED,
+  LOADED_REMAINING_ACHIEVEMENTS,
+  getpopulatedUser,
+  addAchievements,
+  NOTIFICATION_SETTINGS_UPDATED,
+  updateNotifications,
+  NOTIFICATION_MARKED_READ,
+  DRAWER_ERROR,
+  markNotificationRead,
+  addDrawerErr,
+  DRAWER_ERROR_CLEAR,
+  clearDrawerErr,
+  deleteNotification,
+  NOTIFICATIONS_CLEARED,
+  clearAllNotifications
 }

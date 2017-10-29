@@ -4,7 +4,7 @@ import moment from 'moment';
 const Badge = props => {
 
   return (
-    <div key={props.key} className={props.has ? `col-md-3 badgeHas` : `col-md-3`}>
+    <div className={props.has ? `col-md-3 badgeHas` : `col-md-3`}>
       <div className="badgeContainer">
         <strong className="icon-first">
           {props.has && <i className="ion-ribbon-b"></i>}

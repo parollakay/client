@@ -86,7 +86,6 @@ class Term extends Component {
 
   addVote = () => {
     this.checkAuth().then(() => {
-      if (this.props.user.upvotes.includes(this.props.termId)) return;
       axios.post(`${server}/users/${this.props.user._id}/addVote/${this.props.termId}`).then(res => {
         this.setState({
           term: res.data.term,
@@ -98,9 +97,10 @@ class Term extends Component {
   }
 
   minusVote = () => {
+    console.log('clicked to unlike')
     this.checkAuth().then(() => {
-      if (!this.props.user.upvotes.includes(this.props.termId)) return;
       axios.post(`${server}/users/${this.props.user._id}/minusVote/${this.props.termId}`).then(res => {
+        console.log(res.data.user);
         this.setState({
           term: res.data.term,
           termErr: null
@@ -163,7 +163,7 @@ class Term extends Component {
           />
         {this.state.showSharing && <Sharing term={term} cancel={this.hideSharing}/>}
         {term.sentences.length > 0 && <Sentences sentences={term.sentences} termId={term._id} showAll={this.state.showAllSentences} expand={this.expanSentences}/>}      
-        <SentenceInput term={this.props.termId} addSentence={this.addSentence} />
+        <SentenceInput term={this.props.termId} addSentence={this.addSentence} text={term.text}/>
       </Paper>
     )
   }

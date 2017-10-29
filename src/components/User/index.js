@@ -5,7 +5,7 @@ import AccountHeader from './Top';
 import ChangePassword from './ChangePassword';
 import AccountData from './AccountData';
 import './user.css';
-import { logout, updateUser, showSnack } from '../../actions';
+import { logout, updateUser, showSnack, getpopulatedUser, addAchievements, openDialog } from '../../actions';
 import { checkPassword, server } from '../../utils';
 import axios from 'axios';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
@@ -16,10 +16,12 @@ class Account extends Component {
     this.state = {
       passwordOpen: false,
       passwordErr: null,
-      slideIndex: 0
+      slideIndex: 0,
     }
   }
 
+  showNotificationSettings = () => this.setState({ showNotifSettings: true });
+  hideNotificationSettings = () => this.setState({ showNotifSettings: false });
   tabChange = value => this.setState({ slideIndex: value });
   dismissPassErr = () => this.setState({ passwordErr: null });
   changePassword = (e) => {
@@ -67,31 +69,15 @@ class Account extends Component {
     return (
       <div>
         <h3>You need to be logged in to access the account settings</h3>
-        <a onClick={this.props.openAuth} className="btn btn-primary">Log In/Sign Up</a>
+        <a onClick={this.props.openDialog} className="btn btn-primary">Log In/Sign Up</a>
       </div>
     )
   }
-
   
 
- componentDidMount() {
+  componentDidMount() {
     document.title = "My Account";
-    const token = localStorage.getItem('x-access-token');
-    const userId = localStorage.getItem('x-user-id');
-    axios.get(`${server}/users/${userId}/populatedUser?token=${token}`).then(res => {
-      document.title = `${res.data.username} Account - Parol Lakay`;
-      this.setState({ terms: res.data.terms, likes: res.data.upvotes });
-      axios.get(`${server}/utils/achievements`).then(response => {
-        for (let i = 0; i < res.data.achievements.length; i++) {
-          for (let j = 0; j < response.data.length; j++) {
-            if (response.data[j].min === res.data.achievements[i].min) {
-              response.data.splice(j,1);
-            }
-          }
-        }
-        this.setState({ achievements: response.data })
-      });
-    })
+    this.props.addAchievements();
   }
   render() {
     const { user } = this.props;
@@ -107,7 +93,12 @@ class Account extends Component {
                 transitionEnterTimeout={400}
                 transitionLeaveTimeout={150}
                 transitionName={this.state.passwordOpen ? 'SlideOut' : 'SlideIn'} >
-                <AccountHeader user={user} showPw={this.showpwForm} hidePw={this.hidepwForm} logout={this.clickLogout}/>
+                <AccountHeader
+                  user={user} 
+                  showNotificationSettings={this.showNotificationSettings} 
+                  showPw={this.showpwForm} 
+                  hidePw={this.hidepwForm} 
+                  logout={this.clickLogout}/>
               </ReactCSSTransitionGroup>
             }
             {this.state.passwordOpen && 
@@ -120,8 +111,9 @@ class Account extends Component {
                 <ChangePassword hidePw={this.hidepwForm} action={this.changePassword} error={this.state.passwordErr} cancelErr={this.dismissPassErr} />
               </ReactCSSTransitionGroup>
             }
-            <AccountData terms={this.state.terms} achievements={this.state.achievements} myAchievements={this.props.user.achievements}/>
-          </div>
+            {!this.state.passwordOpen && <hr style={{borderTopColor: 'rgba(0,0,0,.1)'}} />}
+            <AccountData terms={user.terms} achievements={this.props.siteAchievements} myAchievements={user.achievements}/>
+            </div>
         }
       </div>
     )
@@ -131,12 +123,13 @@ class Account extends Component {
 const mapStateToProps = state => {
   return {
     user: state.user.data,
+    siteAchievements: state.user.siteAchievements,
     authenticated: state.user.authenticated
   }
 }
 
 const mapDispatch = dispatch => {
-  const boundActionCreators = bindActionCreators({ logout, updateUser, showSnack }, dispatch);
+  const boundActionCreators = bindActionCreators({ logout, updateUser, showSnack, getpopulatedUser, addAchievements, openDialog }, dispatch);
   const allActionCreators = { ...boundActionCreators, dispatch };
   return allActionCreators;
 }

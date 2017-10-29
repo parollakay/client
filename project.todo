@@ -30,3 +30,10 @@ Pixels:
 ☐ Infinite Scroll
 Achievements:
   ☐ Add running count of top achievers
+Notifications:
+  ☐ Add a way to look at notifications on page
+Admin:
+  ☐ Create admin page
+    ☐ manage users
+    ☐ manage terms
+  ☐ Create admin link up above

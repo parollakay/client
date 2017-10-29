@@ -1,5 +1,6 @@
 import React from 'react';
 import moment from 'moment';
+import { Link } from 'react-router-dom';
 
 const AccountHeader = props => {
   const { user } = props;
@@ -14,6 +15,11 @@ const AccountHeader = props => {
         <small>Member since {moment(user.created).format('MMMM Do, YYYY')} </small>
         <br />
         <div className="topActions">
+          <Link to="/Settings" className="icon-first hover">
+            <i className="glyphicon glyphicon-envelope"></i>
+            Notifications
+          </Link>
+          &nbsp;&nbsp;·&nbsp;&nbsp; 
           <a className="icon-first hover" onClick={props.showPw}>
             <i className="glyphicon glyphicon-lock"></i>
             Change Password

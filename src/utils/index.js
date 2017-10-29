@@ -5,6 +5,7 @@ import { TermsOfService } from './TermsOfService';
 import { PrivacyStatement } from './PrivacyStatement';
 import { DMCA } from './DMCA'
 import SocialIcons from './SocialIcons';
+import SideDrawer from './SideDrawer';
 
 export const server = window.location.host === 'parollakay.com' ? 'https://backend-server.parollakay.com' : 'http://localhost:1804';
 // export const server = 'https://backend-server.parollakay.com';
@@ -34,10 +35,11 @@ export const handleErr = (type, error) => {
   }
 }
 
-export const setLocalAuth = (token, userId) => {
+export const setLocalAuth = (token, userId, role) => {
   return new Promise((resolve, reject) => {
     localStorage.setItem('x-access-token', token);
     localStorage.setItem('x-user-id', userId);
+    localStorage.setItem('x-user-role', role);
     resolve();
   });
   
@@ -47,6 +49,7 @@ export const rmAuth = () => {
   return new Promise((resolve, reject) => {
     localStorage.removeItem('x-access-token');
     localStorage.removeItem('x-user-id');
+    localStorage.removeItem('x-user-role');
     resolve();
   });
   
@@ -127,5 +130,6 @@ export {
   TermsOfService,
   PrivacyStatement,
   DMCA,
-  SocialIcons
+  SocialIcons,
+  SideDrawer
  }

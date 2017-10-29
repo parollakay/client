@@ -8,6 +8,7 @@ import NewPw from './components/NewPw';
 import PageShell from './PageShell';
 import TagTerms from './components/TagTerms';
 import AccountPage from './components/User';
+import Settings from './components/User/Settings';
 
 import {TermsOfService, PrivacyStatement, DMCA } from './utils';
 
@@ -18,7 +19,8 @@ const Routes = props => {
       <Route path="/search" component={ QueryTerm } />
       <Route path="/tag" component={ TagTerms } />
 
-      <Route path="/myAccount" render={PageShell(() => <AccountPage openAuth={props.openAuth} history={props.history} />)} />
+      <Route path="/myAccount" render={PageShell(AccountPage)} />
+      <Route path="/Settings" render={PageShell(Settings)} />
       
       <Route path="/resetPw" component={ PageShell(ResetPw) } />
       <Route path="/reset/:token" component={ PageShell(NewPw) } />

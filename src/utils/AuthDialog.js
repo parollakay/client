@@ -6,7 +6,7 @@ import RegisterForm from './RegisterForm';
 import SigninForm from './SigninForm';
 import { closeDialog } from '../actions';
 import { bindActionCreators } from 'redux';
-
+import UserErr from '../components/User/UserErr';
 
 
 class AuthDialog extends Component {
@@ -14,12 +14,9 @@ class AuthDialog extends Component {
     if(!this.props.error) return null;
     return (
       <div className="row">
-      <div className="alert alert-danger col-md-10 col-md-offset-1">
-        <span className="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>&nbsp;&nbsp;
-        <span className="sr-only">Error:</span>
-        {this.props.error}
-      </div>
-      </div>
+      <div className="col-md-10 col-md-offset-1">
+        <UserErr err={this.props.error} />
+      </div></div>
     )
   } 
   render() {

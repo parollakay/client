@@ -6,13 +6,14 @@ class Engagement extends Component {
   renderVoting = () => {
     const likeBtn = ( <button onClick={this.props.like}> <i className="ion-android-favorite-outline"></i> {this.props.upvotes} Like{this.props.upvotes > 1 && 's'}</button> )
     const unlikeBtn = ( <button onClick={this.props.unlike} className="engLiked"> <i className="ion-android-favorite redColor"></i> {this.props.upvotes} Like{this.props.upvotes > 1 && 's'}</button> )
-    
+    let includes = false;
     if (!this.props.authenticated) return likeBtn;
-    if (this.props.user.upvotes.includes(this.props.term._id)) {
-      return unlikeBtn;
-    } else {
-      return likeBtn;
+    for (let i = 0; i < this.props.user.upvotes.length; i++) {
+      if (this.props.user.upvotes[i]._id === this.props.term._id) {
+        includes = true
+      }
     }
+    return includes ? unlikeBtn : likeBtn;
   }
   
   render() {

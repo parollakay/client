@@ -34,21 +34,20 @@ class MainNav extends Component {
           <a onClick={e => this.handleTouchTap(e)} className="hover" >
             Browse &nbsp;&nbsp;<i className="ion-chevron-down"></i>
           </a>
-            <Popover
-              open={this.state.open}
-              anchorEl={this.state.anchorEl}
-              anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
-              targetOrigin={{horizontal: 'left', vertical: 'top'}}
-              onRequestClose={this.handleRequestClose}
+          <Popover
+            open={this.state.open}
+            anchorEl={this.state.anchorEl}
+            anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
+            targetOrigin={{horizontal: 'left', vertical: 'top'}}
+            onRequestClose={this.handleRequestClose}
             >
-              <div className="browseMenu">
-                <h6>Browse by letter</h6>
-                {this.state.letters.map((letter, i) => <Link onClick={this.handleRequestClose} to={`/search?letter=${letter}`} key={`${letter}-letter`}>{letter}</Link>)}
-              </div>
-              
-            </Popover>
-
+            <div className="browseMenu">
+              <h6>Browse by letter</h6>
+              {this.state.letters.map((letter, i) => <Link onClick={this.handleRequestClose} to={`/search?letter=${letter}`} key={`${letter}-letter`}>{letter}</Link>)}
+            </div>
+          </Popover>
           <Link to="/newTerm" className="hidden-xs topAddTermLink">Add Term<i className="ion-plus"></i> </Link>
+
         </div>
         <div className="pull-right text-right">
           <SocialIcons />
@@ -87,11 +86,14 @@ class Search extends Component {
 
 const SignupText = (props) => {
   return (
-    
   <p className="suT">
     <strong className="hidden-lg hidden-md hidden-sm">Parol Lakay &nbsp;</strong>
     {!props.authenticated && <span>Want to join? <a className="hover" onClick={props.openAuth}>Sign up/Log in</a> in seconds.</span>}
-    {props.authenticated && <span><Link to="/newTerm" className="topAddTermLink">Add Term <i className="ion-plus"></i> </Link></span>}
+    {props.authenticated && 
+      <span>
+        <Link to="/newTerm" className="topAddTermLink">Add Term <i className="ion-plus"></i> </Link>
+        <Link to="/admin" className="topAddTermLink">Admin <i className="ion-gear-b"></i></Link>
+      </span>}
   </p>
 )}
 

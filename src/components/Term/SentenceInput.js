@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { titleCase } from '../../utils'
 
 class SentenceInput extends Component {
   constructor(props) {
@@ -37,7 +38,7 @@ class SentenceInput extends Component {
         <div className="termBtm" >
           <form className="newSentenceForm" onSubmit={e => this.submitForm(e)}>
             <input type="text" 
-              placeholder="Use it in a sentence here..." 
+              placeholder={`Use (${titleCase(this.props.text)}) in a sentence...`}
               name="text" 
               onFocus={this.showSubmit}
               />
