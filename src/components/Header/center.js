@@ -85,6 +85,7 @@ class Search extends Component {
 
 
 const SignupText = (props) => {
+  const role = localStorage.getItem('x-user-role');
   return (
   <p className="suT">
     <strong className="hidden-lg hidden-md hidden-sm">Parol Lakay &nbsp;</strong>
@@ -92,7 +93,7 @@ const SignupText = (props) => {
     {props.authenticated && 
       <span>
         <Link to="/newTerm" className="topAddTermLink">Add Term <i className="ion-plus"></i> </Link>
-        <Link to="/admin" className="topAddTermLink">Admin <i className="ion-gear-b"></i></Link>
+        {role === 'super' && <Link to="/admin" className="topAddTermLink">Admin <i className="ion-gear-b"></i></Link>}
       </span>}
   </p>
 )}

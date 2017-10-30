@@ -284,7 +284,7 @@ h1.title, h2.title, h3.title, h4.title, h5.title, h6.title {
     text-decoration:none !important;
 }
 .drawerTabLinks {
-    text-align: right;
+    text-align: center;
     margin:5px 0 3px;
 }
 .drawerTabLinks a {

@@ -28,6 +28,7 @@ class Term extends Component {
       liked: false,
       showAllSentences: false,
       showSharing: false,
+      savedTerm: false
      }
   }
 
@@ -35,6 +36,7 @@ class Term extends Component {
     this.setState({
       showAllSentences: true
     });
+    console.log(this.state.term);
   }
 
   exposeSharing = () => this.setState({ showSharing: true});
@@ -53,10 +55,17 @@ class Term extends Component {
   checkAuth = () => {
     return new Promise((resolve, reject) => {
       if (!this.props.authenticated) {
-        this.setState({
-          termErr: `You must be authenticated to do that.`,
-          authErr: true
-        });
+        if (localStorage.getItem('x-access-token')) {
+          this.setState({
+            termErr: `Please refresh your browser first.`,
+            authErr: true
+          })
+        } else {
+          this.setState({
+            termErr: `You must be authenticated to do that.`,
+            authErr: true
+          });
+        }
         reject();
       } else {
         resolve();
@@ -97,11 +106,13 @@ class Term extends Component {
   addVote = () => {
     this.checkAuth().then(() => {
       axios.post(`${server}/users/${this.props.user._id}/addVote/${this.props.termId}`).then(res => {
+        console.log(res.data.term);
         this.setState({
           term: res.data.term,
           termErr: null
         });
         this.props.likeTerm(res.data.user);
+        console.log(this.state.term.upvotes);
       }, err => err.response ? this.setState({ termErr: err.response.data.message }) : this.setState({ termErr: 'Error liking term. try later.'}));
     });    
   }
@@ -135,49 +146,79 @@ class Term extends Component {
       }, err => err.response ? this.setState({ termErr: err.response.data.message }) : this.setState({ termErr: 'Application error, try later.'}));
     })
   }
+
   componentDidMount() {    
-    const term = this.props.terms.filter(term => term._id === this.props.termId)[0];
+    //const term = this.props.terms.filter(term => term._id === this.props.termId)[0];
     this.setState({
-      term,
+      term: this.props.term,
       termErr: null
     })
     
   }
 
+
+  renderSaved = () => {
+    if (!this.props.authenticated) return null;
+    let includes = false;
+    for (let i = 0; i < this.props.savedTerms.length; i++) {
+      if (this.props.savedTerms[i].term._id == this.props.termId) {
+        includes = true;
+      }
+    }
+    return includes ?  <TermBadge text="Saved" type="badge-info" /> : null
+  }
+
+  renderVoting = () => {
+    const likeBtn = ( <button onClick={this.addVote}> <i className="ion-android-favorite-outline"></i> {this.state.term.upvotes} Like{this.state.term.upvotes > 1 && 's'}</button> )
+    const unlikeBtn = ( <button onClick={this.minusVote} className="engLiked"> <i className="ion-android-favorite redColor"></i> {this.state.term.upvotes} Like{this.state.term.upvotes > 1 && 's'}</button> )
+    let includes = false;
+    if (!this.props.authenticated) return likeBtn;
+    for (let i = 0; i < this.props.user.upvotes.length; i++) {
+      if (this.props.user.upvotes[i]._id === this.state.term._id) {
+        includes = true
+      }
+    }
+    return includes ? unlikeBtn : likeBtn;
+  }
+
   render() {
-    const term = this.state.term || this.props.term;
+    console.log(this.state.term, this.props.terms)  
+    if (!this.state.term) return null;
+  
     return (
       <Paper className="eachTerm" style={cardStyle} zDepth={2}>
         <div className="badgesHolder">
           {(this.props.index < 1 && this.props.length > 1) && <TermBadge text="Top Definition" type="highlight"/>}
+          {this.renderSaved()}
         </div>
-        <Link to={`/search?term=${term.text}`}><h3> {titleCase(term.text)}</h3></Link>
+        <Link to={`/search?term=${this.state.term.text}`}><h3> {titleCase(this.state.term.text)}</h3></Link>
         <MoreDropDown 
-          term={term} 
+          term={this.state.term} 
           reportTerm={this.reportTerm} 
           sharing={this.exposeSharing}
           saveTerm={this.saveTerm}/>
-        <p className="termMeta" title={'Submitted ' + moment(term.created).format("MMM Do YYYY")}>
-          by <strong>{term.author.username} · </strong> 
-          {term.author.achievements.length > 0 && <span><i className="ion-ribbon-b"></i> {term.author.achievements[term.author.achievements.length - 1].name}  · </span>}
-          {moment(term.created).fromNow()}
+        <p className="termMeta" title={'Submitted ' + moment(this.state.term.created).format("MMM Do YYYY")}>
+          by <strong>{this.state.term.author.username} · </strong> 
+          {this.state.term.author.achievements.length > 0 && <span><i className="ion-ribbon-b"></i> {this.state.term.author.achievements[this.state.term.author.achievements.length - 1].name}  · </span>}
+          {moment(this.state.term.created).fromNow()}
         </p>
-        <p className="termDefinition">{term.definition}</p>
-        <ul className="termsTags"> {term.tags.map((tag, i) => <li key={i} className="hover"><Link to={`/tag?tag=${tag}`}> #{tag} </Link></li> )} </ul>
+        <p className="termDefinition">{this.state.term.definition}</p>
+        <ul className="termsTags"> {this.state.term.tags.map((tag, i) => <li key={i} className="hover"><Link to={`/tag?tag=${tag}`}> #{tag} </Link></li> )} </ul>
         {this.renderAlert()}
         <Engagement
+          renderVoting={this.renderVoting}
           like={this.addVote}
           unlike = {this.minusVote}
-          upvotes={term.upvotes} 
-          sentences={term.sentences}
+          upvotes={this.state.term.upvotes} 
+          sentences={this.state.term.sentences}
           expand={this.expanSentences} 
-          term={term}
+          term={this.state.term}
           showSharing={this.exposeSharing}
           hideSharing={this.hideSharing}
           />
-        {this.state.showSharing && <Sharing term={term} cancel={this.hideSharing}/>}
-        {term.sentences.length > 0 && <Sentences sentences={term.sentences} termId={term._id} showAll={this.state.showAllSentences} expand={this.expanSentences}/>}      
-        <SentenceInput term={this.props.termId} addSentence={this.addSentence} text={term.text}/>
+        {this.state.showSharing && <Sharing term={this.state.term} cancel={this.hideSharing}/>}
+        {this.state.term.sentences.length > 0 && <Sentences sentences={this.state.term.sentences} termId={this.state.term._id} showAll={this.state.showAllSentences} expand={this.expanSentences}/>}      
+        <SentenceInput term={this.props.termId} addSentence={this.addSentence} text={this.state.term.text}/>
       </Paper>
     )
   }
@@ -187,6 +228,7 @@ const mapStateToProps = (state) => {
   return {
     terms: state.terms.data,
     user: state.user.data,
+    savedTerms: state.user.data.savedTerms,
     authenticated: state.user.authenticated
   }
 }

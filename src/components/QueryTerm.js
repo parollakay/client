@@ -48,6 +48,7 @@ class QueryTerm extends Component {
   }
   render() {
     let search = this.simple(this.props);
+    console.log(this.state.terms)
     return (
       <div className="row">
         <div className="col-md-12">
@@ -56,7 +57,7 @@ class QueryTerm extends Component {
         <div className="col-md-8">
           {this.renderAlert()}
           {this.state.terms.length > 0 ? <Terms terms={this.state.terms} length={this.state.terms.length} /> : <h4>There are no results for that.</h4>}
-          {this.state.terms.length === 0 && 
+          {this.state.terms.length < 1 && 
             <div>
               {search.length > 1 &&
               <div>

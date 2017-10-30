@@ -192,7 +192,7 @@
   display:inline-block;
   padding:3px 10px;
   font-size:11px;
-  font-weight: bold;
+  font-weight: 500;
 }
   .badge-danger {
     background-color: red;
@@ -203,7 +203,7 @@
     color: rgba(0,0,0,.7);
   }
   .badge-info {
-    color: rgba(0,0,0,.7);
+    color: white;
     background-color: #b6c0dc;
   }
 .engLiked {
