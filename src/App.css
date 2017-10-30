@@ -354,6 +354,10 @@ h1.title, h2.title, h3.title, h4.title, h5.title, h6.title {
     background-color: #edf2fa;
     transition: all .28s ease;
 }
+.sideNotificationsList li.unread a {
+    color: #003471;
+    font-weight: 500
+}
 .sideNotificationsList li.unread:hover a {
     color: rgba(0,0,0,.8);
 }
@@ -370,4 +374,42 @@ h1.title, h2.title, h3.title, h4.title, h5.title, h6.title {
     color: rgba(0,0,0,.5) !important;
     padding:3px 3px !important;
     margin-right:5px
+}
+.savedTermTabStyle {
+    height: 100%;
+}
+.drawerSavedTerms {
+    background-color: rgba(0,0,0,.05);
+    padding: 5px 0 25px;
+    height:100%
+}
+.drawerSavedTerms ul {
+    list-style: none;
+    padding: 5px 10px;
+}
+.drawerSavedTerms ul .singleSavedTerm {
+    padding: 10px;
+    margin-bottom:15px
+}
+.stTopActions a {
+    font-size:11px;
+    color: rgba(0,0,0,.6);
+}
+.stTopActions a.pull-left:hover {
+    text-decoration: none !important
+}
+.singleSavedTerm a h4 {
+    color: rgba(0,0,0,.6);
+}
+.singleSavedTerm p.drawerDefinition {
+    font-weight: 300
+}
+.singleSavedTerm .drawerSavedFooter {
+    padding: 0 !important
+}
+.singleSavedTerm .drawerSavedFooter li {
+    display: inline-block;
+    margin-right:10px;
+    font-size:13px;
+    color: rgba(0,0,0,.55);
 }

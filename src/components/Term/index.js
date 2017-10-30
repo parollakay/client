@@ -9,7 +9,7 @@ import SentenceInput from './SentenceInput';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { server, titleCase } from '../../utils';
-import { likeTerm, unlikeTerm, showSnack, openDialog } from '../../actions'
+import { likeTerm, unlikeTerm, showSnack, openDialog, updateUser, openDrawer } from '../../actions'
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import TermBadge from './Badge';
@@ -39,6 +39,16 @@ class Term extends Component {
 
   exposeSharing = () => this.setState({ showSharing: true});
   hideSharing = () => this.setState({ showSharing: false });
+
+  saveTerm = () => {
+    this.checkAuth().then(() => {
+      axios.post(`${server}/users/${this.props.user._id}/saveTerm`, { term: this.props.term._id }).then(res => {
+        this.props.updateUser(res.data);
+        this.props.showSnack('Term saved');
+        this.props.openDrawer('b');
+      }, e => e.response ? this.setState({ termErr: e.response.data.message }) : this.setState({ termErr: 'Error: try again later.'}));
+    });
+  }
 
   checkAuth = () => {
     return new Promise((resolve, reject) => {
@@ -142,7 +152,11 @@ class Term extends Component {
           {(this.props.index < 1 && this.props.length > 1) && <TermBadge text="Top Definition" type="highlight"/>}
         </div>
         <Link to={`/search?term=${term.text}`}><h3> {titleCase(term.text)}</h3></Link>
-        <MoreDropDown term={term} reportTerm={this.reportTerm} sharing={this.exposeSharing}/>
+        <MoreDropDown 
+          term={term} 
+          reportTerm={this.reportTerm} 
+          sharing={this.exposeSharing}
+          saveTerm={this.saveTerm}/>
         <p className="termMeta" title={'Submitted ' + moment(term.created).format("MMM Do YYYY")}>
           by <strong>{term.author.username} · </strong> 
           {term.author.achievements.length > 0 && <span><i className="ion-ribbon-b"></i> {term.author.achievements[term.author.achievements.length - 1].name}  · </span>}
@@ -178,7 +192,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatch = (dispatch) => {
-  const boundActionCreators = bindActionCreators({ likeTerm, unlikeTerm, showSnack, openDialog }, dispatch);
+  const boundActionCreators = bindActionCreators({ likeTerm, unlikeTerm, showSnack, openDialog, updateUser, openDrawer }, dispatch);
   const allActionCreators = { ...boundActionCreators, dispatch };
   return allActionCreators;
 }

@@ -22,6 +22,12 @@ export const NOTIFICATIONS_CLEARED = 'NOTIFICATIONS_CLEARED';
 export const clearUserErr = () => dispatch => dispatch({ type: USER_ERR_CLEAR });
 export const addUserErr = error => dispatch => dispatch(handleErr(AUTH_ERROR, error));
 
+const getStorage = () => {
+  return {
+    token: localStorage.getItem('x-access-token'),
+    userId: localStorage.getItem('x-user-id')
+  }
+}
 
 export const updateNotifications = (payload) => {
   return dispatch => {

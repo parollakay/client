@@ -48,9 +48,10 @@ export const hideBadgeModal = () => {
   }
 }
 
-export const openDrawer = () => {
+export const openDrawer = tab => {
   return {
-    type: DRAWER_OPEN
+    type: DRAWER_OPEN,
+    payload: tab
   }
 }
 
@@ -72,3 +73,4 @@ export const clearDrawerErr = () => {
     type: DRAWER_ERROR_CLEAR
   }
 }
+

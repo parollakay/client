@@ -35,7 +35,7 @@ class SocialIcons extends Component {r
       if (!this.props.user.data.notifications[i].read) {unreadCount += 1;}
     }
     return (
-      <a className="siteNotificationIcon hover" onClick={this.props.openDrawer}>
+      <a className="siteNotificationIcon hover" onClick={() => this.props.openDrawer('a')}>
         <i className="fa fa-bell"></i>
         {unreadCount > 0 && <span>{unreadCount}</span>}
       </a>

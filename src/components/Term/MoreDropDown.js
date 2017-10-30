@@ -46,6 +46,10 @@ class MoreDropDown extends Component {
       })
     }
   }
+  saveTerm = () => {
+    this.props.saveTerm();
+    this.handleRequestClose();
+  }
   render() {
     return (
       
@@ -59,12 +63,19 @@ class MoreDropDown extends Component {
           anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
           targetOrigin={{horizontal: 'left', vertical: 'top'}}
           onRequestClose={this.handleRequestClose}
+          className="eachTermDropDown"
         >
           <Menu >
             <MenuItem>
               <Link to={`/newTerm?text=${this.props.term.text}`} className="termdd icon-first"> 
                 <i className="glyphicon glyphicon-pencil"></i> Re-define term
               </Link>
+            </MenuItem>
+            <MenuItem onClick={this.saveTerm}>
+              <a className="icon-first">
+                <i className="glyphicon glyphicon-bookmark"></i>
+                Save Term
+              </a>
             </MenuItem>
             <MenuItem onClick={this.checkReport} className="termdd">
               <a className="icon-first">

@@ -17,7 +17,8 @@ const defaultState = {
   snackMessage: '',
   badgeOpen: false,
   badge: null,
-  drawerOpen: false
+  drawerOpen: false,
+  drawerTab: 'a'
 }
 
 export default (state = defaultState, action) => {
@@ -35,7 +36,7 @@ export default (state = defaultState, action) => {
     case BADGE_DIALOG_CLOSE:
       return { ...state, badge: null, badgeOpen: false };
     case DRAWER_OPEN:
-      return { ...state, drawerOpen: true };
+      return { ...state, drawerOpen: true, drawerTab: action.payload };
     case DRAWER_CLOSED:
       return { ...state, drawerOpen: false };
     case DRAWER_ERROR:

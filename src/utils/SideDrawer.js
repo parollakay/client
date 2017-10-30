@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Scrollbars } from 'react-custom-scrollbars';
 import Drawer from 'material-ui/Drawer';
 import moment from 'moment';
 import {Tabs, Tab} from 'material-ui/Tabs';
-import { closeDrawer, deleteNotification, markNotificationRead, clearAllNotifications } from '../actions';
-import {} from './';
+import { closeDrawer, deleteNotification, markNotificationRead, clearAllNotifications, openDrawer, addDrawerErr, updateUser, showSnack } from '../actions';
+import { titleCase, server } from './';
 import { Link } from 'react-router-dom';
+import Paper from 'material-ui/Paper';
+import axios from 'axios';
+
 
 class SideDrawer extends Component {
   constructor(props) {
@@ -16,9 +20,17 @@ class SideDrawer extends Component {
     }
   }
 
-  changeTabs = value => this.setState({ value });
+  changeTabs = value => this.props.openDrawer(value);
+
+  unsaveTerm = term => {
+    axios.post(`${server}/users/${this.props.user._id}/unsaveTerm/${term}`).then(res => {
+      this.props.updateUser(res.data);
+      this.props.showSnack('Term removed');
+    }, e => e.response ? this.props.addDrawerErr(e.response.data.message) : this.props.addDrawerErr('Server error'));
+  }
   
   render() {
+    console.log(this.props.savedTerms);
     return (
       <Drawer 
         docked={true}
@@ -36,7 +48,7 @@ class SideDrawer extends Component {
         </div>
         <div className="drawerTabs">
           <Tabs
-            value={this.state.value}
+            value={this.props.tab}
             onChange={this.changeTabs}>
             
             <Tab label="Notifications" value="a">
@@ -60,9 +72,9 @@ class SideDrawer extends Component {
                   {this.props.notifications.map((notification, i) => {
                     return (
                       <li key={`notification-${i}`} className={notification.read ? `` : `unread`}>
-                        <a href={notification.url} >
+                        <Link to={notification.url} >
                           {notification.text}
-                        </a>
+                        </Link>
                         <div className="drawerNotifOptions">
                           <a>{moment(notification.created).fromNow()}</a>
                           {!notification.read && 
@@ -77,8 +89,44 @@ class SideDrawer extends Component {
               }
               
             </Tab>
-            <Tab label="Saved" value="b">
-              <p>All saved terms go here</p>
+            <Tab label="Saved" value="b" className="savedTermTabStyle">
+              <div className="drawerSavedTerms">
+                {this.props.savedTerms.length < 1 &&
+                  <p className="text-muted text-center">You have not saved any terms.</p>
+                }
+                {this.props.savedTerms.length > 0 && 
+                  <Scrollbars
+                    autoHeight
+                    autoHeightMin={window.innerHeight - 125}
+                    autoHide
+                    autoHideTimeout={1000}
+                    autoHideDuration={200}
+                    >
+                    <ul>
+                      {this.props.savedTerms.sort((a,b) => new Date(b.created) - new Date(a.created)).map((saved, i) => {
+                        return (
+                          <li key={`savedTerm-${i}`}>
+                            <Paper zDepth={1} className="singleSavedTerm">
+                              <div className="stTopActions clearfix">
+                                <a className="pull-left text-muted">Saved {moment(saved.created).fromNow()}</a>
+                                <a className="pull-right icon-first hover" onClick={() => this.unsaveTerm(saved._id)}> <i className="fa fa-trash"></i> Un-save </a>
+                              </div>
+                              <Link to={`/search?term=${saved.term.text}`}>
+                                <h4 className="title">{titleCase(saved.term.text)}</h4>
+                              </Link>
+                              <p className="drawerDefinition">{saved.term.definition}</p>
+                              <ul className="drawerSavedFooter">
+                                <li> {saved.term.upvotes} Likes </li>
+                                <li> {saved.term.sentences.length} Sentences </li>
+                              </ul>
+                            </Paper>
+                          </li>
+                        )
+                      })}
+                    </ul>
+                  </Scrollbars>
+                }
+              </div>
             </Tab>
           </Tabs>
         </div>
@@ -90,13 +138,16 @@ class SideDrawer extends Component {
 const mapStateToProps = state => {
   return {
     drawerOpen: state.auth.drawerOpen,
+    tab: state.auth.drawerTab,
+    user: state.user.data,
     notifications: state.user.data.notifications,
-    authenticated: state.user.authenticated
+    authenticated: state.user.authenticated,
+    savedTerms: state.user.data.savedTerms
   }
 }
 
 const mapDispatch = dispatch => {
-  const boundActionCreators = bindActionCreators({ closeDrawer, deleteNotification, markNotificationRead, clearAllNotifications }, dispatch);
+  const boundActionCreators = bindActionCreators({ closeDrawer, deleteNotification, markNotificationRead, clearAllNotifications, openDrawer, addDrawerErr, updateUser, showSnack }, dispatch);
   const allActionCreators = { ...boundActionCreators, dispatch };
   return allActionCreators
 }
