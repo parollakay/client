@@ -62,3 +62,12 @@
   color: rgba(0,0,0,.6);
   margin-left:24px
 }
+.data-tbl {}
+.data-tbl td {}
+.data-tbl td a {
+  color: rgba(0,0,0,.6);
+}
+.data-tbl td strong {}
+.data-tbl td small {
+  display:block
+} 
