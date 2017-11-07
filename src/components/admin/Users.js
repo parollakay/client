@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { server  } from '../../utils';
-import {} from '../../actions';
+import { showSnack } from '../../actions';
 import axios from 'axios';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
@@ -16,6 +16,20 @@ class Users extends Component {
     }
   }
 
+  handleUserSuspend = user => {
+    console.log(`clicked to toggle active state of ${user.username}`, user)
+    const token = localStorage.getItem('x-access-token');
+    axios.put(`${server}/users/${user._id}/toggleActive`)
+      .then(res => {
+        const users = this.state.users;
+        for (let i = 0; i < users.length; i++)
+          if (users[i]._id === res.data._id)  users[i] = res.data;
+        this.setState({ users });
+        this.props.showSnack(`${user.username} updated.`)
+      })
+      .catch(e => e.response ? this.setState({ errors: this.state.errors.concat(e.response.data.message )}) : this.setState({ errors: this.state.errors.concat(`Error toggling active state for ${user.username}`)}))
+    
+  }
   componentDidMount() {
     const token = localStorage.getItem('x-access-token');
     axios.get(`${server}/users/all?token=${token}`).then(res => {
@@ -35,12 +49,13 @@ class Users extends Component {
               <th>User</th>
               <th>Joined</th>
               <th>Terms</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
             {this.state.users.map((user, i) => {
               return (
-                <tr key={`user-${i}`}>
+                <tr key={`user-${i}`} className={user.active ? `eachUser` : `eachUser userSuspended`}>
                   <td>{i + 1}</td>
                   <td>
                     <Link to={`/Manager/User/${user._id}`}>
@@ -50,6 +65,17 @@ class Users extends Component {
                   </td>
                   <td>{moment(user.created).format('Mo DD, YYYY')}</td>
                   <td>{user.terms.length}</td>
+                  <td className="tblActions">
+                    <Link to={`/Manager/User/${user._id}`}>
+                      View
+                    </Link>
+                    <a className="hover" onClick={() => this.handleUserSuspend(user)}>
+                      {user.active ? `Suspend` : `Suspended`}
+                    </a>
+                    <Link to={`/Manager/User/${user._id}/sendEmail`}>
+                      Email
+                    </Link>
+                  </td>
                 </tr>
               )
             })}
@@ -68,7 +94,7 @@ const mapStateToProps = state => {
 }
 
 const mapDispatch = dispatch => {
-  const boundActionCreators = bindActionCreators({}, dispatch);
+  const boundActionCreators = bindActionCreators({ showSnack}, dispatch);
   const allActionCreators = { ...boundActionCreators, dispatch };
   return allActionCreators;
 }
