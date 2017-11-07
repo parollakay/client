@@ -9,6 +9,7 @@ import PageShell from './PageShell';
 import TagTerms from './components/TagTerms';
 import AccountPage from './components/User';
 import Settings from './components/User/Settings';
+import AdminPage from './components/Admin';
 
 import {TermsOfService, PrivacyStatement, DMCA } from './utils';
 
@@ -27,9 +28,13 @@ const Routes = props => {
 
       <Route path="/newTerm" component={ PageShell(NewTerm) } />
 
+      
+
       <Route path="/termsOfService" component={ PageShell(TermsOfService) } />
       <Route path="/privacyStatement" component={ PageShell(PrivacyStatement) } />
       <Route path="/DMCA" component={ PageShell(DMCA) } />
+
+      <Route path="/Manager" component={ PageShell(AdminPage)} />
     </div>
   )
 }

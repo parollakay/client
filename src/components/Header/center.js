@@ -93,7 +93,7 @@ const SignupText = (props) => {
     {props.authenticated && 
       <span>
         <Link to="/newTerm" className="topAddTermLink">Add Term <i className="ion-plus"></i> </Link>
-        {role === 'super' && <Link to="/admin" className="topAddTermLink">Admin <i className="ion-gear-b"></i></Link>}
+        {(role === 'super' || role === 'admin') && <Link to="/Manager" className="topAddTermLink">Admin <i className="ion-gear-b"></i></Link>}
       </span>}
   </p>
 )}

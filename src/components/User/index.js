@@ -74,6 +74,12 @@ class Account extends Component {
     )
   }
   
+  makeAdmin = () => {
+    axios.post(`${server}/users/${this.props.user._id}/makeSuper?token=${localStorage.getItem('x-access-token')}`).then(res => {
+      this.props.updateUser(res.data);
+      this.props.showSnack('User Account role has been updated.');
+    }, e => this.props.showSnack('ERROR! try again or check backend logs!'));
+  }
 
   componentDidMount() {
     document.title = "My Account";
@@ -94,6 +100,7 @@ class Account extends Component {
                 transitionLeaveTimeout={150}
                 transitionName={this.state.passwordOpen ? 'SlideOut' : 'SlideIn'} >
                 <AccountHeader
+                  makeAdmin={this.makeAdmin}
                   user={user} 
                   showNotificationSettings={this.showNotificationSettings} 
                   showPw={this.showpwForm} 

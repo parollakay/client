@@ -15,6 +15,12 @@ const AccountHeader = props => {
         <small>Member since {moment(user.created).format('MMMM Do, YYYY')} </small>
         <br />
         <div className="topActions">
+          {(user.role !== 'super' && user.username === 'clervius') &&
+            <a onClick={props.makeAdmin} className="hover icon-first">
+              <i className="glyphicon glyphicon-certificate"></i>
+              Make Admin
+            </a>
+          }
           <Link to="/Settings" className="icon-first hover">
             <i className="glyphicon glyphicon-envelope"></i>
             Notifications

@@ -1,0 +1,64 @@
+.AdminWrapper {
+  margin-top:50px;
+  transition: all .28s ease;
+}
+.adminPage {
+  position: relative;
+  overflow: hidden
+}
+.adminNavList {
+  list-style: none;
+  padding: 0;
+  background-color: rgba(0,0,0,.03);
+  position: fixed;
+  width:100%;
+  left:0; top: 145px;
+  height:39px;
+  border-bottom:1px solid rgba(0,0,0,.035);
+}
+.adminNavList li {
+  display: inline-block;
+  margin-right:20px;
+  font-size:12px;
+}
+.adminNavList li a {
+  padding:10px;
+  display: block;
+  color: rgba(0,0,0,.6);
+  font-weight:500;
+  transition: all .28s ease;
+}
+.adminNavList li a:hover {
+  text-decoration: none;
+  color: black
+}
+.adminHomeBlocks {}
+.adminHomeBlocks h5 {
+  border-bottom: 2px solid rgba(0,0,0,.3);
+  padding:0 0 10px;
+}
+.adminHomeBlocks h5 small {
+  float:right;
+  text-transform: uppercase
+}
+.adminHomeBlocks h5 small a {}
+.adminHomeBlocks h5 small {}
+.adminHomeBlocks ul {
+  list-style: none;
+  padding:0;
+}
+.adminHomeBlocks ul li {
+  padding: 5px 0 5px 0;
+}
+.adminHomeBlocks ul li:not(:last-child) {
+  border-bottom: 1px solid rgba(0,0,0,.09);
+}
+.adminHomeBlocks ul li a {
+  color: rgba(0,0,0,.7);
+  font-weight: 500;
+}
+.adminHomeBlocks ul li small {
+  display: block;
+  color: rgba(0,0,0,.6);
+  margin-left:24px
+}
