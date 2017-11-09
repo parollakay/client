@@ -1,98 +1,117 @@
 .AdminWrapper {
-  margin-top:50px;
-  transition: all .28s ease;
+  margin-top: 50px;
+  transition: all 0.28s ease;
 }
 .adminPage {
   position: relative;
-  overflow: hidden
+  overflow: hidden;
 }
 .adminNavList {
   list-style: none;
   padding: 0;
-  background-color: rgba(0,0,0,.03);
+  background-color: rgba(0, 0, 0, 0.03);
   position: fixed;
-  width:100%;
-  left:0; top: 145px;
-  height:39px;
-  border-bottom:1px solid rgba(0,0,0,.035);
+  width: 100%;
+  left: 0;
+  top: 145px;
+  height: 39px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.035);
 }
 .adminNavList li {
   display: inline-block;
-  margin-right:20px;
-  font-size:12px;
+  margin-right: 20px;
+  font-size: 12px;
 }
 .adminNavList li a {
-  padding:10px;
+  padding: 10px;
   display: block;
-  color: rgba(0,0,0,.6);
-  font-weight:500;
-  transition: all .28s ease;
+  color: rgba(0, 0, 0, 0.6);
+  font-weight: 500;
+  transition: all 0.28s ease;
 }
 .adminNavList li a:hover {
   text-decoration: none;
-  color: black
+  color: black;
 }
-.adminHomeBlocks {}
+.adminHomeBlocks {
+}
 .adminHomeBlocks h5 {
-  border-bottom: 2px solid rgba(0,0,0,.3);
-  padding:0 0 10px;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.3);
+  padding: 0 0 10px;
 }
 .adminHomeBlocks h5 small {
-  float:right;
-  text-transform: uppercase
+  float: right;
+  text-transform: uppercase;
 }
-.adminHomeBlocks h5 small a {}
-.adminHomeBlocks h5 small {}
+.adminHomeBlocks h5 small a {
+}
+.adminHomeBlocks h5 small {
+}
 .adminHomeBlocks ul {
   list-style: none;
-  padding:0;
+  padding: 0;
 }
 .adminHomeBlocks ul li {
   padding: 5px 0 5px 0;
 }
 .adminHomeBlocks ul li:not(:last-child) {
-  border-bottom: 1px solid rgba(0,0,0,.09);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.09);
 }
 .adminHomeBlocks ul li a {
-  color: rgba(0,0,0,.7);
+  color: rgba(0, 0, 0, 0.7);
   font-weight: 500;
 }
 .adminHomeBlocks ul li small {
   display: block;
-  color: rgba(0,0,0,.6);
-  margin-left:24px
+  color: rgba(0, 0, 0, 0.6);
+  margin-left: 24px;
 }
-.data-tbl {}
-.data-tbl td {}
+.data-tbl {
+}
+.data-tbl td {
+}
 .data-tbl td a {
-  color: rgba(0,0,0,.6);
+  color: rgba(0, 0, 0, 0.6);
 }
-.data-tbl td strong {}
+.data-tbl td strong {
+}
 .data-tbl td small {
-  display:block
-} 
+  display: block;
+}
 .eachUser.userSuspended {
-  background-color: rgba(255,30,10, .05);
+  background-color: rgba(255, 30, 10, 0.05);
 }
 .tblActions {
-  text-align: right
+  text-align: right;
 }
 .tblActions a {
   text-transform: uppercase;
-  font-size:12px;
-  font-weight:500;
+  font-size: 12px;
+  font-weight: 500;
   display: inline-block;
-  margin-right:10px;
-  padding:2px 5px;
+  margin-right: 10px;
+  padding: 2px 5px;
   border-radius: 4px;
-  border:1px solid rgba(0,0,0,.05);
-  transition: all .28s cubic-bezier(0.4, 0, 0.2, 1);
-  color:rgba(0,0,0,.6);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  color: rgba(0, 0, 0, 0.6);
 }
 .tblActions a:hover {
   text-decoration: none;
   border-color: white;
-  color:black;
-  background-color: rgba(255,255,255,.2);
+  color: black;
+  background-color: rgba(255, 255, 255, 0.2);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+.userActionLinks {
+  list-style: none;
+  padding: 0;
+  margin-top: 30px;
+}
+.userActionLinks li {
+  margin-bottom: 15px;
+}
+.userActionLinks li a {
+  display: inline-block;
+  padding: 5px 10px;
 }

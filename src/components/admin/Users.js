@@ -22,10 +22,11 @@ class Users extends Component {
     axios.put(`${server}/users/${user._id}/toggleActive`)
       .then(res => {
         const users = this.state.users;
+        const message = res.data.active ? `${user.username} is now active` : `${user.username} is now inactive.`
         for (let i = 0; i < users.length; i++)
           if (users[i]._id === res.data._id)  users[i] = res.data;
         this.setState({ users });
-        this.props.showSnack(`${user.username} updated.`)
+        this.props.showSnack(message);
       })
       .catch(e => e.response ? this.setState({ errors: this.state.errors.concat(e.response.data.message )}) : this.setState({ errors: this.state.errors.concat(`Error toggling active state for ${user.username}`)}))
     
@@ -41,6 +42,7 @@ class Users extends Component {
     return (
       <div>
         this is the Users page
+        <p>Need to add buttons to take full actions on all users: fix created dates,</p>
         {this.state.users.length > 0 &&
         <table  className="table table-responsive data-tbl">
           <thead>
@@ -69,8 +71,8 @@ class Users extends Component {
                     <Link to={`/Manager/User/${user._id}`}>
                       View
                     </Link>
-                    <a className="hover" onClick={() => this.handleUserSuspend(user)}>
-                      {user.active ? `Suspend` : `Suspended`}
+                    <a onClick={() => this.handleUserSuspend(user)} className={user.active ? 'hover' : 'hover btn-danger'}>
+                      Suspend
                     </a>
                     <Link to={`/Manager/User/${user._id}/sendEmail`}>
                       Email
