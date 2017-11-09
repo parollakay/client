@@ -184,7 +184,7 @@ class Term extends Component {
   render() {
     console.log(this.state.term, this.props.terms)  
     if (!this.state.term) return null;
-  
+    if (!this.state.term.live) return null;
     return (
       <Paper className="eachTerm" style={cardStyle} zDepth={2}>
         <div className="badgesHolder">
